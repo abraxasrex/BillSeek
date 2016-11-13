@@ -6,21 +6,16 @@ namespace ngpoli.Controllers {
 
     export class AboutController {
         public message = 'Hello from the about page!';
-        public bills = [
-          '1253',
-          '554',
-          '2872'
-        ];
-        public person;
-        public people;
-        constructor(private SuperService: ngpoli.Services.SuperService,
-        private $http: ng.IHttpService,
-        private govTrackService: ngpoli.Services.govTrackService){
-          SuperService.saySuper();
-            this.people = govTrackService.govTrackFetch();
+        public bills;
+        public getBills(){
+          
         }
-        public printPerson (){
-          console.log('person: ', this.people);
+        constructor(private govTrackService: ngpoli.Services.govTrackService){
+            govTrackService.govTrackFetch().get((results)=>{
+              console.log('result objects: ', results.objects.length);
+              this.bills = results.objects;
+            });
+            console.log('bills: ', this.bills);
         }
     }
 
