@@ -1,0 +1,12 @@
+<h2>About</h2>
+<p>
+    <!-- {{controller.people}} -->
+</p>
+<h4> Congress members: </h4>
+<ul>
+  <li ng-repeat="member in controller.people.objects">
+    {{ member.person.name }}
+  </li>
+</ul>
+
+<button ng-click="controller.printPerson()">get data</button>
