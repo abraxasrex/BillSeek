@@ -1,6 +1,6 @@
 namespace ngpoli {
 
-    angular.module('ngpoli', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('ngpoli', ['ui.router', 'ngMaterial', 'ngMessages', 'ngResource']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
@@ -13,10 +13,10 @@ namespace ngpoli {
                 controller: ngpoli.Controllers.HomeController,
                 controllerAs: 'controller'
             })
-            .state('about', {
-                url: '/about',
-                templateUrl: '/ngApp/views/about.html',
-                controller: ngpoli.Controllers.AboutController,
+            .state('bills', {
+                url: '/bills',
+                templateUrl: '/ngApp/views/bills.html',
+                controller: ngpoli.Controllers.BillsController,
                 controllerAs: 'controller'
             })
             .state('notFound', {
@@ -31,6 +31,6 @@ namespace ngpoli {
         $locationProvider.html5Mode(true);
     });
 
-    
+
 
 }

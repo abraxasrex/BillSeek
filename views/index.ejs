@@ -5,28 +5,46 @@
   <title>ngpoli</title>
   <meta charset="utf-8">
   <base href="/" />
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="/ngApp/css/site.css"/>
+  <link href="/bower_components/angular-material/angular-material.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 
 <body>
   <div class="container">
-        <h1>ngpoli</h1>
+
+    <h1>
+      <span>
+        <md-icon>account_balance</md-icon>
+        Bill Seek
+        <md-icon>chat</md-icon>
+      </span>
+    </h1>
+
+    <!-- <md-button class="md-raised">OK</md-button>
+    <md-button class="md-raised md-primary">OK Primary</md-button>
+    <md-button class="md-raised md-warn">OK Warning</md-button> -->
         <div>
           <a href="/">Home</a> /
-          <a href="/about">About</a>
+          <a href="/bills">Bills</a>
         </div>
         <hr />
-        
+
         <ui-view></ui-view>
   </div>
 
   <script src="/bower_components/angular/angular.min.js"></script>
   <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
-  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+  <!-- <script src="/bower_components/angular-touch/angular-touch.min.js"></script> -->
+  <!-- <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script> -->
+  <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+      <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
 
   <script src="/ngApp/app.js"></script>
   <script src="/ngApp/controllers/controllers.js"></script>

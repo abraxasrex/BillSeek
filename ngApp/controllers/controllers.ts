@@ -4,18 +4,18 @@ namespace ngpoli.Controllers {
         public message = 'Hello from the home page!';
     }
 
-    export class AboutController {
+    export class BillsController {
         public message = 'Hello from the about page!';
         public bills;
-        public getBills(){
-          
+        public getBills(govTrackService){
+          govTrackService.govTrackFetch().get((results)=>{
+            console.log('result objects: ', results.objects.length);
+            this.bills = results.objects;
+          });
+          console.log('bills: ', this.bills);
         }
         constructor(private govTrackService: ngpoli.Services.govTrackService){
-            govTrackService.govTrackFetch().get((results)=>{
-              console.log('result objects: ', results.objects.length);
-              this.bills = results.objects;
-            });
-            console.log('bills: ', this.bills);
+          this.getBills(govTrackService);
         }
     }
 

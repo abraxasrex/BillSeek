@@ -8,9 +8,11 @@
   <h4> Bills: </h4>
   <ul>
     <li ng-repeat="bill in controller.bills | filter:
-    {current_status_description: controller.search }">
-      <div> {{ bill.current_status_description }} </div>
-      <div> {{ bill.display_number }} </div>
+    {title_without_number: controller.search }">
+    <hr />
+    <strong> {{ bill.display_number }} </strong>
+     <p> {{ bill.title_without_number}} </p>
+      <!-- <div> {{ bill.current_status_description }} </div> -->
     </li>
   </ul>
 </div>
