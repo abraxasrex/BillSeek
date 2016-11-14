@@ -1,0 +1,46 @@
+<!-- class form group on div and form control on input -->
+
+  <div>
+    <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline"> New Tag: </span>
+            <!-- <span class="md-subhead">Large</span> -->
+          </md-card-title-text>
+        </md-card-title>
+          <div class="md-media-lg card-media">
+              <form ng-submit="controller.postTag">
+                <md-input-container>
+                  <label> Tag name: </label>
+                  <input type="text" ng-model="controller.newTag" />
+                </md-input-container>
+              </form>
+            </div>
+        <!-- <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions> -->
+      </md-card>
+
+      <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline"> My Interest Tags: </span>
+              <!-- <span class="md-subhead">Large</span> -->
+            </md-card-title-text>
+          </md-card-title>
+            <md-card-title-media>
+              <div class="md-media-lg card-media">
+                <ul>
+                  <li ng-repeat="tag in controller.tags">
+                    {{ tag.name }}
+                  </li>
+                </ul>
+              </div>
+            </md-card-title-media>
+          <!-- <md-card-actions layout="row" layout-align="end center">
+            <md-button>Action 1</md-button>
+            <md-button>Action 2</md-button>
+          </md-card-actions> -->
+        </md-card>
+  </div>

@@ -19,6 +19,12 @@ namespace ngpoli {
                 controller: ngpoli.Controllers.BillsController,
                 controllerAs: 'controller'
             })
+            .state('tags',{
+              url:'/tags',
+              templateUrl:'/ngApp/views/tags.html',
+              controller: ngpoli.Controllers.TagsController,
+              controllerAs: 'controller'
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'
