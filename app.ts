@@ -7,7 +7,7 @@ import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 
 import routes from './routes/index';
-import users from './routes/users';
+ import tags from './routes/tags';
 
 let app = express();
 
@@ -27,8 +27,8 @@ app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/', routes);
-app.use('/users', users);
 
+ app.use('/api/tags', tags);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

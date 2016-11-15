@@ -5,7 +5,6 @@ namespace ngpoli {
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
     ) => {
-        // Define routes
         $stateProvider
             .state('home', {
                 url: '/',
