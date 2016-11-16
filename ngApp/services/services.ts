@@ -20,7 +20,7 @@ namespace ngpoli.Services {
       public appDelResource;
       constructor($resource: ng.resource.IResourceService){
         this.appApiResource = $resource(appApi);
-        this.appDelResource = $resource(appApi + '/:name', {name:'@name'})
+        this.appDelResource = $resource(appApi + '/:_id', {name:'@_id'})
       }
       public getTag(){
         return this.appApiResource.query().$promise;
@@ -28,8 +28,8 @@ namespace ngpoli.Services {
       public postTag (tag){
        return this.appApiResource.save(tag).$promise;
       }
-      public removeTag(tagName){
-        return this.appDelResource.remove(tagName).$promise;
+      public removeTag(tagId){
+        return this.appDelResource.remove(tagId).$promise;
       }
     }
       angular.module('ngpoli').service('govTrackService', govTrackService);

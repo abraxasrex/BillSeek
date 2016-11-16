@@ -9,7 +9,7 @@
           </md-card-title-text>
         </md-card-title>
           <div class="md-media-lg card-media">
-              <form ng-submit="controller.postTag()">
+              <form ng-submit="controller.postTag(controller.newTag)">
                 <md-input-container>
                   <label> Tag name: </label>
                   <input type="text" ng-model="controller.newTag.name" />

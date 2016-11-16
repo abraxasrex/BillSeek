@@ -1,32 +1,26 @@
 import * as express from 'express';
 let router = express.Router();
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
 // tags api //
 let tags = [
-  {name: 'women'},
-  {name: 'finance'},
-  {name: 'climate'}
+  {name: 'women', _id:'123'},
+  {name: 'finance', _id:'143'},
+  {name: 'climate', _id:'13'}
 ];
 
-let foundTags = (t) => {
+let foundTags = (_id) => {
   return tags.filter((tag) => {
-    return tag.name === t.name;
+    return tag._id === _id;
   });
 }
 
 router.get('/', (req, res, next) => {
-    console.log('got tags');
     res.json(tags);
 });
 
 router.post('/', (req, res, next) => {
    let newTag = req.body;
-   let found = foundTags(newTag);
+   let found = foundTags(newTag._id);
    if(found.length < 1){
      tags.push(newTag);
    } else {
@@ -35,8 +29,9 @@ router.post('/', (req, res, next) => {
    res.json({data: tags});
 });
 
-router.delete('/:name', (req, res, next) => {
-  let found = foundTags({name: req.params.name});
+router.delete('/:_id', (req, res, next) => {
+  console.log('delete this: ', req.params._id);
+  let found = foundTags(req.params._id);
   tags.splice(tags.indexOf(found[0]), 1);
   res.json({data:tags});
 });

@@ -55,8 +55,15 @@
   <script type="text/ng-template" id="dialog1.tmpl.html">
     <md-dialog>
       <md-dialog-content>
-      <h1> Hi! </h1>
-    </md-dialog-content>
+        <h1> Edit Tag:  </h1>
+        <form>
+        <input type="text" ng-model="controller.editTag.name" />
+        <div>
+          <md-button ng-click="controller.cancelEdit()">Cancel</md-button>
+          <md-button ng-click="controller.submitEdit()">Save</md-button>
+        </div>
+      </form>
+     </md-dialog-content>
     </md-dialog>
   </script>
 

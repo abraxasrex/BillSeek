@@ -20,14 +20,18 @@ namespace ngpoli.Controllers {
     }
     export class DialogController {
 
+      public postTag = this.postTag;
+      constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService){}
     }
+
     export class TagsController {
       public newTag = {};
+      public editTag = {};
       public tagToDelete = {};
       public tags;
       /// DRY post and get callbacks
-      public postTag(){
-        this.appApiService.postTag(this.newTag).then((results)=>{
+      public postTag(tag){
+        this.appApiService.postTag(tag).then((results)=>{
           this.tags = results.data;
           this.newTag = {};
         });
@@ -38,27 +42,40 @@ namespace ngpoli.Controllers {
         });
       }
       public removeTag(tag){
-        this.appApiService.removeTag({name: tag.name} ).then((results) =>{
+        this.appApiService.removeTag({_id: tag._id} ).then((results) =>{
           this.tags = results.data;
         });
       }
+
       public openDialog(tag){
+        let vm = this.$scope;
+        this.editTag = tag;
           this.$mdDialog.show({
+            scope: vm,
+            preserveScope: true,
           controller: DialogController,
           templateUrl: 'dialog1.tmpl.html',
           clickOutsideToClose:true
         })
-        .then(function(answer) {
-          console.log('woohoo!');
-        }, function() {
-          console.log('weeoo!');
+        .then(()=> {
+          console.log('promise retained!');
+          this.postTag(this.editTag);
+        }, ()=> {
+          console.log('promise failed!');
+          this.editTag = {};
         });
       }
-      public closeDialog(){
 
+      public cancelEdit(){
+        this.$mdDialog.cancel();
       }
+      public submitEdit(){
+        this.$mdDialog.hide();
+      }
+
       constructor(private appApiService: ngpoli.Services.appApiService,
-      private $mdDialog: ng.material.IDialogService){
+        private $mdDialog: ng.material.IDialogService,
+        private $scope: ng.IScope){
         this.getTags();
       }
     }
