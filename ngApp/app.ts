@@ -1,5 +1,5 @@
 namespace ngpoli {
-
+    ///hii
     angular.module('ngpoli', ['ui.router', 'ngMaterial', 'ngMessages', 'ngResource']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
@@ -35,7 +35,4 @@ namespace ngpoli {
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
     });
-
-
-
 }

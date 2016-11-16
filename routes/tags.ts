@@ -13,23 +13,32 @@ let tags = [
   {name: 'climate'}
 ];
 
+let foundTags = (t) => {
+  return tags.filter((tag) => {
+    return tag.name === t.name;
+  });
+}
+
 router.get('/', (req, res, next) => {
-  res.json(tags);
-  console.log('got tags');
+    console.log('got tags');
+    res.json(tags);
 });
 
 router.post('/', (req, res, next) => {
-  let tags = [
-    {name: 'women'},
-    {name: 'finance'},
-    {name: 'climates'}
-  ];
+   let newTag = req.body;
+   let found = foundTags(newTag);
+   if(found.length < 1){
+     tags.push(newTag);
+   } else {
+     tags.splice(tags.indexOf(found[0]), 1, newTag);
+   }
+   res.json({data: tags});
+});
 
-  let newTag = req.body;
-
-  console.log('newTag: ', newTag);
-  tags.push(newTag);
-  res.json({data: tags});
+router.delete('/:name', (req, res, next) => {
+  let found = foundTags({name: req.params.name});
+  tags.splice(tags.indexOf(found[0]), 1);
+  res.json({data:tags});
 });
 
 export default router;

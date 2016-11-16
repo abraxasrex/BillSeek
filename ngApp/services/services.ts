@@ -17,14 +17,19 @@ namespace ngpoli.Services {
 
     export class appApiService {
       public appApiResource;
+      public appDelResource;
       constructor($resource: ng.resource.IResourceService){
         this.appApiResource = $resource(appApi);
+        this.appDelResource = $resource(appApi + '/:name', {name:'@name'})
       }
       public getTag(){
         return this.appApiResource.query().$promise;
       }
       public postTag (tag){
        return this.appApiResource.save(tag).$promise;
+      }
+      public removeTag(tagName){
+        return this.appDelResource.remove(tagName).$promise;
       }
     }
       angular.module('ngpoli').service('govTrackService', govTrackService);

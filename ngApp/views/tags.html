@@ -36,7 +36,12 @@
               <div class="md-media-lg card-media">
                 <ul>
                   <li ng-repeat="tag in controller.tags">
-                    {{ tag.name }}
+                    <div>
+                      {{ tag.name }}
+                      <md-button ng-click="controller.openDialog(tag)">
+                          edit</md-button>
+                      <md-button ng-click="controller.removeTag(tag)">delete</md-button>
+                    </div>
                   </li>
                 </ul>
               </div>

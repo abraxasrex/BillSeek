@@ -18,27 +18,47 @@ namespace ngpoli.Controllers {
           this.getBills();
         }
     }
+    export class DialogController {
 
+    }
     export class TagsController {
       public newTag = {};
+      public tagToDelete = {};
       public tags;
       /// DRY post and get callbacks
       public postTag(){
-        console.log('newTag: ', this.newTag);
         this.appApiService.postTag(this.newTag).then((results)=>{
-          console.log('result tags: ', results);
           this.tags = results.data;
+          this.newTag = {};
         });
-        console.log('tags: ', this.tags);
       }
       public getTags(){
         this.appApiService.getTag().then((results)=>{
-          console.log('result tags: ', results);
           this.tags = results;
         });
-        console.log('tags: ', this.tags);
       }
-      constructor(private appApiService: ngpoli.Services.appApiService){
+      public removeTag(tag){
+        this.appApiService.removeTag({name: tag.name} ).then((results) =>{
+          this.tags = results.data;
+        });
+      }
+      public openDialog(tag){
+          this.$mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'dialog1.tmpl.html',
+          clickOutsideToClose:true
+        })
+        .then(function(answer) {
+          console.log('woohoo!');
+        }, function() {
+          console.log('weeoo!');
+        });
+      }
+      public closeDialog(){
+
+      }
+      constructor(private appApiService: ngpoli.Services.appApiService,
+      private $mdDialog: ng.material.IDialogService){
         this.getTags();
       }
     }
