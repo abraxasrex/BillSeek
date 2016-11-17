@@ -57,7 +57,6 @@
  a. integrate Google auth
 
 11/16:
-  XXXXXX 1. DRY: remove unneccessary boilerplate and dependencies XXXX
   2. design / theme revamp
   3. create views/templates, placeholders where necessary
   4. create filtered feed
