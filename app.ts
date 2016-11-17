@@ -6,12 +6,11 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 
-import routes from './routes/index';
- import tags from './routes/tags';
+// import routes from './routes/index';
+import tags from './routes/tags';
 
 let app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -26,9 +25,7 @@ app.use('/bower_components', express.static(path.join(__dirname, 'bower_componen
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
-app.use('/', routes);
-
- app.use('/api/tags', tags);
+app.use('/api/tags', tags);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {
@@ -38,7 +35,6 @@ app.get('/*', function(req, res, next) {
     return res.render('index');
   }
 });
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

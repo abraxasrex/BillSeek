@@ -1,0 +1,89 @@
+# MVP:
+1. Views:
+ a. Home
+  - auth popup asks if user wants to register or stay on as guest
+  - popup changes to register or login depending on view
+  - localstorage (or passport?) should auto-login recognized user
+ b. My Feed
+  - unregistered users get a preset feed
+  - registered users get a feed for
+  - all users can filter this view for tags, or filter to show politicans or bills.
+    and with bills can filter by date / recent activity, or perhaps weighted relevance
+  - selecting a feed item brings up an interest panel
+  - starring a feed item saves it in your interest profile
+  c. Interest Panel
+   - for a bill or person, brings up a view (modal?) showing their info
+   - starring an item saves it in interest profile of user
+  d. Interest Profile
+   - contains menu for tags of interest (so does feed?)
+   - contains view option for starred items, which when selected bring up interest panel.
+     when X-ed, removes from this feed.
+   - sharable url
+  e. Account
+   - only viewable if registered
+   - allows user to change upload profile picture, (or default), username
+   - (?) email info to change password?
+2. Schemas / Models:
+ a. User
+  - tags
+  - starreditems (contains ids)
+  - username
+  - password (blocked out)
+  - email
+ b. GovItem
+  b1. person
+  b2. bill
+  b3 (any)
+   - number of stars
+   - light reference to API to save storage (based on type?)
+3. Routes:
+  a. /api/GovItems
+   - get
+   - post (sent on star, on server decide edit or create)
+  b. /api/Users
+  - post
+  - get
+  - put (get)
+  - delete
+  c. /api/Updates
+  - get
+4. 3rd Party API resources:
+  a. govtrack
+   - bills and politicians info
+   - only get info for last few years
+5. General UI/UX:
+  a. prevent object dupes
+6. Passport:
+ a. integrate Google auth
+
+11/16:
+  XXXXXX 1. DRY: remove unneccessary boilerplate and dependencies XXXX
+  2. design / theme revamp
+  3. create views/templates, placeholders where necessary
+  4. create filtered feed
+  5. create Bootstrap Users and govTrack schema/models
+
+11/17:
+  1. Home Login /Registration route adds new user
+  2. returning logs in
+
+11/18:
+ 1. Feed filters work as expected
+11/19:
+  look for supplementary APIs
+11/20:
+  fix any view functionality not yet achieved
+11/21:
+  1. Starring an item works as expected
+11/22:
+  1. Passport layer add to auth
+11/23:
+ 1. Production changes / design
+ 2. Deploy
+
+Stretch:
+1. GovItem Connection field:
+  any GovItem which has a field match elsewhere in the API to another bill or person creates a
+  relationship information.
+2. Interest Profile Data Visualization
+ any
