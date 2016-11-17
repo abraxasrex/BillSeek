@@ -1,6 +1,13 @@
 import * as express from 'express';
 let router = express.Router();
 
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 // tags api //
 let tags = [
   {name: 'women', _id:'123'},
@@ -23,7 +30,11 @@ router.post('/', (req, res, next) => {
    let found = foundTags(newTag._id);
    if(found.length < 1){
      tags.push(newTag);
+   } else if(!newTag._id) {
+     newTag._id = getRandomIntInclusive(1000, 2000);
+     tags.push(newTag);
    } else {
+     console.log(`replaced ${found[0]._id} with ${newTag._id}`);
      tags.splice(tags.indexOf(found[0]), 1, newTag);
    }
    res.json({data: tags});

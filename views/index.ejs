@@ -13,34 +13,29 @@
 </head>
 
 <body>
-  <div class="container">
-    <div layout="row" layout-align="center">
-      <h1>
-        <span>
-          <md-icon>account_balance</md-icon>
-          Bill Seek
-          <md-icon>chat</md-icon>
-        </span>
-      </h1>
+  <div class="container custom-container">
+    <div layout="row" layout-align="space-around center">
+      <div class="icon-holder">
+        <md-icon class="bs-icon" >account_balance</md-icon>
     </div>
-
-    <!-- <md-content class="md-padding">
-    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-      <md-nav-item md-nav-click="goto('page1')" name="page1">Page One</md-nav-item>
-      <md-nav-item md-nav-click="goto('page2')" name="page2">Page Two</md-nav-item>
-      <md-nav-item md-nav-click="goto('page3')" name="page3">Page Three</md-nav-item>
-      <!-- these require actual routing with ui-router or ng-route, so they won't work in the demo
-      <md-nav-item md-nav-sref="app.page4" name="page4">Page Four</md-nav-item>
-      <md-nav-item md-nav-href="#page5" name="page5">Page Five</md-nav-item>
-      -->
-    <!-- </md-nav-bar>
-    <div class="ext-content">
-      External content for `<span>{{currentNavItem}}</span>`
+      <h1 class="header-text">
+           Bill Seek
+        </h1>
+      <div class="icon-holder">
+        <md-icon class="bs-icon" >account_balance</md-icon>
+      </div>
     </div>
-  </md-content> --> -->
+  <hr />
+    <md-content class="md-padding">
+      <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="center">
+        <md-nav-item md-nav-sref="home">Home(Feed)</md-nav-item>
+        <md-nav-item md-nav-sref="bills">Bills(My Interests)</md-nav-item>
+        <md-nav-item md-nav-sref="tags">Tags(Account)</md-nav-item>
+       </md-nav-bar>
+    </md-content>
 
-  
-          <md-menu-bar layout="row" layout-align="center">
+
+          <!-- <md-menu-bar layout="row" layout-align="center">
             <md-menu>
               <a href="/">Home(Feed)</a>
             </md-menu>
@@ -50,15 +45,13 @@
             <md-menu>
               <a href="/tags">Account</a>
             </md-menu>
-          </md-menu-bar>
+          </md-menu-bar> -->
 
-          <!-- <a href="/">Home</a> /
-          <a href="/bills">Bills</a> /
-          <a href="/tags">Tags</a> -->
         <hr />
 
-
-        <ui-view></ui-view>
+        <div class="container custom-container" max-width="100%">
+          <ui-view class="custom-container"></ui-view>
+      </div>
   </div>
 
   <script src="/bower_components/angular/angular.min.js"></script>

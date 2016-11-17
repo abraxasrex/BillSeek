@@ -1,19 +1,47 @@
-<form>
-  <h4> Search: </h4>
-  <input type="text" ng-model="controller.search" ng-model-options="{debounce:1000}"
-  ng-change="controller.getBills()" />
-</form>
+<div class="custom-container" ng-cloak>
+  <md-card class="custom-container">
+    <md-card-header>
+      <md-card-title-text>
+        <span class="md-headline"> Search Bills: </span>
+      </md-card-title-text>
+    </md-card-header>
+    <md-card-content>
+      <form>
+        <input type="text" ng-model="controller.search" ng-model-options="{debounce:1000}"
+        ng-change="controller.getBills()" />
+      </form>
+    </md-card-content>
+  </md-card>
 
-<div>
-  <h4> Bills: </h4>
-  <ul>
-    <li ng-repeat="bill in controller.bills | filter:
+  <div>
+    <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }">
-    <hr />
-    <strong> {{ bill.display_number }} </strong>
-     <p> {{ bill.title_without_number}} </p>
-      <!-- <div> {{ bill.current_status_description }} </div> -->
-    </li>
-  </ul>
+    <div class="md-media-md card-media">
+      <strong> {{ bill.display_number }} </strong>
+       <p> {{ bill.title_without_number}} </p>
+    </div>
+   </md-card>
+ </div>
+
 </div>
 <!-- <button ng-click="controller.printPerson()">get data</button> -->
+
+
+<!-- <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline"> New Tag: </span>
+      </md-card-title-text>
+    </md-card-title>
+      <div class="md-media-lg card-media">
+          <form ng-submit="controller.postTag(controller.newTag)">
+            <md-input-container>
+              <label> Tag name: </label>
+              <input type="text" ng-model="controller.newTag.name" />
+            </md-input-container>
+            <md-input-container>
+              <md-button type="submit">Submit</md-button>
+            </md-input-container>
+          </form>
+        </div>
+  </md-card> -->

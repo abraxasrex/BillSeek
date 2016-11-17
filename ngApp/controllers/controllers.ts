@@ -31,7 +31,9 @@ namespace ngpoli.Controllers {
       public tags;
       /// DRY post and get callbacks
       public postTag(tag){
+      //  console.log('submitted: ', tag)
         this.appApiService.postTag(tag).then((results)=>{
+          console.log('tags: ', results);
           this.tags = results.data;
           this.newTag = {};
         });
