@@ -58,18 +58,19 @@
 
 11/16:
   2. design / theme revamp
-  3. create views/templates, placeholders where necessary
-  4. create filtered feed
-  5. create Bootstrap Users and govTrack schema/models
 
 11/17:
+  0. ng-cloak  
+  1. create views/templates, placeholders where necessary
+  2. create filtered feed
+  3. create Bootstrap Users and govTrack schema/models
+
+11/18:
   1. Home Login /Registration route adds new user
   2. returning logs in
 
-11/18:
- 1. Feed filters work as expected
 11/19:
-  look for supplementary APIs
+   Feed filters work as expected
 11/20:
   fix any view functionality not yet achieved
 11/21:
