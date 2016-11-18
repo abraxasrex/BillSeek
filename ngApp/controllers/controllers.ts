@@ -60,10 +60,8 @@ namespace ngpoli.Controllers {
           clickOutsideToClose:true
         })
         .then(()=> {
-          console.log('promise retained!');
           this.postTag(this.editTag);
         }, ()=> {
-          console.log('promise failed!');
           this.editTag = {};
         });
       }
