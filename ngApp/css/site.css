@@ -1,13 +1,9 @@
 .bs-icon{
   font-size: 48px !important;
-  /*margin-right: 50% !important;
-    margin-left : 50% !important;*/
 }
 
 .header-text {
   font-size: 48px;
-  /*margin-left: 50px !important;
-  margin-right: 50px !important;*/
   margin: 10px 50px 10px 50px !important;
   text-decoration: underline;
 }

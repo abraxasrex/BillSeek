@@ -9,17 +9,14 @@ namespace ngpoli.Controllers {
         public bills;
         public getBills(){
           this.govTrackService.get().then((results)=>{
-            console.log('result objects: ', results.objects.length);
             this.bills = results.objects;
           });
-          console.log('bills: ', this.bills);
         }
         constructor(private govTrackService: ngpoli.Services.govTrackService){
           this.getBills();
         }
     }
     export class DialogController {
-
       public postTag = this.postTag;
       constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService){}
     }
@@ -29,11 +26,8 @@ namespace ngpoli.Controllers {
       public editTag = {};
       public tagToDelete = {};
       public tags;
-      /// DRY post and get callbacks
       public postTag(tag){
-      //  console.log('submitted: ', tag)
         this.appApiService.postTag(tag).then((results)=>{
-          console.log('tags: ', results);
           this.tags = results.data;
           this.newTag = {};
         });
@@ -48,7 +42,6 @@ namespace ngpoli.Controllers {
           this.tags = results.data;
         });
       }
-
       public openDialog(tag){
         let vm = this.$scope;
         this.editTag = tag;
@@ -72,12 +65,10 @@ namespace ngpoli.Controllers {
       public submitEdit(){
         this.$mdDialog.hide();
       }
-
       constructor(private appApiService: ngpoli.Services.appApiService,
         private $mdDialog: ng.material.IDialogService,
         private $scope: ng.IScope){
         this.getTags();
       }
     }
-
 }

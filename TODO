@@ -56,27 +56,22 @@
 6. Passport:
  a. integrate Google auth
 
-11/16:
-  2. design / theme revamp
 
-11/17:
-  0. ng-cloak  
-  1. create views/templates, placeholders where necessary
-  2. create filtered feed
-  3. create Bootstrap Users and govTrack schema/models
+
 
 11/18:
-  1. Home Login /Registration route adds new user
-  2. returning logs in
+  0. create Bootstrap Users and govTrack schema/models
+
 
 11/19:
-   Feed filters work as expected
+  1. Home Login /Registration route adds new user
+  2. returning logs in
 11/20:
-  fix any view functionality not yet achieved
+   Passport!
 11/21:
   1. Starring an item works as expected
 11/22:
-  1. Passport layer add to auth
+
 11/23:
  1. Production changes / design
  2. Deploy
