@@ -59,26 +59,44 @@
 
 
 
-11/18:
-  0. create Bootstrap Users and govTrack schema/models
-
-
 11/19:
-  1. Home Login /Registration route adds new user
-  2. returning logs in
+  1. Bootstrap / ping users
+  2. start auth / Starring Item UI
+
 11/20:
-   Passport!
+   1. auth UI
+
 11/21:
-  1. Starring an item works as expected
+  1. Passport integration
+
 11/22:
+  1. Starring an item works as expected / migrate tags to user schema model
 
 11/23:
- 1. Production changes / design
- 2. Deploy
+ 1. One-to-many relationship
+
+ 11/27:
+ 1. Interest Panel UI
+
+ 11/28:
+ 1. Accounts UI
+
+ 11/29:
+ 1. Home/Auth UI
+
+ 11/31:
+ 1. Feed UI
+
+12/1:
+ 1. Design
+
+12/2:
+
+ deploy
+
 
 Stretch:
 1. GovItem Connection field:
   any GovItem which has a field match elsewhere in the API to another bill or person creates a
   relationship information.
 2. Interest Profile Data Visualization
- any

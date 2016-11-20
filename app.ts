@@ -5,9 +5,20 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
+import * as mongoose from 'mongoose';
 
-// import routes from './routes/index';
+const MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
+
+// empty db seed
+mongoose.connect(MONGO_URI).then(()=>{
+  console.log('mongoose connected.');
+}).catch((err)=>{
+  console.log('mongoose error.');
+});
+
 import tags from './routes/tags';
+import users from './routes/users';
+import govItems from './routes/govItems';
 
 let app = express();
 
@@ -26,6 +37,8 @@ app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/api/tags', tags);
+app.use('/api/govItems', govItems);
+app.use('/api/users', users);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

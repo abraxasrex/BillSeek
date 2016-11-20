@@ -9,11 +9,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 // tags api //
-let tags = [
-  {name: 'women', _id:'123'},
-  {name: 'finance', _id:'143'},
-  {name: 'climate', _id:'13'}
-];
+// let tags = user.tags
 
 let foundTags = (_id) => {
   return tags.filter((tag) => {
