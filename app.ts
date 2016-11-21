@@ -6,12 +6,16 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 import * as mongoose from 'mongoose';
-
+import User from './models/Users';
 const MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
 
-// empty db seed
+// empty db seed: check entries
 mongoose.connect(MONGO_URI).then(()=>{
   console.log('mongoose connected.');
+  User.find({username: 'helloman'}).then((users)=>{
+    console.log('users!');
+    console.log(users);
+  });
 }).catch((err)=>{
   console.log('mongoose error.');
 });

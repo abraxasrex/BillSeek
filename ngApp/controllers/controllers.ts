@@ -1,11 +1,58 @@
 namespace ngpoli.Controllers {
-    let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
+    // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
     export class HomeController {
-        public message = 'Hello from the home page!';
-    }
+        public authUser; public isNewUser = false;
+        constructor(private UserService: ngpoli.dbServices.UserService,
+          private $mdDialog: ng.material.IDialogService,
+          private $scope: ng.IScope){
+            this.openDialog();
+        }
+        public trySubmit(isNew, user){
+          isNew ? this.tryRegister(user) : this.tryLogin(user);
+        }
+        public tryRegister(user){
+          this.UserService.register(user).then((result)=>{
+            console.log('result from server:', result);
+            this.$mdDialog.hide();
+          }).catch((err)=>{
+            console.log('err: ', err);
+            if(err.data == 'dupe'){
 
+            }
+          });
+        }
+        public tryLogin(user){
+          this.UserService.login(user).then((result)=>{
+            console.log('result from server:', result);
+            this.$mdDialog.hide();
+          }).catch((err)=>{
+            console.log('err: ', err);
+            if(err.data == 'Not Found'){
+
+            }
+          });
+        }
+        public openDialog(){
+          let vm = this.$scope;
+            this.$mdDialog.show({
+              scope: vm,
+              preserveScope: true,
+              controller: HomeDialog,
+              templateUrl: 'dialog2.tmpl.html',
+              clickOutsideToClose:false
+          })
+          .then(()=> {
+          }, ()=> {
+          //  cancel something
+           console.log('this should not hide');
+          });
+        }
+    }
+    export class HomeDialog {
+      constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService,
+      private UserService: ngpoli.dbServices.UserService){}
+    }
     export class BillsController {
-        public message = 'Hello from the about page!';
         public bills;
         public getBills(){
           this.govTrackService.get().then((results)=>{
@@ -22,10 +69,7 @@ namespace ngpoli.Controllers {
     }
 
     export class TagsController {
-      public newTag = {};
-      public editTag = {};
-      public tagToDelete = {};
-      public tags;
+      public newTag = {}; public editTag = {}; public tagToDelete = {}; public tags;
       public postTag(tag){
         this.appApiService.postTag(tag).then((results)=>{
           this.tags = results.data;
@@ -58,7 +102,6 @@ namespace ngpoli.Controllers {
           this.editTag = {};
         });
       }
-
       public cancelEdit(){
         this.$mdDialog.cancel();
       }
@@ -66,8 +109,7 @@ namespace ngpoli.Controllers {
         this.$mdDialog.hide();
       }
       constructor(private appApiService: ngpoli.Services.appApiService,
-        private $mdDialog: ng.material.IDialogService,
-        private $scope: ng.IScope){
+        private $mdDialog: ng.material.IDialogService, private $scope: ng.IScope){
         this.getTags();
       }
     }

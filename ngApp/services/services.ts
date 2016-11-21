@@ -1,7 +1,7 @@
 namespace ngpoli.Services {
     const govTrackApi = 'https://www.govtrack.us/api/v2/bill?';
     const appApi = '/api/tags';
-    
+
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){

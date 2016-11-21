@@ -11,13 +11,13 @@ let userSchema = new mongoose.Schema({
   username: {
     type:String,
     required: true,
-    minlength: 7,
+    minlength: 5,
     maxLength: 14
   },
   password: {
     type: String,
     required: true,
-    minLength: 7,
+    minLength: 5,
     maxLength: 14
   },
   starredItems: {

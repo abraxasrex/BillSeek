@@ -1,6 +1,8 @@
 namespace ngpoli.dbServices{
   export class UserService {
     private UserResource;
+    private LoginResource;
+    private RegisterResource;
     public get(id){
       return this.UserResource.get({id:id}).$promise;
     }
@@ -10,11 +12,19 @@ namespace ngpoli.dbServices{
     public save(user){
       return this.UserResource.save({id:user._id}, user).$promise;
     }
+    public login(user){
+      return this.LoginResource.save(user).$promise;
+    }
+    public register(user){
+      return this.RegisterResource.save(user).$promise;
+    }
     public remove(user){
       return this.UserResource.remove({id: user._id}, user).$promise;
     }
     constructor($resource:ng.resource.IResourceService){
       this.UserResource = $resource('/api/users/:id');
+      this.LoginResource = $resource('/api/users/login');
+      this.RegisterResource = $resource('/api/users/register');
     }
   }
 

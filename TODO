@@ -59,38 +59,49 @@
 
 
 
-11/19:
-  1. Bootstrap / ping users
-  2. start auth / Starring Item UI
-
 11/20:
-   1. auth UI
+  2. home/auth and feed ui
+  b. auth/home
+   - prompt screen with login or register
+   - run simple login with db for now
+  c. interest panel:
+   - show user info
+   - edit user info
+   - logout
 
 11/21:
-  1. Passport integration
+  1. Passport /security integration
+  - get at least localstrategy working
 
 11/22:
-  1. Starring an item works as expected / migrate tags to user schema model
+  1. migrate tags to user schema model
+  2. Passport login third party
 
 11/23:
  1. One-to-many relationship
 
- 11/27:
+ 11/26:
  1. Interest Panel UI
 
- 11/28:
+ 11/27:
  1. Accounts UI
+  - advanced options: delete account / email password(?)
 
- 11/29:
+ 11/28:
  1. Home/Auth UI
 
- 11/31:
- 1. Feed UI
 
-12/1:
+ 11/29:
+ 1. Feed UI
+    - bill template with stars
+    - filter input
+    - draw in bills and congresspeople randomly
+    - add person template
+
+11/30:
  1. Design
 
-12/2:
+11/31:
 
  deploy
 

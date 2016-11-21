@@ -14,7 +14,7 @@
 
 <body>
   <div class="container custom-container">
-    <div layout="row" layout-align="space-around center">
+    <div layout="row" layout-align="space-around center" ng-cloak>
       <div class="icon-holder">
         <md-icon class="bs-icon" >account_balance</md-icon>
     </div>
@@ -33,22 +33,7 @@
         <md-nav-item md-nav-sref="tags">Tags(Account)</md-nav-item>
        </md-nav-bar>
     </md-content>
-
-
-          <!-- <md-menu-bar layout="row" layout-align="center">
-            <md-menu>
-              <a href="/">Home(Feed)</a>
-            </md-menu>
-            <md-menu>
-              <a href="/bills">Interests</a>
-            </md-menu>
-            <md-menu>
-              <a href="/tags">Account</a>
-            </md-menu>
-          </md-menu-bar> -->
-
         <hr />
-
         <div class="container custom-container" max-width="100%">
           <ui-view class="custom-container"></ui-view>
       </div>
@@ -68,6 +53,7 @@
   <script src="/ngApp/app.js"></script>
   <script src="/ngApp/controllers/controllers.js"></script>
   <script src="/ngApp/services/services.js"></script>
+  <script src="/ngApp/services/dbServices.js"></script>
 
    <!-- preloaded templates -->
   <script type="text/ng-template" id="dialog1.tmpl.html">
@@ -84,6 +70,51 @@
      </md-dialog-content>
     </md-dialog>
   </script>
+
+  <script type="text/ng-template" id="dialog2.tmpl.html">
+    <md-dialog flex="50">
+      <md-dialog-content layout="column" layout-align="center space-around">
+        <md-content class="md-padding">
+          <h1> Welcome to BillSeek!  </h1>
+          <hr />
+        </md-content>
+        <md-content class="md-padding">
+        <md-tabs md-dynamic-height md-border-bottom>
+           <md-tab label="returning user" ng-click="controller.isNewUser = false">
+           </md-tab>
+           <md-tab label="new user" ng-click= "controller.isNewUser = true">
+           </md-tab>
+         </md-tabs>
+        </md-content>
+        <md-content class="md-padding">
+          <form ng-submit="controller.trySubmit(controller.isNewUser, controller.authUser)"
+           layout="column" layout-align="center center">
+            <!-- <md-content class="md-padding"> -->
+              <h3>
+                <span ng-show="controller.isNewUser">Register:</span>
+                <span ng-show="!controller.isNewUser">Login:</span>
+              </h3>
+            <!-- </md-content> -->
+              <md-input-container>
+                <label>username:</label>
+                <input type="text" ng-model="controller.authUser.username" />
+              </md-input-container>
+              <md-input-container>
+                <label>password:</label>
+                <input type="text" ng-model="controller.authUser.password" />
+
+               </md-input-container>
+              <!-- <md-button ng-click="controller.cancel()">Cancel</md-button> -->
+              <md-input-container>
+                <md-button type="submit">Go</md-button>
+            </md-input-container>
+
+          </form>
+        </md-content>
+     </md-dialog-content>
+    </md-dialog>
+  </script>
+
 
 </body>
 
