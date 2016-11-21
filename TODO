@@ -62,8 +62,6 @@
 11/20:
   2. home/auth and feed ui
   b. auth/home
-   - prompt screen with login or register
-   - run simple login with db for now
   c. interest panel:
    - show user info
    - edit user info

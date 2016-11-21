@@ -1,34 +1,51 @@
 namespace ngpoli.Controllers {
     // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
+    export class AccountController {
+      public currentUser = 'default';
+      constructor(private $state: ng.ui.IStateService){
+      //  let name = $state.current.data.username;
+        this.currentUser = 'default';
+      }
+    }
     export class HomeController {
         public authUser; public isNewUser = false;
         constructor(private UserService: ngpoli.dbServices.UserService,
           private $mdDialog: ng.material.IDialogService,
+          private $state: ng.ui.IStateService,
+          private localStore: ngpoli.Services.localStore,
           private $scope: ng.IScope){
-            this.openDialog();
+            let loggedIn = this.localStore.isLoggedIn();
+            console.log(loggedIn, 'logged in ?');
+            loggedIn ? this.$state.get('account').data.username = this.localStore.bootstrap(): this.openDialog();
         }
         public trySubmit(isNew, user){
           isNew ? this.tryRegister(user) : this.tryLogin(user);
         }
         public tryRegister(user){
+          let vmState = this.$state;
           this.UserService.register(user).then((result)=>{
             console.log('result from server:', result);
+            this.localStore.save(user.username);
+            vmState.get('account').data.username = user.username;
             this.$mdDialog.hide();
           }).catch((err)=>{
             console.log('err: ', err);
             if(err.data == 'dupe'){
-
+              //show warning
             }
           });
         }
         public tryLogin(user){
+          let vmState = this.$state;
           this.UserService.login(user).then((result)=>{
             console.log('result from server:', result);
+            vmState.get('account').data.username = user.username;
+            this.localStore.save(user.username);
             this.$mdDialog.hide();
           }).catch((err)=>{
             console.log('err: ', err);
             if(err.data == 'Not Found'){
-
+              //show warning
             }
           });
         }

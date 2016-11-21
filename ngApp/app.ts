@@ -24,6 +24,16 @@ namespace ngpoli {
               controller: ngpoli.Controllers.TagsController,
               controllerAs: 'controller'
             })
+            .state('account',{
+              url:'/account',
+              templateUrl:'/ngApp/views/account.html',
+              controller: ngpoli.Controllers.AccountController,
+              controllerAs: 'controller',
+              data:{
+                username: '',
+                stars: []
+              }
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'

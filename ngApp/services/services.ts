@@ -32,6 +32,25 @@ namespace ngpoli.Services {
         return this.appDelResource.remove(tagId).$promise;
       }
     }
+    export class localStore {
+      constructor(){}
+      public isLoggedIn(){
+        let currentStorage = localStorage.getItem('bs_user');
+        if(!currentStorage || currentStorage.length < 1){
+          localStorage.setItem('bs_user', '');
+          return false;
+        } else {
+          return true;
+        }
+      }
+      public bootstrap(){
+        return localStorage.getItem('bs_user');
+      }
+      public save(username){
+        return localStorage.setItem('bs_user', username);
+      }
+    }
       angular.module('ngpoli').service('govTrackService', govTrackService);
       angular.module('ngpoli').service('appApiService', appApiService);
+      angular.module('ngpoli').service('localStore', localStore);
     }
