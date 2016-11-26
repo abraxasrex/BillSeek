@@ -4,9 +4,12 @@ import * as mongoose from 'mongoose';
 export interface IUser extends mongoose.Document {
   username: string,
   password: string,
-  starredItems: string []
+  starredItems: string [],
+  labels: string []
 }
-
+function arrayLimit (val){
+  return val.length <= 15;
+}
 let userSchema = new mongoose.Schema({
   username: {
     type:String,
@@ -22,6 +25,10 @@ let userSchema = new mongoose.Schema({
   },
   starredItems: {
     type: Array
+  },
+  labels: {
+    type: Array,
+    validate: [arrayLimit, '{PATH} exceeds the limit of 15']
   }
 });
 

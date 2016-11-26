@@ -2,20 +2,7 @@ namespace ngpoli.Controllers {
     // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
     export class AccountController {
       public currentUser = 'default';
-      // public resetStorage(a, b, ctx){
-      //   localStorage.setItem('bs_user', '');
-      //   a(b, ctx);
-      // }
-      // public resetData(a, ctx){
-      //   ctx.$state.get('account').data = {};
-      //   a(ctx);
-      // }
-      // public goHome(ctx){
-      //   ctx.$state.go('home');
-      // }
       public logOut(){
-      //  let vm = this;
-      //  this.resetStorage(this.resetData, this.goHome, vm);
           localStorage.setItem('bs_user', '');
           this.$state.get('account').data = {};
           this.$state.go('home');
@@ -76,6 +63,7 @@ namespace ngpoli.Controllers {
               clickOutsideToClose:false
           })
           .then(()=> {
+            console.log('yay!');
           }, ()=> {
           //  cancel something
            console.log('this should not hide');
