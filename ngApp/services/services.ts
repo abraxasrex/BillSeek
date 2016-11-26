@@ -49,6 +49,9 @@ namespace ngpoli.Services {
       public save(username){
         return localStorage.setItem('bs_user', username);
       }
+      public clearStore(){
+        return localStorage.setItem('bs_user', '');
+      }
     }
       angular.module('ngpoli').service('govTrackService', govTrackService);
       angular.module('ngpoli').service('appApiService', appApiService);

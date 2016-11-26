@@ -59,48 +59,47 @@
 
 
 
-11/20:
-  2. home/auth and feed ui
-  b. auth/home
-  c. interest panel:
-   - show user info
-   - edit user info
+11/25:
    - logout
 
-11/21:
+11/26:
   1. Passport /security integration
   - get at least localstrategy working
 
-11/22:
+11/27:
   1. migrate tags to user schema model
   2. Passport login third party
 
-11/23:
+11/28:
  1. One-to-many relationship
 
- 11/26:
+ 11/29:
  1. Interest Panel UI
 
- 11/27:
+ 11/30:
  1. Accounts UI
   - advanced options: delete account / email password(?)
+  - edit info
 
- 11/28:
+ 12/1:
  1. Home/Auth UI
 
 
- 11/29:
+ 12/2:
  1. Feed UI
     - bill template with stars
     - filter input
     - draw in bills and congresspeople randomly
     - add person template
 
-11/30:
+12/2:
  1. Design
 
-11/31:
+12/3:
 
+1. errors UI: html5 form validation and mongoose errors
+
+12/4:
  deploy
 
 

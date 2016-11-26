@@ -13,8 +13,7 @@ const MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
 mongoose.connect(MONGO_URI).then(()=>{
   console.log('mongoose connected.');
   User.find({username: 'helloman'}).then((users)=>{
-    console.log('users!');
-    console.log(users);
+    console.log('users!', users);
   });
 }).catch((err)=>{
   console.log('mongoose error.');
