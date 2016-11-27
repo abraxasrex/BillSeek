@@ -19,7 +19,7 @@ mongoose.connect(MONGO_URI).then(()=>{
   console.log('mongoose error.');
 });
 
-import tags from './routes/tags';
+import labels from './routes/labels';
 import users from './routes/users';
 import govItems from './routes/govItems';
 
@@ -39,7 +39,7 @@ app.use('/bower_components', express.static(path.join(__dirname, 'bower_componen
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
-app.use('/api/tags', tags);
+app.use('/api/labels', labels);
 app.use('/api/govItems', govItems);
 app.use('/api/users', users);
 

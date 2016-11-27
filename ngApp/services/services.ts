@@ -1,56 +1,59 @@
 namespace ngpoli.Services {
     const govTrackApi = 'https://www.govtrack.us/api/v2/bill?';
-    const appApi = '/api/tags';
+    const labelApi = '/api/labels';
 
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){
-        this.govTrackResource = $resource(govTrackApi);
+        this.govTrackResource = $resource(govTrackApi + '/:q', {name: '@q'});
       }
-      public get(){
-        return this.govTrackResource.get().$promise;
-      }
-      public post(){
-        return this.govTrackResource.post().$promise;
+      public get(q){
+        let _q = q;
+        if(!q || (q.length && q.length < 1)){
+          _q = 'all';
+        }
+        return this.govTrackResource.get({q: q}).$promise;
       }
     }
 
     export class appApiService {
-      public appApiResource;
-      public appDelResource;
-      constructor($resource: ng.resource.IResourceService){
-        this.appApiResource = $resource(appApi);
-        this.appDelResource = $resource(appApi + '/:_id', {name:'@_id'})
+      public labelResource;
+      constructor($resource: ng.resource.IResourceService,
+      private $state: ng.ui.IStateService){
+        this.labelResource = $resource(labelApi + '/:pw', {name:'@pw'});
       }
-      public getTag(){
-        return this.appApiResource.query().$promise;
+      public getLabels(){
+        let pw = this.$state.get('account').data.password;
+        return this.labelResource.query({pw:pw}).$promise;
       }
-      public postTag (tag){
-       return this.appApiResource.save(tag).$promise;
+      public postLabel (label){
+       let pw = this.$state.get('account').data.password;
+       return this.labelResource.save({pw:pw}, label).$promise;
       }
-      public removeTag(tagId){
-        return this.appDelResource.remove(tagId).$promise;
+      public removeLabel(label){
+        let pw = this.$state.get('account').data.password;
+        return this.labelResource.remove({pw:pw}, label).$promise;
       }
     }
     export class localStore {
       constructor(){}
       public isLoggedIn(){
         let currentStorage = localStorage.getItem('bs_user');
-        if(!currentStorage || currentStorage.length < 1){
-          localStorage.setItem('bs_user', '');
+        if(!currentStorage || typeof currentStorage != 'object'){
+          localStorage.setItem('bs_user', JSON.stringify({}));
           return false;
         } else {
           return true;
         }
       }
       public bootstrap(){
-        return localStorage.getItem('bs_user');
+        return JSON.parse(localStorage.getItem('bs_user'));
       }
-      public save(username){
-        return localStorage.setItem('bs_user', username);
+      public save(userData){
+        return localStorage.setItem('bs_user', JSON.stringify(userData));
       }
       public clearStore(){
-        return localStorage.setItem('bs_user', '');
+        return localStorage.setItem('bs_user', JSON.stringify({}));
       }
     }
       angular.module('ngpoli').service('govTrackService', govTrackService);

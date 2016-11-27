@@ -25,12 +25,12 @@ let router = express.Router();
 router.post('/register', (req, res) => {
   User.findOne({username:req.body.username}).then((user)=>{
     if(!user){
+      console.log('new user because no result from ', req.body);
       let user = new User();
       user.username = req.body.username;
       user.password = req.body.password;
       user.starredItems = req.body.starredItems
       User.create(user).then((newUser) => {
-        console.log('new user');
         res.json(newUser);
       }).catch((err) => {
         res.status(400).json(err);
@@ -42,6 +42,19 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+   User.findOne({username:req.body.username}).then((user) => {
+     console.log('found user: ', user, ' matching : ', req.body);
+     if(!user){
+       res.status(404);
+     } else {
+       res.json(user);
+     }
+   }).catch(() => {
+     res.sendStatus(404).json('no user');
+   });
+});
+
+router.post('/editAccount', (req, res) => {
    User.findOne({username:req.body.username}).then((user) => {
      user.username = req.body.username;
      user.password = req.body.password;
@@ -56,7 +69,6 @@ router.post('/login', (req, res) => {
      res.sendStatus(404).json('no user');
    });
 });
-
 // router.delete('/:id', (req, res) => {
 //   let userId = req.params.id;
 //   User.remove({_id:userId}).then(() => {

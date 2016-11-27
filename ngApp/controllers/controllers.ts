@@ -3,7 +3,7 @@ namespace ngpoli.Controllers {
     export class AccountController {
       public currentUser = 'default';
       public logOut(){
-          localStorage.setItem('bs_user', '');
+          localStorage.setItem('bs_user', JSON.stringify({}));
           this.$state.get('account').data = {};
           this.$state.go('home');
       }
@@ -12,44 +12,48 @@ namespace ngpoli.Controllers {
       }
     }
     export class HomeController {
-        public authUser; public isNewUser = false;
+        public authUser;
+        public isNewUser = false;
+        public bills;
+        public search;
         constructor(private UserService: ngpoli.dbServices.UserService,
+          private govTrackService: ngpoli.Services.govTrackService,
           private $mdDialog: ng.material.IDialogService,
           private $state: ng.ui.IStateService,
           private localStore: ngpoli.Services.localStore,
           private $scope: ng.IScope){
             let loggedIn = this.localStore.isLoggedIn();
-            console.log(loggedIn, 'logged in ?');
-            loggedIn ? this.$state.get('account').data.username = this.localStore.bootstrap(): this.openDialog();
+            if(loggedIn){
+              this.$state.get('account').data = this.localStore.bootstrap();
+              this.getBills();
+            } else {
+              this.openDialog();
+            }
         }
         public trySubmit(isNew, user){
+          console.log('trying to submit newuser: ', isNew, ' user: ', user);
           isNew ? this.tryRegister(user) : this.tryLogin(user);
         }
+        public setUser(user){
+          this.localStore.save(user);
+          this.$state.get('account').data = user;
+          this.$mdDialog.hide();
+        }
         public tryRegister(user){
-          let vmState = this.$state;
+          console.log('registering');
           this.UserService.register(user).then((result)=>{
-            console.log('result from server:', result);
-            this.localStore.save(user.username);
-            vmState.get('account').data.username = user.username;
-            this.$mdDialog.hide();
+            this.setUser(result);
           }).catch((err)=>{
-            console.log('err: ', err);
             if(err.data == 'dupe'){
-              //show warning
             }
           });
         }
         public tryLogin(user){
-          let vmState = this.$state;
+          console.log('logggggin');
           this.UserService.login(user).then((result)=>{
-            console.log('result from server:', result);
-            vmState.get('account').data.username = user.username;
-            this.localStore.save(user.username);
-            this.$mdDialog.hide();
+            this.setUser(result);
           }).catch((err)=>{
-            console.log('err: ', err);
             if(err.data == 'Not Found'){
-              //show warning
             }
           });
         }
@@ -61,56 +65,53 @@ namespace ngpoli.Controllers {
               controller: HomeDialog,
               templateUrl: 'dialog2.tmpl.html',
               clickOutsideToClose:false
-          })
-          .then(()=> {
-            console.log('yay!');
+          }).then(()=> {
+            this.getBills();
           }, ()=> {
-          //  cancel something
-           console.log('this should not hide');
+          });
+        }
+        public getBills(){
+          this.govTrackService.get(this.search).then((results)=>{
+            this.bills = results.objects;
           });
         }
     }
+
     export class HomeDialog {
       constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService,
       private UserService: ngpoli.dbServices.UserService){}
     }
-    export class BillsController {
-        public bills;
-        public getBills(){
-          this.govTrackService.get().then((results)=>{
-            this.bills = results.objects;
-          });
-        }
-        constructor(private govTrackService: ngpoli.Services.govTrackService){
-          this.getBills();
-        }
-    }
+
     export class DialogController {
-      public postTag = this.postTag;
+      public postLabel = this.postLabel;
       constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService){}
     }
 
     export class TagsController {
-      public newTag = {}; public editTag = {}; public tagToDelete = {}; public tags;
-      public postTag(tag){
-        this.appApiService.postTag(tag).then((results)=>{
-          this.tags = results.data;
-          this.newTag = {};
+      public newLabel = {};
+      public editLabel = {};
+      public labelToDelete = {};
+      public labels;
+      public postLabel(label){
+
+        this.appApiService.postLabel(label).then((results)=>{
+          this.labels = results.data;
+          this.newLabel = {};
         });
       }
-      public getTags(){
-        this.appApiService.getTag().then((results)=>{
-          this.tags = results;
+      public getLabels(){
+        this.appApiService.getLabels().then((results)=>{
+          this.labels = results;
         });
       }
-      public removeTag(tag){
-        this.appApiService.removeTag({_id: tag._id} ).then((results) =>{
-          this.tags = results.data;
+      public removeLabel(label){
+        this.appApiService.removeLabel(label).then((results) =>{
+          this.labels = results.data;
         });
       }
-      public openDialog(tag){
+      public openDialog(label){
         let vm = this.$scope;
-        this.editTag = tag;
+        this.editLabel = label;
           this.$mdDialog.show({
             scope: vm,
             preserveScope: true,
@@ -119,9 +120,9 @@ namespace ngpoli.Controllers {
           clickOutsideToClose:true
         })
         .then(()=> {
-          this.postTag(this.editTag);
+          this.postLabel(this.editLabel);
         }, ()=> {
-          this.editTag = {};
+          this.editLabel = {};
         });
       }
       public cancelEdit(){
@@ -131,8 +132,9 @@ namespace ngpoli.Controllers {
         this.$mdDialog.hide();
       }
       constructor(private appApiService: ngpoli.Services.appApiService,
-        private $mdDialog: ng.material.IDialogService, private $scope: ng.IScope){
-        this.getTags();
+        private $mdDialog: ng.material.IDialogService,
+        private $scope: ng.IScope){
+        this.getLabels();
       }
     }
 }

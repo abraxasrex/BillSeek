@@ -59,44 +59,40 @@
 
 
 
-11/25:
-   - logout
 
-11/26:
-  1. Passport /security integration
-  - get at least localstrategy working
+
+
 
 11/27:
-  1. migrate tags to user schema model
-  2. Passport login third party
+0. fix localstorage issue 
+1. Feed UI
+   - bill template with stars
+   - filter input
+   - draw in bills and congresspeople randomly
+   - add person template
 
 11/28:
- 1. One-to-many relationship
+
+1. Passport /security integration
+- get at least localstrategy working
 
  11/29:
- 1. Interest Panel UI
+ 1. migrate tags to user schema model
+ 2. Passport login third party
 
  11/30:
- 1. Accounts UI
-  - advanced options: delete account / email password(?)
-  - edit info
+  1. One-to-many relationship
 
  12/1:
- 1. Home/Auth UI
-
-
- 12/2:
- 1. Feed UI
-    - bill template with stars
-    - filter input
-    - draw in bills and congresspeople randomly
-    - add person template
+ 0. My interests view
 
 12/2:
- 1. Design
+1. Accounts UI
+ - advanced options: delete account / email password(?)
+ - edit info
 
 12/3:
-
+0. design
 1. errors UI: html5 form validation and mongoose errors
 
 12/4:

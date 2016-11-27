@@ -3,14 +3,14 @@
     <md-card class="custom-container">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline"> New Tag: </span>
+            <span class="md-headline"> New Label: </span>
           </md-card-title-text>
         </md-card-title>
           <div class="md-media-lg card-media">
-              <form ng-submit="controller.postTag(controller.newTag)">
+              <form ng-submit="controller.postLabel(controller.newLabel)">
                 <md-input-container>
-                  <label> Tag name: </label>
-                  <input type="text" ng-model="controller.newTag.name" />
+                  <label> Label name: </label>
+                  <input type="text" ng-model="controller.newLabel.name" />
                 </md-input-container>
                 <md-input-container>
                   <md-button type="submit">Submit</md-button>
@@ -22,18 +22,18 @@
       <md-card class="custom-container">
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline"> My Interest Tags: </span>
+              <span class="md-headline"> My Interest Labels: </span>
             </md-card-title-text>
           </md-card-title>
             <md-card-title-media>
               <div class="md-media-lg card-media">
                 <ul>
-                  <li ng-repeat="tag in controller.tags">
+                  <li ng-repeat="label in controller.labels">
                     <div>
-                      {{ tag.name }}
-                      <md-button ng-click="controller.openDialog(tag)">
+                      {{ label.name }}
+                      <md-button ng-click="controller.openDialog(label)">
                           edit</md-button>
-                      <md-button ng-click="controller.removeTag(tag)">delete</md-button>
+                      <md-button ng-click="controller.removeTag(label)">delete</md-button>
                     </div>
                   </li>
                 </ul>
