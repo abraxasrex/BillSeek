@@ -21,8 +21,9 @@ namespace ngpoli.Controllers {
           private $mdDialog: ng.material.IDialogService,
           private $state: ng.ui.IStateService,
           private localStore: ngpoli.Services.localStore,
-          private $scope: ng.IScope){
+          private $scope: ng.IScope) {
             let loggedIn = this.localStore.isLoggedIn();
+            console.log('checking for login:', loggedIn);
             if(loggedIn){
               this.$state.get('account').data = this.localStore.bootstrap();
               this.getBills();
@@ -35,7 +36,7 @@ namespace ngpoli.Controllers {
           isNew ? this.tryRegister(user) : this.tryLogin(user);
         }
         public setUser(user){
-          this.localStore.save(user);
+          this.localStore.cache(user);
           this.$state.get('account').data = user;
           this.$mdDialog.hide();
         }

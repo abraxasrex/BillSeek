@@ -22,11 +22,7 @@ namespace ngpoli {
               url:'/account',
               templateUrl:'/ngApp/views/account.html',
               controller: ngpoli.Controllers.AccountController,
-              controllerAs: 'controller',
-              data:{
-                username: '',
-                stars: []
-              }
+              controllerAs: 'controller'
             })
             .state('notFound', {
                 url: '/notFound',

@@ -36,10 +36,13 @@ namespace ngpoli.Services {
       }
     }
     export class localStore {
-      constructor(){}
+      constructor(){
+
+      }
       public isLoggedIn(){
         let currentStorage = localStorage.getItem('bs_user');
-        if(!currentStorage || typeof currentStorage != 'object'){
+        console.log('currentStorage: ', currentStorage);
+        if(!currentStorage || currentStorage.length < 3){
           localStorage.setItem('bs_user', JSON.stringify({}));
           return false;
         } else {
@@ -49,7 +52,7 @@ namespace ngpoli.Services {
       public bootstrap(){
         return JSON.parse(localStorage.getItem('bs_user'));
       }
-      public save(userData){
+      public cache(userData){
         return localStorage.setItem('bs_user', JSON.stringify(userData));
       }
       public clearStore(){
