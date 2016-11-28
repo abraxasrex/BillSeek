@@ -1,14 +1,36 @@
 <div class="custom-container" ng-cloak>
   <md-card class="custom-container">
     <md-card-header>
-      <md-card-title-text>
-        <span class="md-headline"> Search Bills: </span>
+      <md-card-title-text  class="md-headline" layout="row" layout-align="start center">
+          <span class=" bs-search"> Search </span>
+          <md-select aria-label = "type" name="type" ng-model="controller.search.type" ng-model-options="{debounce:1000}"
+          ng-change="controller.list()">
+            <md-option value="bill">Bills</md-option>
+            <md-option value="person">People</md-option>
+          </md-select>
       </md-card-title-text>
+      <!-- bill filters  -->
+      <md-card-title-text  class="md-headline" layout="row" layout-align="start center" ng-show="controller.search.type == 'bill'">
+          <span class=" bs-search"> Filter by </span>
+          <md-select aria-label = "type" name="type" ng-model="controller.search.addFilter">
+            <md-option value="bill">Alive</md-option>
+            <md-option value="person">Current</md-option>
+          </md-select>
+      </md-card-title-text>
+      <!-- people filters  -->
+      <md-card-title-text  class="md-headline" layout="row" layout-align="start center" ng-show="controller.search.type == 'person'">
+          <span class=" bs-search"> Filter by </span>
+          <md-select aria-label = "type" name="type" ng-model="controller.search.addFilter">
+            <md-option value="bill">House</md-option>
+            <md-option value="person">Senate</md-option>
+          </md-select>
+      </md-card-title-text>
+
     </md-card-header>
     <md-card-content>
       <form>
-        <input type="text" ng-model="controller.search" ng-model-options="{debounce:1000}"
-        ng-change="controller.getBills()" />
+        <input type="text" ng-model="controller.search.query" ng-model-options="{debounce:1000}"
+        ng-change="controller.list()" />
       </form>
     </md-card-content>
   </md-card>
@@ -16,10 +38,14 @@
   <div>
     <!-- <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }"> -->
-    <md-card ng-repeat="bill in controller.bills">
-    <div class="md-media-md card-media">
-      <strong> {{ bill.display_number }} </strong>
-       <p> {{ bill.title_without_number}} </p>
+    <md-card ng-repeat="item in controller.feedItems">
+    <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
+      <strong> {{ item.display_number }} </strong>
+       <p> {{ item.title_without_number}} </p>
+    </div>
+    <div class="md-media-md card-media" ng-show="controller.search.type == 'person'">
+      <strong> {{ item.firstname }} </strong>
+       <p> {{ item.lastname}} </p>
     </div>
    </md-card>
  </div>

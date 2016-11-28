@@ -64,32 +64,46 @@
 
 
 11/27:
-0. fix localstorage issue 
 1. Feed UI
-   - bill template with stars
-   - filter input
-   - draw in bills and congresspeople randomly
-   - add person template
+   - queries:
+     2. by year (another dropdown, default is 2016, only for bills)
+     3. is alive / is current (bill only)
+     4. party / (person only)
+     5. state (person only)
+     6. senators or representatives  (person only)
+    - UI filter:
+     1. most recent
+     2. (?)
+   - stars on template: crud-save stars to user profile
+   - full person and bill template
+   1. people: phone, role, state, party, website
+    image: https://github.com/unitedstates/images#using-the-photos
+   2. bills: senate/house, current status/currentstatusdate, introduced date
+   is current/ is alive, sponsors/voters, billID/number
 
 11/28:
 
-1. Passport /security integration
+1. Passport / security integration
 - get at least localstrategy working
 
  11/29:
- 1. migrate tags to user schema model
- 2. Passport login third party
+
+ 1. Passport login third party
 
  11/30:
-  1. One-to-many relationship
+  1. My interests view: sharable UI
+     - display starred items by fetching their type and unique number from
+     user's starredItems array
+     - my interest tags edit, as well as UI for the tags in the main feed
 
  12/1:
- 0. My interests view
+ 1. Accounts UI
+  - advanced options: delete account / email password(?)
+  - edit info
 
 12/2:
-1. Accounts UI
- - advanced options: delete account / email password(?)
- - edit info
+ Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
+ and see if a field has changed.
 
 12/3:
 0. design

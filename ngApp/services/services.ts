@@ -1,18 +1,22 @@
 namespace ngpoli.Services {
-    const govTrackApi = 'https://www.govtrack.us/api/v2/bill?';
+    const govTrackApi = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&q=:q';
     const labelApi = '/api/labels';
+    const billFilter = '-current_status_date';
+    const peopleFilter = 'sortname';
 
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){
-        this.govTrackResource = $resource(govTrackApi + '/:q', {name: '@q'});
+        this.govTrackResource = $resource(govTrackApi, {q: '@q', type:'@type', filter: '@filter'});
       }
-      public get(q){
+      public get(q, type){
         let _q = q;
+        let filter;
         if(!q || (q.length && q.length < 1)){
           _q = 'all';
         }
-        return this.govTrackResource.get({q: q}).$promise;
+        type == 'bill' ? filter = billFilter : filter = peopleFilter;
+        return this.govTrackResource.get({q: _q, type:type, filter: filter}).$promise;
       }
     }
 

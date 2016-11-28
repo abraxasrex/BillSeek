@@ -1,32 +1,22 @@
 namespace ngpoli.Controllers {
     // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
-    export class AccountController {
-      public currentUser = 'default';
-      public logOut(){
-          localStorage.setItem('bs_user', JSON.stringify({}));
-          this.$state.get('account').data = {};
-          this.$state.go('home');
-      }
-      constructor(private $state: ng.ui.IStateService){
-        this.currentUser = 'default';
-      }
-    }
     export class HomeController {
-        public authUser;
         public isNewUser = false;
-        public bills;
-        public search;
+        public search = {type:'', query: ''};
+        public feedItems;
+        public people;
         constructor(private UserService: ngpoli.dbServices.UserService,
           private govTrackService: ngpoli.Services.govTrackService,
           private $mdDialog: ng.material.IDialogService,
           private $state: ng.ui.IStateService,
           private localStore: ngpoli.Services.localStore,
           private $scope: ng.IScope) {
+            this.search.type = 'bill';
             let loggedIn = this.localStore.isLoggedIn();
             console.log('checking for login:', loggedIn);
             if(loggedIn){
               this.$state.get('account').data = this.localStore.bootstrap();
-              this.getBills();
+              this.list();
             } else {
               this.openDialog();
             }
@@ -58,6 +48,13 @@ namespace ngpoli.Controllers {
             }
           });
         }
+        public list(){
+          this.govTrackService.get(this.search.query, this.search.type).then((results)=>{
+            this.feedItems = results.objects;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }
         public openDialog(){
           let vm = this.$scope;
             this.$mdDialog.show({
@@ -66,15 +63,7 @@ namespace ngpoli.Controllers {
               controller: HomeDialog,
               templateUrl: 'dialog2.tmpl.html',
               clickOutsideToClose:false
-          }).then(()=> {
-            this.getBills();
-          }, ()=> {
-          });
-        }
-        public getBills(){
-          this.govTrackService.get(this.search).then((results)=>{
-            this.bills = results.objects;
-          });
+          }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
         }
     }
 
@@ -93,8 +82,12 @@ namespace ngpoli.Controllers {
       public editLabel = {};
       public labelToDelete = {};
       public labels;
+      constructor(private appApiService: ngpoli.Services.appApiService,
+        private $mdDialog: ng.material.IDialogService,
+        private $scope: ng.IScope){
+        this.getLabels();
+      }
       public postLabel(label){
-
         this.appApiService.postLabel(label).then((results)=>{
           this.labels = results.data;
           this.newLabel = {};
@@ -132,10 +125,16 @@ namespace ngpoli.Controllers {
       public submitEdit(){
         this.$mdDialog.hide();
       }
-      constructor(private appApiService: ngpoli.Services.appApiService,
-        private $mdDialog: ng.material.IDialogService,
-        private $scope: ng.IScope){
-        this.getLabels();
+    }
+    export class AccountController {
+      public currentUser = 'default';
+      public logOut(){
+          localStorage.setItem('bs_user', JSON.stringify({}));
+          this.$state.get('account').data = {};
+          this.$state.go('home');
+      }
+      constructor(private $state: ng.ui.IStateService){
+        this.currentUser = 'default';
       }
     }
 }
