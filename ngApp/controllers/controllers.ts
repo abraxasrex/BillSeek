@@ -2,7 +2,9 @@ namespace ngpoli.Controllers {
     // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
     export class HomeController {
         public isNewUser = false;
-        public search = {type:'', query: ''};
+        public search = {type:'', query: '', options: '', filter: ''};
+        public billOptions;
+        public personOptions;
         public feedItems;
         public people;
         constructor(private UserService: ngpoli.dbServices.UserService,
@@ -49,7 +51,14 @@ namespace ngpoli.Controllers {
           });
         }
         public list(){
-          this.govTrackService.get(this.search.query, this.search.type).then((results)=>{
+          let _search = this.search;
+          console.log('form values: ', this.search);
+          if(_search.type == 'person'){
+            _search.options = this.personOptions;
+          } else {
+            _search.options = this.billOptions;
+          }
+          this.govTrackService.get(_search).then((results)=>{
             this.feedItems = results.objects;
           }).catch((err)=>{
             console.log(err);

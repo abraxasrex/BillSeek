@@ -1,22 +1,46 @@
 namespace ngpoli.Services {
-    const govTrackApi = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&q=:q';
+    const govTrackApi = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&:q&:options';
     const labelApi = '/api/labels';
     const billFilter = '-current_status_date';
     const peopleFilter = 'sortname';
-
+    const roleFilter = 'senator_class';
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){
-        this.govTrackResource = $resource(govTrackApi, {q: '@q', type:'@type', filter: '@filter'});
+        this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
       }
-      public get(q, type){
-        let _q = q;
-        let filter;
-        if(!q || (q.length && q.length < 1)){
-          _q = 'all';
+      public get(search){
+        console.log('received request is: ', search);
+        let _search = {};
+        _search['type'] = search.type;
+        _search['options'] = null;
+        _search['q'] = null;
+        if(search.query && (search.query.length && search.query.length < 1)){
+          _search['q'] = 'q=' + search.query;
         }
-        type == 'bill' ? filter = billFilter : filter = peopleFilter;
-        return this.govTrackResource.get({q: _q, type:type, filter: filter}).$promise;
+        if(search.options && search.options.length){
+          _search['options'] = search.options;
+        }
+        if(search.options == 'role_type=representative' || search.options == 'role_type=senator'){
+          _search['type']='role';
+          console.log('set role');
+        }
+        if(search.filter && search.filter.length && search.type !== 'role'){
+          _search['filter'] = search.filter;
+        }
+        if(search.type == 'bill'){
+          _search['filter'] = billFilter;
+                  _search['q'] = 'q=all';
+        }
+        if(_search['type'] == 'person'){
+          _search['filter'] = peopleFilter;
+        }
+        if(_search['type'] == 'role'){
+          _search['filter'] = roleFilter;
+        }
+
+          console.log('query is: ', _search)
+        return this.govTrackResource.get(_search).$promise;
       }
     }
 

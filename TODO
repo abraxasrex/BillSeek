@@ -1,4 +1,4 @@
-# MVP:
+tom# MVP:
 1. Views:
  a. Home
   - auth popup asks if user wants to register or stay on as guest
@@ -63,23 +63,7 @@
 
 
 
-11/27:
-1. Feed UI
-   - queries:
-     2. by year (another dropdown, default is 2016, only for bills)
-     3. is alive / is current (bill only)
-     4. party / (person only)
-     5. state (person only)
-     6. senators or representatives  (person only)
-    - UI filter:
-     1. most recent
-     2. (?)
-   - stars on template: crud-save stars to user profile
-   - full person and bill template
-   1. people: phone, role, state, party, website
-    image: https://github.com/unitedstates/images#using-the-photos
-   2. bills: senate/house, current status/currentstatusdate, introduced date
-   is current/ is alive, sponsors/voters, billID/number
+
 
 11/28:
 
@@ -91,25 +75,34 @@
  1. Passport login third party
 
  11/30:
+  - date dropdown for filter  
+ - stars on template: crud-save stars to user profile
+ - full person and bill template
+ 1. people: phone, role, state, party, website
+  image: https://github.com/unitedstates/images#using-the-photos
+ 2. bills: senate/house, current status/currentstatusdate, introduced date
+ is current/ is alive, sponsors/voters, billID/number
+
+ 12/1
   1. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
- 12/1:
+ 12/2:
  1. Accounts UI
   - advanced options: delete account / email password(?)
   - edit info
 
-12/2:
+12/3:
  Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
  and see if a field has changed.
 
-12/3:
+12/4:
 0. design
 1. errors UI: html5 form validation and mongoose errors
 
-12/4:
+12/5:
  deploy
 
 

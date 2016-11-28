@@ -1,6 +1,6 @@
 <div class="custom-container" ng-cloak>
   <md-card class="custom-container">
-    <md-card-header>
+    <md-card-header  layout="row" layout-align="space-around center">
       <md-card-title-text  class="md-headline" layout="row" layout-align="start center">
           <span class=" bs-search"> Search </span>
           <md-select aria-label = "type" name="type" ng-model="controller.search.type" ng-model-options="{debounce:1000}"
@@ -10,19 +10,23 @@
           </md-select>
       </md-card-title-text>
       <!-- bill filters  -->
-      <md-card-title-text  class="md-headline" layout="row" layout-align="start center" ng-show="controller.search.type == 'bill'">
+      <md-card-title-text  class="md-headline" layout="row" layout-align="start center"
+      ng-show="controller.search.type == 'bill'" >
           <span class=" bs-search"> Filter by </span>
-          <md-select aria-label = "type" name="type" ng-model="controller.search.addFilter">
-            <md-option value="bill">Alive</md-option>
-            <md-option value="person">Current</md-option>
+          <md-select aria-label = "filter by" name="type" ng-model="controller.billOptions"
+           ng-change="controller.list()" ng-model-options="{debounce:1000}">
+            <md-option value="current_status=prov_kill_veto">Vetoed</md-option>
+            <md-option value="current_status=passed_bill">Passed</md-option>
           </md-select>
       </md-card-title-text>
       <!-- people filters  -->
-      <md-card-title-text  class="md-headline" layout="row" layout-align="start center" ng-show="controller.search.type == 'person'">
+      <md-card-title-text  class="md-headline" layout="row" layout-align="start center"
+      ng-show="controller.search.type == 'person'">
           <span class=" bs-search"> Filter by </span>
-          <md-select aria-label = "type" name="type" ng-model="controller.search.addFilter">
-            <md-option value="bill">House</md-option>
-            <md-option value="person">Senate</md-option>
+          <md-select aria-label = "filter by" name="type" ng-model="controller.personOptions"
+           ng-change="controller.list()" ng-model-options="{debounce:1000}">
+            <md-option value="role_type=representative">House</md-option>
+            <md-option value="role_type=senator">Senate</md-option>
           </md-select>
       </md-card-title-text>
 
@@ -43,9 +47,13 @@
       <strong> {{ item.display_number }} </strong>
        <p> {{ item.title_without_number}} </p>
     </div>
-    <div class="md-media-md card-media" ng-show="controller.search.type == 'person'">
+    <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
       <strong> {{ item.firstname }} </strong>
        <p> {{ item.lastname}} </p>
+    </div>
+    <div class="md-media-md card-media" ng-show="!!item.person">
+      <strong> {{ item.person.name }} </strong>
+       <p> {{ item.person.party }} </p>
     </div>
    </md-card>
  </div>
