@@ -10,7 +10,6 @@ namespace ngpoli.Services {
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
       }
       public get(search){
-        console.log('received request is: ', search);
         let _search = {};
         _search['type'] = search.type;
         _search['options'] = null;
@@ -38,7 +37,6 @@ namespace ngpoli.Services {
         if(_search['type'] == 'role'){
           _search['filter'] = roleFilter;
         }
-
           console.log('query is: ', _search)
         return this.govTrackResource.get(_search).$promise;
       }

@@ -54,14 +54,14 @@ router.post('/login', (req, res) => {
    });
 });
 
-router.post('/editAccount', (req, res) => {
-   User.findOne({username:req.body.username}).then((user) => {
+router.post('/update/:id', (req, res) => {
+   User.findOne({_id:req.body._id}).then((user) => {
      user.username = req.body.username;
      user.password = req.body.password;
      user.starredItems = req.body.starredItems;
      User.update({_id:user._id}, user).then((updatedUser) => {
-       console.log('new user');
-       res.json(updatedUser);
+       console.log('my stars: ', user.starredItems);
+       res.json(user);
      }).catch((err) => {
        res.status(400).json(err);
      });

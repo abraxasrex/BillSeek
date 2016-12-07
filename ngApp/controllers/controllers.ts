@@ -1,21 +1,27 @@
 namespace ngpoli.Controllers {
-    // let targetUrl = 'https://www.govtrack.us/api/v2/role?current=true';
     export class HomeController {
-        public isNewUser = false;
-        public search = {type:'', query: '', options: '', filter: ''};
+        public isNewUser;
+        public search;
         public billOptions;
         public personOptions;
         public feedItems;
         public people;
+        public billDate;
         constructor(private UserService: ngpoli.dbServices.UserService,
           private govTrackService: ngpoli.Services.govTrackService,
           private $mdDialog: ng.material.IDialogService,
           private $state: ng.ui.IStateService,
           private localStore: ngpoli.Services.localStore,
           private $scope: ng.IScope) {
-            this.search.type = 'bill';
+            //init
+            this.isNewUser = false;
+            this.search = {type:'bill', query: '', options: '', filter: ''};
+            this.billOptions = 'current_status=prov_kill_veto';
+            this.personOptions = 'role_type=representative';
+            let today = new Date();
+            this.billDate = new Date(today - 150);
+            //
             let loggedIn = this.localStore.isLoggedIn();
-            console.log('checking for login:', loggedIn);
             if(loggedIn){
               this.$state.get('account').data = this.localStore.bootstrap();
               this.list();
@@ -24,7 +30,6 @@ namespace ngpoli.Controllers {
             }
         }
         public trySubmit(isNew, user){
-          console.log('trying to submit newuser: ', isNew, ' user: ', user);
           isNew ? this.tryRegister(user) : this.tryLogin(user);
         }
         public setUser(user){
@@ -33,16 +38,15 @@ namespace ngpoli.Controllers {
           this.$mdDialog.hide();
         }
         public tryRegister(user){
-          console.log('registering');
           this.UserService.register(user).then((result)=>{
             this.setUser(result);
           }).catch((err)=>{
             if(err.data == 'dupe'){
+              alert('duplicate user!');
             }
           });
         }
         public tryLogin(user){
-          console.log('logggggin');
           this.UserService.login(user).then((result)=>{
             this.setUser(result);
           }).catch((err)=>{
@@ -52,14 +56,19 @@ namespace ngpoli.Controllers {
         }
         public list(){
           let _search = this.search;
-          console.log('form values: ', this.search);
           if(_search.type == 'person'){
             _search.options = this.personOptions;
           } else {
             _search.options = this.billOptions;
           }
           this.govTrackService.get(_search).then((results)=>{
-            this.feedItems = results.objects;
+            if(_search.type !== 'bill'){
+              this.feedItems = results.objects.filter(this.uniquePeople);
+              this.setStars();
+            } else {
+              this.feedItems = results.objects;
+              this.setStars();
+            }
           }).catch((err)=>{
             console.log(err);
           });
@@ -74,6 +83,55 @@ namespace ngpoli.Controllers {
               clickOutsideToClose:false
           }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
         }
+        public uniquePeople(arr){
+            var o = {}, i, l = arr.length, r = [];
+            for( i=0; i < l; i+=1 ) {
+              o[arr[i].person.name] = arr[i];
+            }
+            for(i in o) {
+              r.push(o[i]);
+            }
+            return r;
+         }
+         public setStars(){
+         let vm = this;
+          let stars = this.$state.get('account').data.starredItems;
+           if(stars && stars.length){
+               this.feedItems.forEach((item)=>{
+                 let match = stars.indexOf(item.id);
+                 if(match > -1){
+                   item.checked = true;
+                 } else {
+                   item.checked = false;
+                 }
+             });
+           } else {
+             this.$state.get('account').data.starredItems = [];
+           }
+         }
+         public rateItem(item){
+          item.checked = !item.checked;
+           let user = this.$state.get('account').data;
+           let stars = [];
+           if(user.starredItems && user.starredItems.length){
+             stars = user.starredItems;
+             let _match = stars.indexOf(item.id);
+             if(_match > -1){
+               stars.splice(_match, 1);
+             } else {
+               stars.push(item.id);
+             }
+           }
+           user.starredItems = stars;
+           this.$state.get('account').data = user;
+           this.localStore.cache(user);
+           this.UserService.update(user).then((_user)=>{
+             this.$state.get('account').data = _user;
+             this.setStars();
+           }).catch((err)=>{
+              console.log(err);
+           });
+         }
     }
 
     export class HomeDialog {

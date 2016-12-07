@@ -10,14 +10,24 @@
           </md-select>
       </md-card-title-text>
       <!-- bill filters  -->
+
       <md-card-title-text  class="md-headline" layout="row" layout-align="start center"
       ng-show="controller.search.type == 'bill'" >
+
           <span class=" bs-search"> Filter by </span>
           <md-select aria-label = "filter by" name="type" ng-model="controller.billOptions"
            ng-change="controller.list()" ng-model-options="{debounce:1000}">
             <md-option value="current_status=prov_kill_veto">Vetoed</md-option>
             <md-option value="current_status=passed_bill">Passed</md-option>
           </md-select>
+          <!-- date view -->
+            <md-input-container  class="no-pad" >
+              <label for="date" >after</label>
+            <!-- <input aria-label = "date" name="date" type="date" ng-model="controller.billDate" /> -->
+          <md-datepicker ng-model="controller.billDate">
+          </md-datepicker>
+         </md-input-container>
+          <!-- -->
       </md-card-title-text>
       <!-- people filters  -->
       <md-card-title-text  class="md-headline" layout="row" layout-align="start center"
@@ -32,9 +42,12 @@
 
     </md-card-header>
     <md-card-content>
-      <form>
-        <input type="text" ng-model="controller.search.query" ng-model-options="{debounce:1000}"
-        ng-change="controller.list()" />
+      <form  layout="row" layout-align="center center">
+        <md-input-container flex="50">
+          <label>search</label>
+          <input type="text" ng-model="controller.search.query" ng-model-options="{debounce:1000}"
+          ng-change="controller.list()" />
+        </md-input-container>
       </form>
     </md-card-content>
   </md-card>
@@ -43,18 +56,26 @@
     <!-- <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }"> -->
     <md-card ng-repeat="item in controller.feedItems">
-    <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
-      <strong> {{ item.display_number }} </strong>
-       <p> {{ item.title_without_number}} </p>
-    </div>
-    <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
-      <strong> {{ item.firstname }} </strong>
-       <p> {{ item.lastname}} </p>
-    </div>
-    <div class="md-media-md card-media" ng-show="!!item.person">
-      <strong> {{ item.person.name }} </strong>
-       <p> {{ item.person.party }} </p>
-    </div>
+      <md-card-content>
+        <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
+          <strong> {{ item.display_number }} </strong>
+           <p> {{ item.title_without_number}} </p>
+           <p> <strong>current status</strong>: {{ item.current_status_date }} </p>
+           <p> {{item.current_status_description}} </p>
+        </div>
+        <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
+          <strong> {{ item.firstname }} </strong>
+           <p> {{ item.lastname}} </p>
+        </div>
+        <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
+          <strong> {{ item.person.name }} </strong>
+           <p> {{ item.person.party }} </p>
+        </div>
+        <div class="star-holder" ng-click="controller.rateItem(item)" >
+          i am checked: {{item.checked}}
+            <md-icon ng-class="{'gold-star': item.checked}" class="bs-icon" >star_rate</md-icon>
+        </div >
+     </md-card-content>
    </md-card>
  </div>
 
