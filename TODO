@@ -58,26 +58,15 @@ tom# MVP:
 
 
 
-
-
-
-12/5:
+12/7:
 
 0. Dates
-0.5. send stars to backend
 1. is_alive, is_current filter
 
-12/6:
   1. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
-
-
-
-12/7:
- Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
- and see if a field has changed.
 
 12/8:
 0. design
@@ -95,6 +84,8 @@ non auth portal entry
 
 
 Stretch:
+0.  Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
+ and see if a field has changed.
 1. GovItem Connection field:
   any GovItem which has a field match elsewhere in the API to another bill or person creates a
   relationship information.

@@ -4,6 +4,8 @@ namespace ngpoli.Services {
     const billFilter = '-current_status_date';
     const peopleFilter = 'sortname';
     const roleFilter = 'senator_class';
+    //var _now = new Date().toISOString()
+    const exampleDateFilter = '&current_status_date__gt=' + '2016-04-01T00:00:00';
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){
@@ -29,15 +31,18 @@ namespace ngpoli.Services {
         }
         if(search.type == 'bill'){
           _search['filter'] = billFilter;
-                  _search['q'] = 'q=all';
+          _search['q'] = 'q=all';
+        //  _search['options'] = _search['options'] + '&current_status_date__gt=' + search["date"].toISOString();
+          _search['options'] = '&current_status_date__gt=' + search["date"].toISOString();
         }
         if(_search['type'] == 'person'){
           _search['filter'] = peopleFilter;
         }
         if(_search['type'] == 'role'){
           _search['filter'] = roleFilter;
+          _search['options'] = _search['options'] + '&current=true';
         }
-          console.log('query is: ', _search)
+          console.log('query is: ', _search);
         return this.govTrackResource.get(_search).$promise;
       }
     }

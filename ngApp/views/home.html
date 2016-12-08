@@ -15,16 +15,17 @@
       ng-show="controller.search.type == 'bill'" >
 
           <span class=" bs-search"> Filter by </span>
-          <md-select aria-label = "filter by" name="type" ng-model="controller.billOptions"
+          <!-- <md-select aria-label = "filter by" name="type" ng-model="controller.billOptions"
            ng-change="controller.list()" ng-model-options="{debounce:1000}">
             <md-option value="current_status=prov_kill_veto">Vetoed</md-option>
             <md-option value="current_status=passed_bill">Passed</md-option>
-          </md-select>
+          </md-select> -->
           <!-- date view -->
             <md-input-container  class="no-pad" >
-              <label for="date" >after</label>
+              <!-- <label for="date" >last active</label> -->
             <!-- <input aria-label = "date" name="date" type="date" ng-model="controller.billDate" /> -->
-          <md-datepicker ng-model="controller.billDate">
+          <md-datepicker ng-model="controller.search.date" md-placeholder="Active after..."
+             ng-change="controller.list()" ng-model-options="{debounce:1000}">
           </md-datepicker>
          </md-input-container>
           <!-- -->
@@ -58,10 +59,12 @@
     <md-card ng-repeat="item in controller.feedItems">
       <md-card-content>
         <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
-          <strong> {{ item.display_number }} </strong>
-           <p> {{ item.title_without_number}} </p>
-           <p> <strong>current status</strong>: {{ item.current_status_date }} </p>
+          <p> {{ item.display_number }} </p>
+          <hr />
+           <strong> {{ item.title_without_number}} </strong>
+           <hr />
            <p> {{item.current_status_description}} </p>
+              <p> last activity: {{ item.current_status_date }} </p>
         </div>
         <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
           <strong> {{ item.firstname }} </strong>
@@ -72,7 +75,6 @@
            <p> {{ item.person.party }} </p>
         </div>
         <div class="star-holder" ng-click="controller.rateItem(item)" >
-          i am checked: {{item.checked}}
             <md-icon ng-class="{'gold-star': item.checked}" class="bs-icon" >star_rate</md-icon>
         </div >
      </md-card-content>

@@ -1,12 +1,23 @@
 namespace ngpoli.Controllers {
     export class HomeController {
         public isNewUser;
-        public search;
+        public search = {};
         public billOptions;
         public personOptions;
         public feedItems;
         public people;
         public billDate;
+        public billTypes = [
+          'all',
+          'house_resolution',
+          'senate_bill',
+          'senate_joint_resolution',
+          'house_bill',
+          'house_concurrent_resolution',
+          'senate_concurrent_resolution',
+          'house_joint_resolution',
+          'senate_resolution'
+        ];
         constructor(private UserService: ngpoli.dbServices.UserService,
           private govTrackService: ngpoli.Services.govTrackService,
           private $mdDialog: ng.material.IDialogService,
@@ -15,11 +26,13 @@ namespace ngpoli.Controllers {
           private $scope: ng.IScope) {
             //init
             this.isNewUser = false;
-            this.search = {type:'bill', query: '', options: '', filter: ''};
+            let billDate = new Date();
+            this.search['date'] = billDate.toISOString();
+            billDate.setMonth(billDate.getMonth() - 6);
+            this.search = {type: 'bill', query: '', options: '', filter: '', date: billDate};
+            console.log('this search: ', this.search);
             this.billOptions = 'current_status=prov_kill_veto';
             this.personOptions = 'role_type=representative';
-            let today = new Date();
-            this.billDate = new Date(today - 150);
             //
             let loggedIn = this.localStore.isLoggedIn();
             if(loggedIn){
@@ -56,19 +69,19 @@ namespace ngpoli.Controllers {
         }
         public list(){
           let _search = this.search;
-          if(_search.type == 'person'){
-            _search.options = this.personOptions;
+          if(_search["type"] == 'person'){
+            _search["options"] = this.personOptions;
           } else {
-            _search.options = this.billOptions;
+            _search["options"] = this.billOptions;
+          //  _search["date"] = _search["date"].toISOString();
           }
           this.govTrackService.get(_search).then((results)=>{
-            if(_search.type !== 'bill'){
+            if(_search["type"] !== 'bill'){
               this.feedItems = results.objects.filter(this.uniquePeople);
-              this.setStars();
             } else {
               this.feedItems = results.objects;
-              this.setStars();
             }
+              this.setStars();
           }).catch((err)=>{
             console.log(err);
           });
