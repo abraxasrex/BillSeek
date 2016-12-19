@@ -30,9 +30,8 @@ namespace ngpoli.Controllers {
             this.search['date'] = billDate.toISOString();
             billDate.setMonth(billDate.getMonth() - 6);
             this.search = {type: 'bill', query: '', options: '', filter: '', date: billDate};
-            console.log('this search: ', this.search);
             this.billOptions = 'current_status=prov_kill_veto';
-            this.personOptions = 'role_type=representative';
+            this.personOptions = 'all_people';
             //
             let loggedIn = this.localStore.isLoggedIn();
             if(loggedIn){
@@ -77,13 +76,24 @@ namespace ngpoli.Controllers {
           }
           this.govTrackService.get(_search).then((results)=>{
             if(_search["type"] !== 'bill'){
-              this.feedItems = results.objects.filter(this.uniquePeople);
+              //TODO filter
+              this.feedItems = results.objects;
+              this.cleanPeopleFilter(results.objects);
             } else {
               this.feedItems = results.objects;
             }
               this.setStars();
           }).catch((err)=>{
             console.log(err);
+          });
+        }
+        public cleanPeopleFilter(objects){
+          let names = [];
+          let items = this.feedItems;
+          objects.forEach((obj)=>{
+            if(names.indexOf(obj.person.name)){
+              items.splice(items.indexOf(obj), 1);
+            }
           });
         }
         public openDialog(){
@@ -96,15 +106,19 @@ namespace ngpoli.Controllers {
               clickOutsideToClose:false
           }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
         }
-        public uniquePeople(arr){
-            var o = {}, i, l = arr.length, r = [];
-            for( i=0; i < l; i+=1 ) {
-              o[arr[i].person.name] = arr[i];
-            }
-            for(i in o) {
-              r.push(o[i]);
-            }
-            return r;
+        // public uniquePeople(arr){
+        //     var o = {}, i, l = arr.length, r = [];
+        //     for( i=0; i < l; i+=1 ) {
+        //       o[arr[i].person.name] = arr[i];
+        //     }
+        //     for(i in o) {
+        //       r.push(o[i]);
+        //     }
+        //     return r;
+        //  }
+        public onlyUnique(value, index, self) {
+           console.log('value: ', value);
+           return self.indexOf(value) === index;
          }
          public setStars(){
          let vm = this;

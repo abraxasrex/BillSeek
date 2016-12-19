@@ -1,4 +1,4 @@
-tom# MVP:
+retom# MVP:
 1. Views:
  a. Home
   - auth popup asks if user wants to register or stay on as guest
@@ -58,29 +58,24 @@ tom# MVP:
 
 
 
-12/7:
 
-0. Dates
-1. is_alive, is_current filter
-
-  1. My interests view: sharable UI
+  0. fix role types for senator, rep, and 'all'
+  1. duplicate removal arr filter
+  2. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
-12/8:
-0. design
-1. errors UI: html5 form validation and mongoose errors
 
-12/9:
-non auth portal entry
+3. design
+4. errors UI: html5 form validation and mongoose errors
 
-12/10+:
-1. Accounts UI
- - advanced options: delete account / email password(?)
- - edit info
- - 3rd party auth
- - passport integration
+5. non auth portal entry
+
+6. Accounts UI
+ - advanced options: delete + edit account / email password(?)
+7. passport integration
+8. 3rd party auth
 
 
 Stretch:

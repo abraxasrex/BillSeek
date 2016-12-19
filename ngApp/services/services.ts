@@ -4,14 +4,14 @@ namespace ngpoli.Services {
     const billFilter = '-current_status_date';
     const peopleFilter = 'sortname';
     const roleFilter = 'senator_class';
-    //var _now = new Date().toISOString()
-    const exampleDateFilter = '&current_status_date__gt=' + '2016-04-01T00:00:00';
+    const dateQ = '&current_status_date__gt=';
     export class govTrackService {
       public govTrackResource;
       constructor($resource: ng.resource.IResourceService){
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
       }
       public get(search){
+        console.log('received search for: ', search);
         let _search = {};
         _search['type'] = search.type;
         _search['options'] = null;
@@ -22,7 +22,7 @@ namespace ngpoli.Services {
         if(search.options && search.options.length){
           _search['options'] = search.options;
         }
-        if(search.options == 'role_type=representative' || search.options == 'role_type=senator'){
+        if(search.options == 'role_type=representative' || search.options == 'role_type=senator' || search.options == 'all_people'){
           _search['type']='role';
           console.log('set role');
         }
@@ -33,7 +33,7 @@ namespace ngpoli.Services {
           _search['filter'] = billFilter;
           _search['q'] = 'q=all';
         //  _search['options'] = _search['options'] + '&current_status_date__gt=' + search["date"].toISOString();
-          _search['options'] = '&current_status_date__gt=' + search["date"].toISOString();
+          _search['options'] = dateQ + search["date"].toISOString();
         }
         if(_search['type'] == 'person'){
           _search['filter'] = peopleFilter;
@@ -41,6 +41,9 @@ namespace ngpoli.Services {
         if(_search['type'] == 'role'){
           _search['filter'] = roleFilter;
           _search['options'] = _search['options'] + '&current=true';
+        }
+        if(search['options'] = 'all_people'){
+          _search["options"] = null;
         }
           console.log('query is: ', _search);
         return this.govTrackResource.get(_search).$promise;
