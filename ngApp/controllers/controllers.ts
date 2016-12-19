@@ -77,7 +77,8 @@ namespace ngpoli.Controllers {
           this.govTrackService.get(_search).then((results)=>{
             if(_search["type"] !== 'bill'){
               //TODO filter
-              this.feedItems = results.objects;
+              console.log('length before: ', this.feedItems.length)
+            //  this.feedItems = results.objects;
               this.cleanPeopleFilter(results.objects);
             } else {
               this.feedItems = results.objects;
@@ -89,12 +90,22 @@ namespace ngpoli.Controllers {
         }
         public cleanPeopleFilter(objects){
           let names = [];
-          let items = this.feedItems;
+          let copy = objects;
           objects.forEach((obj)=>{
-            if(names.indexOf(obj.person.name)){
-              items.splice(items.indexOf(obj), 1);
+            names.push(obj.person.name);
+            if(names.indexOf(obj.person.name) || names.indexOf(obj.person.sortname)){
+              copy.splice(copy.indexOf(obj), 1);
             }
           });
+          setTimeout(()=>{
+            console.log('copy length: ', copy.length);
+            this.feedItems = copy;
+              this.$scope.$apply();
+            }, 1200
+          )
+
+          console.log('length after: ', this.feedItems.length, 'items: ', this.feedItems);
+          //console.log('is this fucked: ', this.feedItems[0].person.name === this.feedItems[1].person.name);
         }
         public openDialog(){
           let vm = this.$scope;
@@ -116,10 +127,10 @@ namespace ngpoli.Controllers {
         //     }
         //     return r;
         //  }
-        public onlyUnique(value, index, self) {
-           console.log('value: ', value);
-           return self.indexOf(value) === index;
-         }
+        // public onlyUnique(value, index, self) {
+        //    console.log('value: ', value);
+        //    return self.indexOf(value) === index;
+        //  }
          public setStars(){
          let vm = this;
           let stars = this.$state.get('account').data.starredItems;
