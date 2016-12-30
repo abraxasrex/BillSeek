@@ -59,23 +59,22 @@ retom# MVP:
 
 
 
-  0. fix role types for senator, rep, and 'all'
-  1. duplicate removal arr filter
-  2. My interests view: sharable UI
+
+1. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
 
-3. design
-4. errors UI: html5 form validation and mongoose errors
+2. design
+3. errors UI: html5 form validation and mongoose errors
 
-5. non auth portal entry
+4. non auth portal entry
 
-6. Accounts UI
+5. Accounts UI
  - advanced options: delete + edit account / email password(?)
-7. passport integration
-8. 3rd party auth
+6. passport integration
+7. 3rd party auth
 
 
 Stretch:

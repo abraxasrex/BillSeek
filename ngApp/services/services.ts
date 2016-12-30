@@ -40,9 +40,11 @@ namespace ngpoli.Services {
         }
         if(_search['type'] == 'role'){
           _search['filter'] = roleFilter;
+            console.log("ingoing search options: " + search["options"]);
+          console.log("outgoing search options: " + _search["options"]);
           _search['options'] = _search['options'] + '&current=true';
         }
-        if(search['options'] = 'all_people'){
+        if(_search['options'] == 'all_people'){
           _search["options"] = null;
         }
           console.log('query is: ', _search);
