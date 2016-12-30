@@ -59,7 +59,7 @@ retom# MVP:
 
 
 
-
+0. fix 'all' congress search option
 1. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
