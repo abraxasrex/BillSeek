@@ -24,7 +24,6 @@ namespace ngpoli.Services {
         }
         if(search.options == 'role_type=representative' || search.options == 'role_type=senator' || search.options == 'all_people'){
           _search['type']='role';
-          console.log('set role');
         }
         if(search.filter && search.filter.length && search.type !== 'role'){
           _search['filter'] = search.filter;
@@ -32,20 +31,17 @@ namespace ngpoli.Services {
         if(search.type == 'bill'){
           _search['filter'] = billFilter;
           _search['q'] = 'q=all';
-        //  _search['options'] = _search['options'] + '&current_status_date__gt=' + search["date"].toISOString();
           _search['options'] = dateQ + search["date"].toISOString();
         }
         if(_search['type'] == 'person'){
           _search['filter'] = peopleFilter;
         }
+        if(_search['options'] == 'all_people'){
+          _search["options"] = '';
+        }
         if(_search['type'] == 'role'){
           _search['filter'] = roleFilter;
-            console.log("ingoing search options: " + search["options"]);
-          console.log("outgoing search options: " + _search["options"]);
           _search['options'] = _search['options'] + '&current=true';
-        }
-        if(_search['options'] == 'all_people'){
-          _search["options"] = null;
         }
           console.log('query is: ', _search);
         return this.govTrackResource.get(_search).$promise;
