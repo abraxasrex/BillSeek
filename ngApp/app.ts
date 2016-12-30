@@ -3,7 +3,8 @@ namespace ngpoli {
     angular.module('ngpoli', ['ui.router', 'ngMaterial', 'ngMessages', 'ngResource']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider
+        $locationProvider: ng.ILocationProvider,
+        $mdThemingProvider: ng.material.IThemingProvider
     ) => {
         $stateProvider
             .state('home', {
@@ -34,5 +35,19 @@ namespace ngpoli {
 
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
+         //red, pink, purple, deep-purple, indigo, blue,
+         //light-blue, cyan, teal, green, light-green,
+         //lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey
+        $mdThemingProvider
+          .theme('default')
+          .primaryPalette('indigo')
+          //form focus
+          .accentPalette('indigo')
+                    // navbar highlighting (focus?)
+          .warnPalette('red')
+          //danger
+          .backgroundPalette('blue-grey');
+          //md content backgrounds
+
     });
 }
