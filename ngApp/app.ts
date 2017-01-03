@@ -15,6 +15,7 @@ namespace ngpoli {
             })
             .state('interests', {
               url: '/interests/:user',
+              templateUrl: '/ngApp/views/interests.html',
               controller: ngpoli.Controllers.InterestsController,
               controllerAs: 'vm'
             })

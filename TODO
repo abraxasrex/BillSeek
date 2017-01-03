@@ -57,6 +57,13 @@ retom# MVP:
  a. integrate Google auth
 
 
+interest components:
+
+1. Tags: interest tags (shared between components via service?) . you can remove or add tags.
+2. Starred Items: list of starredItems per user. you can remove starred items,
+or generate a graph from them (WIP)
+3. DB integration: GovItem object gets created using unique identifier once starred. if another user stars the item,
+it will reference the object already in the GovItem db so as to save storage
 
 
 1. My interests view: sharable UI
@@ -64,7 +71,7 @@ retom# MVP:
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
-1.5. init highlight tab and dropdown  
+1.5. init highlight tab and dropdown
 
 2. remove scrollbars from landing modal
 
@@ -74,6 +81,14 @@ retom# MVP:
 
 5. Accounts UI
  - advanced options: delete + edit account / email password(?)
+
+6. json web token auth
+
+7. email notification of change
+
+8. server side refactor  
+
+Stretch 1:
 
 6. passport integration
 

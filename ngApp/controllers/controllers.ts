@@ -227,6 +227,25 @@ namespace ngpoli.Controllers {
     }
 
     export class InterestsController {
-      
+      constructor() {
+        //load user information (1. tags, 2. starredItems) regardless of preliminary routing
+      }
+      postSearchTag() {
+        //add tag to user's search tags, thenn bind search tags to home view as well
+      }
+      deleteItem (){
+         //remove starreditem from user profile
+      }
+      newSearchTag = 'applesauce';
+      searchTags = [
+        'abc',
+        'def',
+        'ghi'
+      ]
+      feedItems = [
+       {firstname: 'jogngond'},
+       {firstname: 'bonanza'},
+       {firstname: 'gggssgsgg'}
+      ];
     }
 }
