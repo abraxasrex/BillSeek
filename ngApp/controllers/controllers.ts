@@ -103,9 +103,6 @@ namespace ngpoli.Controllers {
               this.$scope.$apply();
             }, 1200
           )
-
-          console.log('length after: ', this.feedItems.length, 'items: ', this.feedItems);
-          //console.log('is this fucked: ', this.feedItems[0].person.name === this.feedItems[1].person.name);
         }
         public openDialog(){
           let vm = this.$scope;
@@ -117,20 +114,6 @@ namespace ngpoli.Controllers {
               clickOutsideToClose:false
           }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
         }
-        // public uniquePeople(arr){
-        //     var o = {}, i, l = arr.length, r = [];
-        //     for( i=0; i < l; i+=1 ) {
-        //       o[arr[i].person.name] = arr[i];
-        //     }
-        //     for(i in o) {
-        //       r.push(o[i]);
-        //     }
-        //     return r;
-        //  }
-        // public onlyUnique(value, index, self) {
-        //    console.log('value: ', value);
-        //    return self.indexOf(value) === index;
-        //  }
          public setStars(){
          let vm = this;
           let stars = this.$state.get('account').data.starredItems;
@@ -241,5 +224,9 @@ namespace ngpoli.Controllers {
       constructor(private $state: ng.ui.IStateService){
         this.currentUser = 'default';
       }
+    }
+
+    export class InterestsController {
+      
     }
 }

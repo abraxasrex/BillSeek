@@ -13,6 +13,11 @@ namespace ngpoli {
                 controller: ngpoli.Controllers.HomeController,
                 controllerAs: 'controller'
             })
+            .state('interests', {
+              url: '/interests/:user',
+              controller: ngpoli.Controllers.InterestsController,
+              controllerAs: 'vm'
+            })
             .state('tags',{
               url:'/tags',
               templateUrl:'/ngApp/views/tags.html',

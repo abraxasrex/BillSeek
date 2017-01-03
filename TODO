@@ -59,25 +59,28 @@ retom# MVP:
 
 
 
-0. fix 'all' congress search option
 1. My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
+1.5. init highlight tab and dropdown  
 
-2. design
-3. errors UI: html5 form validation and mongoose errors
+2. remove scrollbars from landing modal
+
+3. html5 form validation and other error handling
 
 4. non auth portal entry
 
 5. Accounts UI
  - advanced options: delete + edit account / email password(?)
+
 6. passport integration
+
 7. 3rd party auth
 
 
-Stretch:
+Stretch 2:
 0.  Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
  and see if a field has changed.
 1. GovItem Connection field:

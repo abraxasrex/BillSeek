@@ -3,29 +3,9 @@ import User from '../models/Users';
 
 let router = express.Router();
 
-// username: string,
-// password: string,
-// starredItems: string []
-
-// router.get('/', (req, res) => {
-//   User.find().then((users)=> {
-//       res.json(users);
-//   }).catch((err) => {
-//       res.status(500);
-//       console.error(err);
-//   })
-// });
-//
-// router.get('/:id', (req, res) => {
-//   User.findById(req.params['id']).then((user) => {
-//     res.json(user);
-//   });
-// });
-
 router.post('/register', (req, res) => {
   User.findOne({username:req.body.username}).then((user)=>{
     if(!user){
-      console.log('new user because no result from ', req.body);
       let user = new User();
       user.username = req.body.username;
       user.password = req.body.password;
@@ -43,7 +23,6 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
    User.findOne({username:req.body.username}).then((user) => {
-     console.log('found user: ', user, ' matching : ', req.body);
      if(!user){
        res.status(404);
      } else {
