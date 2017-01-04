@@ -66,16 +66,39 @@ or generate a graph from them (WIP)
 it will reference the object already in the GovItem db so as to save storage
 
 
-1. My interests view: sharable UI
+My interests view: sharable UI
      - display starred items by fetching their type and unique number from
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
+
+1/4/16:
+
+1. make request for each starred item on user's interests page.
+
+2. make method for destarring them and removing from user
+
+3. get tags crud working for interests tab
+
+1/5/16:
+
+1. make interest tag UI for home/search feed, and remove form interests tab
+
+
+1/6/16 weekend: email notification with nodemailer:
+
+1/9/16:
 
 1.5. init highlight tab and dropdown
 
 2. remove scrollbars from landing modal
 
+
+1/10/16 stretch:
+
 3. html5 form validation and other error handling
+
+
+1/11/16 - infinity stretch :
 
 4. non auth portal entry
 
@@ -86,7 +109,7 @@ it will reference the object already in the GovItem db so as to save storage
 
 7. email notification of change
 
-8. server side refactor  
+8. server side refactor
 
 Stretch 1:
 

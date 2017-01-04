@@ -142,6 +142,8 @@ namespace ngpoli.Controllers {
              } else {
                stars.push(item.id);
              }
+           } else {
+             stars.push(item.id);
            }
            user.starredItems = stars;
            this.$state.get('account').data = user;
