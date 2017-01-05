@@ -19,12 +19,12 @@ namespace ngpoli {
               controller: ngpoli.Controllers.InterestsController,
               controllerAs: 'vm'
             })
-            .state('tags',{
-              url:'/tags',
-              templateUrl:'/ngApp/views/tags.html',
-              controller: ngpoli.Controllers.TagsController,
-              controllerAs: 'controller'
-            })
+            // .state('tags',{
+            //   url:'/tags',
+            //   templateUrl:'/ngApp/views/tags.html',
+            //   controller: ngpoli.Controllers.TagsController,
+            //   controllerAs: 'controller'
+            // })
             .state('account',{
               url:'/account',
               templateUrl:'/ngApp/views/account.html',

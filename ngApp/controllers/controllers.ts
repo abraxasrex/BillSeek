@@ -72,13 +72,9 @@ namespace ngpoli.Controllers {
             _search["options"] = this.personOptions;
           } else {
             _search["options"] = this.billOptions;
-          //  _search["date"] = _search["date"].toISOString();
           }
           this.govTrackService.get(_search).then((results)=>{
             if(_search["type"] !== 'bill'){
-              //TODO filter
-              console.log('length before: ', this.feedItems.length)
-            //  this.feedItems = results.objects;
               this.cleanPeopleFilter(results.objects);
             } else {
               this.feedItems = results.objects;
@@ -98,7 +94,6 @@ namespace ngpoli.Controllers {
             }
           });
           setTimeout(()=>{
-            console.log('copy length: ', copy.length);
             this.feedItems = copy;
               this.$scope.$apply();
             }, 1200
@@ -174,60 +169,6 @@ namespace ngpoli.Controllers {
       private UserService: ngpoli.dbServices.UserService){}
     }
 
-    export class DialogController {
-      public postLabel = this.postLabel;
-      constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService){}
-    }
-
-    export class TagsController {
-      public newLabel = {};
-      public editLabel = {};
-      public labelToDelete = {};
-      public labels;
-      constructor(private appApiService: ngpoli.Services.appApiService,
-        private $mdDialog: ng.material.IDialogService,
-        private $scope: ng.IScope){
-        this.getLabels();
-      }
-      public postLabel(label){
-        this.appApiService.postLabel(label).then((results)=>{
-          this.labels = results.data;
-          this.newLabel = {};
-        });
-      }
-      public getLabels(){
-        this.appApiService.getLabels().then((results)=>{
-          this.labels = results;
-        });
-      }
-      public removeLabel(label){
-        this.appApiService.removeLabel(label).then((results) =>{
-          this.labels = results.data;
-        });
-      }
-      public openDialog(label){
-        let vm = this.$scope;
-        this.editLabel = label;
-          this.$mdDialog.show({
-            scope: vm,
-            preserveScope: true,
-          controller: DialogController,
-          templateUrl: 'dialog1.tmpl.html',
-          clickOutsideToClose:true
-        })
-        .then(()=> {
-          this.postLabel(this.editLabel);
-        }, ()=> {
-          this.editLabel = {};
-        });
-      }
-      public cancelEdit(){
-        this.$mdDialog.cancel();
-      }
-      public submitEdit(){
-        this.$mdDialog.hide();
-      }
-    }
     export class AccountController {
       public currentUser = 'default';
       public logOut(){
@@ -248,9 +189,6 @@ namespace ngpoli.Controllers {
         private $state: ng.ui.IStateService) {
         //load user information (1. tags, 2. starredItems) regardless of preliminary routing
           this.getStarredItems();
-      }
-      postSearchTag() {
-        //add tag to user's search tags, thenn bind search tags to home view as well
       }
       getStarredItems(){
         this.starredItems = [];
@@ -278,12 +216,6 @@ namespace ngpoli.Controllers {
            this.getStarredItems();
          });
       }
-      newSearchTag = 'applesauce';
-      searchTags = [
-        'abc',
-        'def',
-        'ghi'
-      ]
       starredItems = [ ];
     }
 }

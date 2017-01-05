@@ -74,13 +74,11 @@ My interests view: sharable UI
 
 1/5/16:
 
-0. search tags crud funcitonality
+1. make interest tag UI for home/search feed
 
-1. make interest tag UI for home/search feed, and remove form interests tab
+3. reinstate ng-change query
 
-00. reinstate ng-change query
-
-000. load account state on every controller (or on run?)
+4. load account state on every controller (or on run?)
 
 
 
