@@ -116,7 +116,9 @@ namespace ngpoli.Controllers {
         }
          public setStars(){
          let vm = this;
-          let stars = this.$state.get('account').data.starredItems;
+          let stars = this.$state.get('account').data.starredItems.map((star)=>{
+            return star.id;
+          });
            if(stars && stars.length){
                this.feedItems.forEach((item)=>{
                  let match = stars.indexOf(item.id);
@@ -134,16 +136,26 @@ namespace ngpoli.Controllers {
           item.checked = !item.checked;
            let user = this.$state.get('account').data;
            let stars = [];
+           let type;
+           if(item["person"]){
+             type = 'role';
+           }
+           if(item["current_status_description"]){
+             type = 'bill';
+           }
            if(user.starredItems && user.starredItems.length){
              stars = user.starredItems;
-             let _match = stars.indexOf(item.id);
+             let starIds = stars.map((star)=>{
+               return star.id;
+             });
+             let _match = starIds.indexOf(item.id);
              if(_match > -1){
                stars.splice(_match, 1);
              } else {
-               stars.push(item.id);
+               stars.push({id: item.id, type: type});
              }
            } else {
-             stars.push(item.id);
+             stars.push({id: item.id, type: type});
            }
            user.starredItems = stars;
            this.$state.get('account').data = user;
@@ -229,14 +241,42 @@ namespace ngpoli.Controllers {
     }
 
     export class InterestsController {
-      constructor() {
+      constructor(
+        private UserService: ngpoli.dbServices.UserService,
+          private govTrackService: ngpoli.Services.govTrackService,
+          private localStore: ngpoli.Services.localStore,
+        private $state: ng.ui.IStateService) {
         //load user information (1. tags, 2. starredItems) regardless of preliminary routing
+          this.getStarredItems();
       }
       postSearchTag() {
         //add tag to user's search tags, thenn bind search tags to home view as well
       }
-      deleteItem (){
+      getStarredItems(){
+        this.starredItems = [];
+        let stars = this.$state.get('account').data["starredItems"];
+        stars.forEach((star)=>{
+            ///// use a new service
+            this.govTrackService.getOne(star).then((result)=>{
+              console.log('getone result: ', result);
+               this.starredItems.push(result);
+            });
+        });
+      }
+      removeItem (item){
          //remove starreditem from user profile
+         let user = this.$state.get('account').data
+         let stars = user["starredItems"];
+         let starIds = stars.map((star) => star.id);
+         let idx = starIds.indexOf(item["id"]);
+
+         user["starredItems"].splice(idx, 1);
+
+         this.UserService.update(user).then((_user)=>{
+           this.localStore.cache(_user);
+           this.$state.get('account').data = _user;
+           this.getStarredItems();
+         });
       }
       newSearchTag = 'applesauce';
       searchTags = [
@@ -244,10 +284,6 @@ namespace ngpoli.Controllers {
         'def',
         'ghi'
       ]
-      feedItems = [
-       {firstname: 'jogngond'},
-       {firstname: 'bonanza'},
-       {firstname: 'gggssgsgg'}
-      ];
+      starredItems = [ ];
     }
 }

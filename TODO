@@ -71,26 +71,32 @@ My interests view: sharable UI
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
-1/4/16:
-
-1. make request for each starred item on user's interests page.
-
-2. make method for destarring them and removing from user
-
-3. get tags crud working for interests tab
 
 1/5/16:
 
+0. search tags crud funcitonality
+
 1. make interest tag UI for home/search feed, and remove form interests tab
+
+00. reinstate ng-change query
+
+000. load account state on every controller (or on run?)
+
 
 
 1/6/16 weekend: email notification with nodemailer:
+
+
+
+
 
 1/9/16:
 
 1.5. init highlight tab and dropdown
 
 2. remove scrollbars from landing modal
+
+3. window sizing on interests page: don't resize based on content
 
 
 1/10/16 stretch:

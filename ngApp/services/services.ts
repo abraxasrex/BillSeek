@@ -1,5 +1,6 @@
 namespace ngpoli.Services {
     const govTrackApi = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&:q&:options';
+    const findOneApi = 'https://www.govtrack.us/api/v2/:type/:id';
     const labelApi = '/api/labels';
     const billFilter = '-current_status_date';
     const peopleFilter = 'sortname';
@@ -7,8 +8,10 @@ namespace ngpoli.Services {
     const dateQ = '&current_status_date__gt=';
     export class govTrackService {
       public govTrackResource;
+      public findOneResource;
       constructor($resource: ng.resource.IResourceService){
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
+        this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
       }
       public get(search){
         console.log('received search for: ', search);
@@ -45,6 +48,9 @@ namespace ngpoli.Services {
         }
           console.log('query is: ', _search);
         return this.govTrackResource.get(_search).$promise;
+      }
+      public getOne(search){
+        return this.findOneResource.get(search).$promise;
       }
     }
 

@@ -35,7 +35,7 @@
                       {{ tag }}
                       <!-- <md-button ng-click="controller.openDialog(label)">
                           edit</md-button> -->
-                      <md-button ng-click="controller.removeTag(label)">delete</md-button>
+                      <md-button ng-click="vm.removeTag(label)">delete</md-button>
                     </div>
                   </li>
                 </ul>
@@ -52,9 +52,9 @@
               <md-card-title-media>
                 <div class="md-media-lg card-media">
 
-                  <md-card ng-repeat="item in vm.feedItems">
+                  <md-card ng-repeat="item in vm.starredItems">
                     <md-card-content>
-                      <div class="md-media-md card-media">
+                      <div class="md-media-md card-media" ng-show="!!item.current_status_date">
                         <p> {{ item.display_number }} </p>
                         <hr />
                          <strong> {{ item.title_without_number}} </strong>
@@ -62,15 +62,15 @@
                          <p> {{item.current_status_description}} </p>
                             <p> last activity: {{ item.current_status_date }} </p>
                       </div>
-                      <div class="md-media-md card-media" >
+                      <div class="md-media-md card-media" ng-show="!!item.firstname && !item.person">
                         <strong> {{ item.firstname }} </strong>
                          <p> {{ item.lastname}} </p>
                       </div>
-                      <div class="md-media-md card-media" >
+                      <div class="md-media-md card-media" ng-show="!!item.person && !!item.person['name']">
                         <strong> {{ item.person.name }} </strong>
                          <p> {{ item.person.party }} </p>
                       </div>
-                      <div class="star-holder" ng-click="vm.deleteItem(item)" >
+                      <div class="star-holder" ng-click="vm.removeItem(item)" >
                           <md-icon class="bs-icon gold-star" >star_rate</md-icon>
                       </div >
                    </md-card-content>
