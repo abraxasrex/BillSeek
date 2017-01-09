@@ -51,4 +51,18 @@ export class TagsController {
   public submitEdit(){
     this.$mdDialog.hide();
   }
+
+  // from homeController VVV (?)
+  
+  // public openDialog(){
+  //   let vm = this.$scope;
+  //     this.$mdDialog.show({
+  //       scope: vm,
+  //       preserveScope: true,
+  //       controller: HomeDialog,
+  //       templateUrl: 'dialog2.tmpl.html',
+  //       clickOutsideToClose:false
+  //   }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
+  // }
+
 }

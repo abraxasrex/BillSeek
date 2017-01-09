@@ -4,7 +4,7 @@ namespace ngpoli.dbServices{
     private LoginResource;
     private RegisterResource;
     private UpdateResource;
-    // TODO clean up resources
+
     public get(id){
       return this.UserResource.get({id:id}).$promise;
     }
@@ -24,7 +24,6 @@ namespace ngpoli.dbServices{
       return this.UserResource.remove({id: user._id}, user).$promise;
     }
     public update(user){
-    //  TODO post starred item object to db using
       return this.UpdateResource.save({id: user._id}, user).$promise;
     }
     constructor($resource:ng.resource.IResourceService){

@@ -13,15 +13,16 @@ namespace ngpoli.Services {
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
         this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
       }
+      // clean up GET search
       public get(search){
         console.log('received search for: ', search);
         let _search = {};
         _search['type'] = search.type;
         _search['options'] = null;
-        _search['q'] = null;
-        if(search.query && (search.query.length && search.query.length < 1)){
-          _search['q'] = 'q=' + search.query;
-        }
+        search["query"] ? _search['q'] = "q=" + search["query"] : _search['q'] = null;
+        // if(search.query && (search.query.length && search.query.length < 1)){
+        //   _search['q'] = 'q=' + search.query;
+        // }
         if(search.options && search.options.length){
           _search['options'] = search.options;
         }
@@ -33,7 +34,7 @@ namespace ngpoli.Services {
         }
         if(search.type == 'bill'){
           _search['filter'] = billFilter;
-          _search['q'] = 'q=all';
+        //  _search['q'] = 'q=all';
           _search['options'] = dateQ + search["date"].toISOString();
         }
         if(_search['type'] == 'person'){
@@ -46,7 +47,7 @@ namespace ngpoli.Services {
           _search['filter'] = roleFilter;
           _search['options'] = _search['options'] + '&current=true';
         }
-          console.log('query is: ', _search);
+        console.log('sending req to govtrack: ', _search);
         return this.govTrackResource.get(_search).$promise;
       }
       public getOne(search){
@@ -74,18 +75,24 @@ namespace ngpoli.Services {
       }
     }
     export class localStore {
-      constructor(){
-
-      }
+      constructor(){}
       public isLoggedIn(){
         let currentStorage = localStorage.getItem('bs_user');
-        console.log('currentStorage: ', currentStorage);
         if(!currentStorage || currentStorage.length < 3){
           localStorage.setItem('bs_user', JSON.stringify({}));
           return false;
         } else {
           return true;
         }
+      }
+      public loadUser(_this){
+         let loggedIn = _this.localStore.isLoggedIn();
+          if(loggedIn){
+            _this.$state.get('account').data = _this.localStore.bootstrap();
+            _this.list();
+          } else {
+            _this.openDialog();
+          }
       }
       public bootstrap(){
         return JSON.parse(localStorage.getItem('bs_user'));

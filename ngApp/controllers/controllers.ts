@@ -5,7 +5,6 @@ namespace ngpoli.Controllers {
         public billOptions;
         public personOptions;
         public feedItems;
-        public people;
         public billDate;
         public billTypes = [
           'all',
@@ -32,44 +31,33 @@ namespace ngpoli.Controllers {
             this.search = {type: 'bill', query: '', options: '', filter: '', date: billDate};
             this.billOptions = 'current_status=prov_kill_veto';
             this.personOptions = 'all_people';
-            //
-            let loggedIn = this.localStore.isLoggedIn();
-            if(loggedIn){
-              this.$state.get('account').data = this.localStore.bootstrap();
-              this.list();
-            } else {
-              this.openDialog();
-            }
+             //init service for all controllers
+            localStore.loadUser(this);
         }
+
         public trySubmit(isNew, user){
-          isNew ? this.tryRegister(user) : this.tryLogin(user);
+          let authType;
+          isNew? authType = 'register' : authType = 'login';
+          this.tryAuth(user, authType);
         }
         public setUser(user){
           this.localStore.cache(user);
           this.$state.get('account').data = user;
           this.$mdDialog.hide();
         }
-        public tryRegister(user){
-          this.UserService.register(user).then((result)=>{
+        public tryAuth(user, type){
+          this.UserService[type](user).then((result)=>{
             this.setUser(result);
           }).catch((err)=>{
-            if(err.data == 'dupe'){
-              alert('duplicate user!');
-            }
-          });
-        }
-        public tryLogin(user){
-          this.UserService.login(user).then((result)=>{
-            this.setUser(result);
-          }).catch((err)=>{
-            if(err.data == 'Not Found'){
-            }
+            if(err.data == 'dupe'){ alert('duplicate user!'); }
+            if(err.data == 'Not Found'){ alert('user not found! make sure your username and password is correct.') }
           });
         }
         public list(){
           let _search = this.search;
           if(_search["type"] == 'person'){
             _search["options"] = this.personOptions;
+            _search["query"] = null;
           } else {
             _search["options"] = this.billOptions;
           }
@@ -84,10 +72,10 @@ namespace ngpoli.Controllers {
             console.log(err);
           });
         }
-        public cleanPeopleFilter(objects){
+        public cleanPeopleFilter(people){
           let names = [];
-          let copy = objects;
-          objects.forEach((obj)=>{
+          let copy = people;
+          people.forEach((obj)=>{
             names.push(obj.person.name);
             if(names.indexOf(obj.person.name) || names.indexOf(obj.person.sortname)){
               copy.splice(copy.indexOf(obj), 1);
@@ -96,72 +84,53 @@ namespace ngpoli.Controllers {
           setTimeout(()=>{
             this.feedItems = copy;
               this.$scope.$apply();
-            }, 1200
-          )
+            }, 1200);
         }
-        public openDialog(){
-          let vm = this.$scope;
-            this.$mdDialog.show({
-              scope: vm,
-              preserveScope: true,
-              controller: HomeDialog,
-              templateUrl: 'dialog2.tmpl.html',
-              clickOutsideToClose:false
-          }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
-        }
-         public setStars(){
-         let vm = this;
+        public setStars(){
+          let vm = this;
           let stars = this.$state.get('account').data.starredItems.map((star)=>{
             return star.id;
           });
-           if(stars && stars.length){
-               this.feedItems.forEach((item)=>{
-                 let match = stars.indexOf(item.id);
-                 if(match > -1){
-                   item.checked = true;
-                 } else {
-                   item.checked = false;
-                 }
-             });
-           } else {
-             this.$state.get('account').data.starredItems = [];
-           }
+          if(stars && stars.length){
+            this.feedItems.forEach((item)=>{
+              let match = stars.indexOf(item.id);
+              match > -1 ? item.checked = true : item.checked = false;
+            });
+          } else {
+           this.$state.get('account').data.starredItems = [];
          }
-         public rateItem(item){
-          item.checked = !item.checked;
-           let user = this.$state.get('account').data;
-           let stars = [];
-           let type;
-           if(item["person"]){
-             type = 'role';
-           }
-           if(item["current_status_description"]){
-             type = 'bill';
-           }
-           if(user.starredItems && user.starredItems.length){
-             stars = user.starredItems;
-             let starIds = stars.map((star)=>{
-               return star.id;
-             });
-             let _match = starIds.indexOf(item.id);
-             if(_match > -1){
-               stars.splice(_match, 1);
-             } else {
-               stars.push({id: item.id, type: type});
-             }
-           } else {
-             stars.push({id: item.id, type: type});
-           }
-           user.starredItems = stars;
-           this.$state.get('account').data = user;
-           this.localStore.cache(user);
-           this.UserService.update(user).then((_user)=>{
-             this.$state.get('account').data = _user;
-             this.setStars();
-           }).catch((err)=>{
-              console.log(err);
+       }
+       public rateItem(item){
+         item.checked = !item.checked;
+         let user = this.$state.get('account').data;
+         let stars = [];
+         let type;
+         if(item["person"]){
+           type = 'role';
+         }
+         if(item["current_status_description"]){
+           type = 'bill';
+         }
+         if(user.starredItems && user.starredItems.length){
+           stars = user.starredItems;
+           let starIds = stars.map((star)=>{
+             return star.id;
            });
+           let _match = starIds.indexOf(item.id);
+           _match > -1 ? stars.splice(_match, 1) : stars.push({id: item.id, type: type});
+         } else {
+           stars.push({id: item.id, type: type});
          }
+         user.starredItems = stars;
+         this.$state.get('account').data = user;
+         this.localStore.cache(user);
+         this.UserService.update(user).then((_user)=>{
+           this.$state.get('account').data = _user;
+           this.setStars();
+         }).catch((err)=>{
+            console.log(err);
+         });
+       }
     }
 
     export class HomeDialog {
@@ -182,40 +151,34 @@ namespace ngpoli.Controllers {
     }
 
     export class InterestsController {
+      starredItems = [];
       constructor(
         private UserService: ngpoli.dbServices.UserService,
-          private govTrackService: ngpoli.Services.govTrackService,
-          private localStore: ngpoli.Services.localStore,
+        private govTrackService: ngpoli.Services.govTrackService,
+        private localStore: ngpoli.Services.localStore,
         private $state: ng.ui.IStateService) {
-        //load user information (1. tags, 2. starredItems) regardless of preliminary routing
-          this.getStarredItems();
-      }
-      getStarredItems(){
+          localStore.loadUser(this);
+        }
+      list(){
         this.starredItems = [];
         let stars = this.$state.get('account').data["starredItems"];
         stars.forEach((star)=>{
-            ///// use a new service
             this.govTrackService.getOne(star).then((result)=>{
-              console.log('getone result: ', result);
                this.starredItems.push(result);
             });
         });
       }
       removeItem (item){
-         //remove starreditem from user profile
          let user = this.$state.get('account').data
          let stars = user["starredItems"];
          let starIds = stars.map((star) => star.id);
          let idx = starIds.indexOf(item["id"]);
-
          user["starredItems"].splice(idx, 1);
-
          this.UserService.update(user).then((_user)=>{
            this.localStore.cache(_user);
            this.$state.get('account').data = _user;
-           this.getStarredItems();
+           this.list();
          });
       }
-      starredItems = [ ];
     }
 }
