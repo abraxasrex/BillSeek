@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-
+//needs to compare to govTrack aPI partner
 export interface IGovItem extends mongoose.Document {
-  type: 'bill' | 'person',
-  stars: number,
+//  type: 'bill' | 'person',
+  type:string,
   apiLocation: string
 }
 
@@ -12,13 +12,13 @@ let govItemSchema = new mongoose.Schema({
     required: true,
     enum: ['bill','person']
   },
-  stars: {
-    type: String,
-    required: true,
-    default: 0
-  },
   apiLocation: {
-    type: String
+    type: String,
+    required: true
+  },
+  data: {
+    required: true,
+    type: Object
   }
 });
 
