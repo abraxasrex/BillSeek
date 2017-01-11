@@ -169,7 +169,7 @@ namespace ngpoli.Controllers {
         });
       }
       removeItem (item){
-         let user = this.$state.get('account').data
+         let user = this.$state.get('account').data;
          let stars = user["starredItems"];
          let starIds = stars.map((star) => star.id);
          let idx = starIds.indexOf(item["id"]);

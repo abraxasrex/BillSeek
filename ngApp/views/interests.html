@@ -5,20 +5,21 @@
     <md-card class="custom-container" flex = "50">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline"> Data visualization/ extra content to come : </span>
+            <span class="md-headline"> Notifications: </span>
           </md-card-title-text>
         </md-card-title>
           <div class="md-media-lg card-media">
-              <form >
-                <md-input-container>
-                  <label> Label name: </label>
-                  <input type="text" />
-                </md-input-container>
-                <md-input-container>
-                  <md-button type="submit">Submit</md-button>
-                </md-input-container>
-              </form>
-            </div>
+            <!-- notification cards-->
+            <md-card ng-repeat="notification in vm.notifications">
+              <md-card-content>
+                <div class="md-media-md card-media">
+                  <strong> {{notification.date}} </strong>
+                  <hr />
+                  <p> {{notification.text}} </p>
+                </div>
+              </md-card-content>
+            </md-card>
+          </div>
       </md-card>
 
         <md-card class="custom-container" flex ="50">

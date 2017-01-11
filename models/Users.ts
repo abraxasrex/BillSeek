@@ -5,7 +5,7 @@ export interface IUser extends mongoose.Document {
   username: string,
   password: string,
   starredItems: string [],
-  interestTags: string []
+  notifications: string []
 }
 function arrayLimit (val){
   return val.length <= 15;
@@ -26,9 +26,9 @@ let userSchema = new mongoose.Schema({
   starredItems: {
     type: Array
   },
-  interestTags: {
-    type: Array,
-    validate: [arrayLimit, '{PATH} exceeds the limit of 15']
+  notifications: {
+    type: Array
+    // validate: [arrayLimit, '{PATH} exceeds the limit of 15']
   }
 });
 

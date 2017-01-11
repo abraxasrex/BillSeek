@@ -72,11 +72,19 @@ My interests view: sharable UI
      - my interest tags edit, as well as UI for the tags in the main feed
 
 
-1/9/16:
 
-1. notifications menu
 
-1/10/16:
+1/12/16:
+
+a. client side should send new govItem *according to model! * for potential storage when storing items
+
+b. controller should make a call to app's api for govItem, not remote API
+
+c. finish create notification function in user route
+
+d. create remove notification function  
+
+1/13/16:
 
 1.5. init highlight tab and dropdown
 
@@ -85,10 +93,13 @@ My interests view: sharable UI
 3. window sizing on interests page: don't resize based on content
 
 
-1/10/16 stretch:
+1/14/16 stretch:
 
 3. html5 form validation and other error handling
 
+1/14/16 stretch:
+
+notifications in upper right hand corner
 
 1/11/16 - infinity stretch :
 

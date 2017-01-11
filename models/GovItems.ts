@@ -4,6 +4,7 @@ export interface IGovItem extends mongoose.Document {
 //  type: 'bill' | 'person',
   type:string,
   apiLocation: string
+  govId: string
 }
 
 let govItemSchema = new mongoose.Schema({
@@ -19,6 +20,10 @@ let govItemSchema = new mongoose.Schema({
   data: {
     required: true,
     type: Object
+  },
+  govId: {
+    required: true,
+    type: String
   }
 });
 
