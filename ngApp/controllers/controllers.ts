@@ -124,6 +124,27 @@ namespace ngpoli.Controllers {
          user.starredItems = stars;
          this.$state.get('account').data = user;
          this.localStore.cache(user);
+         //send potential govItem object to save
+         //  type: {
+          //    type:String,
+          //  },
+          //  apiLocation: {
+          //    type: String,
+          //  },
+          //  data: {
+          //    type: Object
+          //  },
+          //  govId: {
+          //    type: String
+          //  }
+        let _item = {
+          type: type,
+          apiLocation: item["link"],
+          data: item,
+          govId: item["id"]
+        }
+         user["govItem"] = item;
+
          this.UserService.update(user).then((_user)=>{
            this.$state.get('account').data = _user;
            this.setStars();

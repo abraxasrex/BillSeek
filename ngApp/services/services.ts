@@ -11,7 +11,8 @@ namespace ngpoli.Services {
       public findOneResource;
       constructor($resource: ng.resource.IResourceService){
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
-        this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
+        //this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
+        this.findOneResource = $resource('/api/myGovItems');
       }
       // clean up GET search
       public get(search){
@@ -51,7 +52,8 @@ namespace ngpoli.Services {
         return this.govTrackResource.get(_search).$promise;
       }
       public getOne(search){
-        return this.findOneResource.get(search).$promise;
+      //  return this.findOneResource.get(search).$promise;
+      return this.findOneResource.get(search).$promise;
       }
     }
 

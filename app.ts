@@ -41,7 +41,7 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/api/labels', labels);
 app.use('/api/govItems', govItems);
-app.use('/api/users', users);
+app.use('/api/user', users);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

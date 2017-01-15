@@ -3,8 +3,16 @@ import User from '../models/Users';
 import GovItem from '../models/GovItems';
 let router = express.Router();
 
-function createNotification(oldThing, newThing){
- return 'blah blah';
+function createNotification(oldGovItem: Object, newGovItem){
+  let msg = 'no notification';
+  for(let oldItem in oldGovItem){
+    for(let newItem in newGovItem){
+      if(oldItem !== newItem){
+        msg = `${oldItem} changed to ${newItem}.`;
+      }
+    }
+  }
+ return msg;
 }
 
 function updateGovItems(govItem, user){
