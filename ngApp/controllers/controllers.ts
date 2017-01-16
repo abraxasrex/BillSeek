@@ -34,6 +34,16 @@ namespace ngpoli.Controllers {
              //init service for all controllers
             localStore.loadUser(this);
         }
+        public openDialog(){
+          let vm = this.$scope;
+            this.$mdDialog.show({
+              scope: vm,
+              preserveScope: true,
+              controller: HomeDialog,
+              templateUrl: 'dialog2.tmpl.html',
+              clickOutsideToClose:false
+          }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
+        }
 
         public trySubmit(isNew, user){
           let authType;
@@ -88,10 +98,11 @@ namespace ngpoli.Controllers {
         }
         public setStars(){
           let vm = this;
-          let stars = this.$state.get('account').data.starredItems.map((star)=>{
-            return star.id;
-          });
-          if(stars && stars.length){
+          let user = this.$state.get('account').data;
+          if(user["starredItems"] && user["starredItems"].length){
+            let stars = user.starredItems.map((star)=>{
+              return star["id"];
+            });
             this.feedItems.forEach((item)=>{
               let match = stars.indexOf(item.id);
               match > -1 ? item.checked = true : item.checked = false;
@@ -137,15 +148,16 @@ namespace ngpoli.Controllers {
           //  govId: {
           //    type: String
           //  }
+          
         let _item = {
           type: type,
           apiLocation: item["link"],
           data: item,
           govId: item["id"]
         }
-         user["govItem"] = item;
-
+         user["govItem"] = _item;
          this.UserService.update(user).then((_user)=>{
+          this.localStore.cache(_user);
            this.$state.get('account').data = _user;
            this.setStars();
          }).catch((err)=>{
@@ -173,6 +185,7 @@ namespace ngpoli.Controllers {
 
     export class InterestsController {
       starredItems = [];
+      notifications = [];
       constructor(
         private UserService: ngpoli.dbServices.UserService,
         private govTrackService: ngpoli.Services.govTrackService,
@@ -187,6 +200,18 @@ namespace ngpoli.Controllers {
             this.govTrackService.getOne(star).then((result)=>{
                this.starredItems.push(result);
             });
+        });
+        this.notifications = this.$state.get('account').data["notifications"];
+      }
+      deNotify(notification){
+        let user = this.$state.get('account').data;
+        user.notifications.splice(user.notifications.indexOf(notification), 1);
+        this.$state.get('account').data = user;
+        this.notifications = user.notifications;
+        this.UserService.update(user).then((_user)=>{
+          console.log('updated!');
+        }).catch((err)=>{
+          console.log(err);
         });
       }
       removeItem (item){

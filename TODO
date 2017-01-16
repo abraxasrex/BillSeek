@@ -71,27 +71,13 @@ My interests view: sharable UI
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
-
-
-
-1/15/16:
-
-a. client side should send new govItem *according to model! * for potential storage when storing items (?)
-
-b. interests controller should make a call to app's api for govItem, not remote API (?)
-
-b2. catch requests at /api/govITems  
-
-d. create remove notification function (client side)
-
-c. finish create notification function in user route (?)
-
-
-
-
 1/16/16:
 
-1. change notification to only check for item last date changed (description changed?)
+0. display message if no notifications
+
+0.5. best practices refactor and dry
+
+1. check if notifications are actually showing up
 
 1.5. init highlight tab and dropdown
 

@@ -9,6 +9,9 @@ import * as mongoose from 'mongoose';
 import User from './models/Users';
 const MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
 
+//fix mongoose promise depredation
+//mongoose["Promise"]  = global.Promise;
+
 // empty db seed: check entries
 mongoose.connect(MONGO_URI).then(()=>{
   console.log('mongoose connected.');
@@ -19,7 +22,6 @@ mongoose.connect(MONGO_URI).then(()=>{
   console.log('mongoose error.');
 });
 
-import labels from './routes/labels';
 import users from './routes/users';
 import govItems from './routes/govItems';
 
@@ -39,9 +41,8 @@ app.use('/bower_components', express.static(path.join(__dirname, 'bower_componen
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 
-app.use('/api/labels', labels);
 app.use('/api/govItems', govItems);
-app.use('/api/user', users);
+app.use('/api/users', users);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
 app.get('/*', function(req, res, next) {

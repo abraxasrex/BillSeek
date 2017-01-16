@@ -12,7 +12,7 @@ namespace ngpoli.Services {
       constructor($resource: ng.resource.IResourceService){
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
         //this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
-        this.findOneResource = $resource('/api/myGovItems');
+        this.findOneResource = $resource('/api/govItems/:id');
       }
       // clean up GET search
       public get(search){

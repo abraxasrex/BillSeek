@@ -24,6 +24,7 @@ namespace ngpoli.dbServices{
       return this.UserResource.remove({id: user._id}, user).$promise;
     }
     public update(user){
+      //TODO change to 'PUT'
       return this.UpdateResource.save({id: user._id}, user).$promise;
     }
     constructor($resource:ng.resource.IResourceService){
