@@ -79,7 +79,7 @@ router.post('/update/:id', (req, res) => {
             }
           }
           if(item == null){
-            console.log('This is what you are submitting: ', newItem)
+            console.log('This is what you are submitting: ', newItem);
              GovItem.create(newItem).then(()=>{
                console.log('made a new govitem!: ');
              }).catch((err)=>{

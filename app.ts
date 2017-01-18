@@ -18,6 +18,16 @@ mongoose.connect(MONGO_URI).then(()=>{
   User.find({username: 'helloman'}).then((users)=>{
     console.log('users!', users);
   });
+
+  // User.create([
+  //   {username: 'xxxxxxxxx', password: 'xxxxxxxxx'},
+  //   {username: 'yxxxxxxxx', password: 'yxxxxxxxx'}
+  // ]).then(()=>{
+  //   console.log('success')
+  // }).catch((err)=>{
+  //     console.log(err);
+  //   });
+
 }).catch((err)=>{
   console.log('mongoose error.');
 });

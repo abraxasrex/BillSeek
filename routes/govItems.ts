@@ -4,19 +4,19 @@ import User from '../models/Users';
 //type, apiLocation, data
 let router = express.Router();
 
-router.get('/:id', (req, res, next) =>{
-  console.log('get me!');
-  GovItem.findOne({govId: req.params.id}).then((govItem)=>{
-    //console.log('find me!: ', govItem);
+router.get('/:id/:type', (req, res, next) =>{
+  GovItem.findOne({govId: req.params.id, type: req.params.type}).then((govItem)=>{
+   console.log(req.params);
     res.send(govItem);
     //TODO error handling
   }).catch((err)=>{
+    console.log(err);
     res.send(err);
   });
 });
 
 router.post('/:id', (req, res, next) =>{
-  GovItem.findOne({govId: req.params.id}).then((govItem)=>{
+  GovItem.findOne({govId: req.params.id, type: req.body.type}).then((govItem)=>{
     //check for dupes
     if(govItem == null){
       GovItem.create(req.body).then((item)=>{

@@ -11,7 +11,7 @@ let govItemSchema = new mongoose.Schema({
   type: {
     type:String,
     required: true,
-    enum: ['bill','person']
+    enum: ['bill','role']
   },
   apiLocation: {
     type: String,
