@@ -193,15 +193,27 @@ namespace ngpoli.Controllers {
     // }
     // angular.module('ngpoli').controller('NavController', NavController);;
     export class InterestsController {
-      starredItems = [];
-      notifications = [];
+      public starredItems = [];
+      public notifications = [];
+      public currentUserName;
       constructor(
         private UserService: ngpoli.dbServices.UserService,
         private govTrackService: ngpoli.Services.govTrackService,
         private localStore: ngpoli.Services.localStore,
+        private $stateParams: ng.ui.IStateParamsService,
         private $state: ng.ui.IStateService) {
-          localStore.loadUser(this);
-          this.$state.go('interests', {user: this.$state.get("account").data["username"]}, {notify: false})
+
+          if(this.localStore.isLoggedIn()){
+          //  this.currentUserName = this.$state.get("account").data["username"]
+          //  this.$state.go('interests', {user: this.currentUserName}, {notify: false});
+            localStore.loadUser(this);
+          } else {
+            //TODO
+          //  this.currentUserName = $stateParams["username"];
+          //  load special case site
+          //1. allow no other navigation
+          //2. find alternate listing system: controller user inherits from db?
+          }
         }
       list(){
         this.starredItems = [];
