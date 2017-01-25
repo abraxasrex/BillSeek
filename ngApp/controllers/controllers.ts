@@ -133,6 +133,7 @@ namespace ngpoli.Controllers {
            stars.push({id: item.id, type: type});
          }
          user.starredItems = stars;
+         console.log("user to save: ", user);
          this.$state.get('account').data = user;
          this.localStore.cache(user);
 
