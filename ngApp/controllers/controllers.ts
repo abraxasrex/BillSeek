@@ -138,7 +138,6 @@ namespace ngpoli.Controllers {
          user.starredItems = stars;
          this.$state.get('account').data = user;
          this.localStore.cache(user);
-
         //govItems
         let _item = {
           type: type,
