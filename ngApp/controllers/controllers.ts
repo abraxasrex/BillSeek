@@ -127,15 +127,19 @@ namespace ngpoli.Controllers {
            let starIds = stars.map((star)=>{
              return star.id;
            });
+           //remove star
            let _match = starIds.indexOf(item.id);
-           _match > -1 ? stars.splice(_match, 1) : stars.push({id: item.id, type: type});
-         } else {
-           stars.push({id: item.id, type: type});
+           if(_match > -1){
+             stars.splice(_match, 1)
+           } else {
+             stars.push({id: item.id, type: type});
+           }
          }
          user.starredItems = stars;
          this.$state.get('account').data = user;
          this.localStore.cache(user);
 
+        //govItems
         let _item = {
           type: type,
           apiLocation: item["link"],
@@ -143,14 +147,13 @@ namespace ngpoli.Controllers {
           govId: item["id"]
         };
 
-        if (_item.type !== 'bill' ){
+        if (_item.type != 'bill' ){
            _item.type = 'role';
            _item.apiLocation = _item.data["person"]["link"];
         } else {
           _item.type = 'bill';
         }
         console.log('_item: ', _item);
-        console.log('the same damn thing: ', _item.data["person"]["link"]);
          user["govItem"] = _item;
          this.UserService.update(user).then((_user)=>{
           this.localStore.cache(_user);
@@ -175,10 +178,20 @@ namespace ngpoli.Controllers {
           this.$state.go('home');
       }
       constructor(private $state: ng.ui.IStateService){
-        this.currentUser = 'default';
+      //  this.currentUser = 'default';
+      //   this.currentUser= $state.get('account').data["username"] || 'default';
       }
     }
-
+  //angular.module('ngpoli').controller('AccountController', AccountController);;
+    // export class NavController {
+    //   public userUrl = {user: "gumby"};
+    //   public showUrl(){
+    //     this.userUrl.user = this.$state.get('account').data["username"];
+    //   }
+    //   constructor(private $state: ng.ui.IStateService){
+    //   }
+    // }
+    // angular.module('ngpoli').controller('NavController', NavController);;
     export class InterestsController {
       starredItems = [];
       notifications = [];
@@ -188,6 +201,7 @@ namespace ngpoli.Controllers {
         private localStore: ngpoli.Services.localStore,
         private $state: ng.ui.IStateService) {
           localStore.loadUser(this);
+          this.$state.go('interests', {user: this.$state.get("account").data["username"]}, {notify: false})
         }
       list(){
         this.starredItems = [];
