@@ -71,35 +71,27 @@ My interests view: sharable UI
      user's starredItems array
      - my interest tags edit, as well as UI for the tags in the main feed
 
-1/23/16:
+1/26/16:
 
 0. display message if no notifications
 
-1. get sharable screenshot served from going to another users feed  
+1. get shareable screenshot served from going to another users feed
 
 1.5. init highlight tab and dropdown
 
 1.7. design fixes
 
-1. check if notifications are actually showing up
-
-
-1/24/2017:
-
-0.5. best practices refactor and dry
+1. check if notifications are actually showing up (?)
 
 2. remove scrollbars from landing modal
 
 3. window sizing on interests page: don't resize based on content
 
 
-1/14/16 stretch:
+1/27/16 stretch:
 
 3. html5 form validation and other error handling
 
-1/14/16 stretch:
-
-notifications in upper right hand corner
 
 1/11/16 - infinity stretch :
 

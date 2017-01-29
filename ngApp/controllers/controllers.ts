@@ -134,6 +134,8 @@ namespace ngpoli.Controllers {
            } else {
              stars.push({id: item.id, type: type});
            }
+         } else {
+            stars.push({id: item.id, type: type});
          }
          user.starredItems = stars;
          this.$state.get('account').data = user;
@@ -152,7 +154,6 @@ namespace ngpoli.Controllers {
         } else {
           _item.type = 'bill';
         }
-        console.log('_item: ', _item);
          user["govItem"] = _item;
          this.UserService.update(user).then((_user)=>{
           this.localStore.cache(_user);
@@ -230,7 +231,6 @@ namespace ngpoli.Controllers {
         this.$state.get('account').data = user;
         this.notifications = user.notifications;
         this.UserService.update(user).then((_user)=>{
-          console.log('updated!');
         }).catch((err)=>{
           console.log(err);
         });
