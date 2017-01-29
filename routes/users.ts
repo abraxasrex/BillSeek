@@ -3,6 +3,8 @@ import User from '../models/Users';
 import GovItem from '../models/GovItems';
 let router = express.Router();
 function createNotification(oldGovItem: Object, newGovItem){
+  console.log(oldGovItem["data"].current_status_description);
+  console.log(newGovItem["data"].current_status_description);
   let msg = null;
   if(oldGovItem["type"] == 'bill'){
         if(oldGovItem["data"].current_status_date !== newGovItem["data"].current_status_date){
@@ -72,22 +74,26 @@ router.post('/update/:id', (req, res) => {
      if(req.body["govItem"]){
        let newItem = req.body["govItem"];
         GovItem.findOne({govId: newItem.govId}).then((item)=>{
-          if(newItem !== item && item !== null){
+          //if theres a match, check for notifications
+          if(item != null){
             let notification = createNotification(item, newItem);
             if(notification){
               user.notifications.push(notification);
+              User.update({_id: user._id}, user).then(()=>{
+                updateUser(user, res);
+                console.log("notification 3: notification added");
+              });
             }
-          }
-          if(item == null){
-            console.log('This is what you are submitting: ', newItem);
+          } else{
              GovItem.create(newItem).then(()=>{
+                           updateUser(user, res);
                console.log('made a new govitem!: ');
              }).catch((err)=>{
+                           updateUser(user, res);
                console.log(err);
              });
            }
             updateUser(user, res);
-          //  return;
         }).catch((err)=>{
           console.log(err);
         });
@@ -99,14 +105,5 @@ router.post('/update/:id', (req, res) => {
      res.sendStatus(404).json('no user');
    });
 });
-// router.delete('/:id', (req, res) => {
-//   let userId = req.params.id;
-//   User.remove({_id:userId}).then(() => {
-//     res.sendStatus(200);
-//   }).catch((err) => {
-//     res.status(500);
-//     console.log(err);
-//   });
-// });
 
 export default router;

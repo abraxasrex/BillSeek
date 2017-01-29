@@ -46,11 +46,11 @@ function cleanGovItems(){
         }
       });
     });
-    setTimeout(cleanGovItems, 100000000);
+    setTimeout(cleanGovItems, 50000);
     console.log('cleaned.');
   });
 }
 
-//cleanGovItems();
+cleanGovItems();
 
 export default router;

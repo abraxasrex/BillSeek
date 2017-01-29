@@ -52,7 +52,7 @@
                         <strong> {{ item.data.person.name }} </strong>
                          <p> {{ item.data.person.party }} </p>
                       </div>
-                      <div class="star-holder" ng-click="vm.removeItem(item.data)" >
+                      <div ng-show="vm.localStore.isLoggedIn()" class="star-holder" ng-click="vm.removeItem(item.data)" >
                           <md-icon class="bs-icon gold-star" >star_rate</md-icon>
                       </div >
                    </md-card-content>
