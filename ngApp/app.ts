@@ -31,6 +31,14 @@ namespace ngpoli {
               controller: ngpoli.Controllers.AccountController,
               controllerAs: 'controller'
             })
+            .state('nav',{
+              controller: ngpoli.Controllers.NavController,
+              controllerAs: 'vm',
+              data: {
+                loggedIn: true,
+                secret: "secrettttttt"
+              }
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'

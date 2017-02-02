@@ -26,11 +26,11 @@
       </div>
     </div>
   <hr />
-    <md-content class="md-padding">
-      <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="center">
+    <md-content class="md-padding" ng-controller="NavController as vm">
+      <md-nav-bar  md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="center">
         <md-nav-item md-nav-sref="home">Home</md-nav-item>
         <md-nav-item md-nav-sref="interests({ user: ''})">My Interests</md-nav-item>
-        <md-nav-item md-nav-sref="account">Account</md-nav-item>
+        <md-nav-item md-nav-sref="account" >{{$state.get('nav').data.secret}}</md-nav-item>
        </md-nav-bar>
     </md-content>
         <hr />

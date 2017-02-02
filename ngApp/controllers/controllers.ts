@@ -182,6 +182,18 @@ namespace ngpoli.Controllers {
       //   this.currentUser= $state.get('account').data["username"] || 'default';
       }
     }
+
+    export class NavController {
+      public loggedIn = true;
+      constructor(
+        private $state: ng.ui.IStateService,
+        private localStore: ngpoli.Services.localStore
+      ){
+        this.loggedIn = this.localStore.isLoggedIn();
+        console.log("blahhhrd");
+        console.log($state.get("nav").data);
+      }
+    }
   //angular.module('ngpoli').controller('AccountController', AccountController);;
     // export class NavController {
     //   public userUrl = {user: "gumby"};
@@ -191,31 +203,30 @@ namespace ngpoli.Controllers {
     //   constructor(private $state: ng.ui.IStateService){
     //   }
     // }
-    // angular.module('ngpoli').controller('NavController', NavController);;
+    angular.module('ngpoli').controller('NavController', NavController);;
     export class InterestsController {
       public starredItems = [];
       public notifications = [];
       public currentUserName;
+      public loggedIn;
       constructor(
         private UserService: ngpoli.dbServices.UserService,
         private govTrackService: ngpoli.Services.govTrackService,
         private localStore: ngpoli.Services.localStore,
         private $stateParams: ng.ui.IStateParamsService,
         private $state: ng.ui.IStateService) {
-
-          if(this.localStore.isLoggedIn()){
-          //  this.currentUserName = this.$state.get("account").data["username"]
-          //  this.$state.go('interests', {user: this.currentUserName}, {notify: false});
+          let data;
+          this.loggedIn = this.localStore.isLoggedIn();
+          if(this.loggedIn){
             localStore.loadUser(this);
+            data = this.$state.get("account").data;
           } else {
-            //TODO
-          //  this.currentUserName = $stateParams["username"];
-          //  load special case site
-          //1. allow no other navigation
-          //2. find alternate listing system: controller user inherits from db?
+            data = {user: $stateParams["user"]};
           }
+            this.$state.get("nav").data["loggedIn"] = this.loggedIn
+            this.list(data, this.loggedIn);
         }
-      list(){
+      list(data, loggedIn){
         this.starredItems = [];
         let stars = this.$state.get('account').data["starredItems"];
         stars.forEach((star)=>{
@@ -244,7 +255,7 @@ namespace ngpoli.Controllers {
          this.UserService.update(user).then((_user)=>{
            this.localStore.cache(_user);
            this.$state.get('account').data = _user;
-           this.list();
+           this.list(_user, this.loggedIn);
          });
       }
     }
