@@ -18,6 +18,7 @@ function createNotification(oldGovItem: Object, newGovItem){
 function updateUser(user, _res){
   User.update({_id:user._id}, user).then(() => {
     _res.json(user);
+        console.log("b4");
   }).catch((err) => {
     _res.status(400).json(err);
   });
@@ -81,19 +82,21 @@ router.post('/update/:id', (req, res) => {
               user.notifications.push(notification);
               User.update({_id: user._id}, user).then(()=>{
                 updateUser(user, res);
-                console.log("notification 3: notification added");
+                console.log("notification!: notification added");
               });
             }
           } else{
              GovItem.create(newItem).then(()=>{
-                           updateUser(user, res);
-               console.log('made a new govitem!: ');
+               updateUser(user, res);
+               return;
              }).catch((err)=>{
-                           updateUser(user, res);
+               updateUser(user, res);
                console.log(err);
+               return;
              });
            }
             updateUser(user, res);
+            return;
         }).catch((err)=>{
           console.log(err);
         });
