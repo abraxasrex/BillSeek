@@ -73,17 +73,19 @@ My interests view: sharable UI
 
 1/26/16:
 
-0. display message if no notifications
+0. display message if no notifications (?)
+
+1.5. init highlight tab
+
+1.6. expected dropdown behavior
+
+2. remove scrollbars from landing modal
+
+
 
 1. get shareable screenshot served from going to another users feed
 
-1.5. init highlight tab and dropdown
-
-1.7. design fixes
-
 1. check if notifications are actually showing up (?)
-
-2. remove scrollbars from landing modal
 
 3. window sizing on interests page: don't resize based on content
 
