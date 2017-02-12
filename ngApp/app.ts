@@ -7,13 +7,18 @@ namespace ngpoli {
         $mdThemingProvider: ng.material.IThemingProvider
     ) => {
         $stateProvider
-            .state('home', {
+            .state('main', {
+                templateUrl: '/ngApp/views/main.html',
+                controller: ngpoli.Controllers.MainController,
+                controllerAs: 'vm'
+            })
+            .state('main.home', {
                 url: '/',
                 templateUrl: '/ngApp/views/home.html',
                 controller: ngpoli.Controllers.HomeController,
                 controllerAs: 'controller'
             })
-            .state('interests', {
+            .state('main.interests', {
               url: '/interests/:user',
               templateUrl: '/ngApp/views/interests.html',
               controller: ngpoli.Controllers.InterestsController,
@@ -25,7 +30,7 @@ namespace ngpoli {
             //   controller: ngpoli.Controllers.TagsController,
             //   controllerAs: 'controller'
             // })
-            .state('account',{
+            .state('main.account',{
               url:'/account',
               templateUrl:'/ngApp/views/account.html',
               controller: ngpoli.Controllers.AccountController,

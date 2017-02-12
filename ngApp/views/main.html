@@ -1,0 +1,23 @@
+<div layout="row" layout-align="space-around center" ng-cloak>
+  <div class="icon-holder">
+    <md-icon class="bs-icon" >account_balance</md-icon>
+</div>
+  <h1 class="header-text">
+       Bill Seek
+    </h1>
+  <div class="icon-holder">
+    <md-icon class="bs-icon" >account_balance</md-icon>
+  </div>
+</div>
+<hr />
+<md-content class="md-padding">
+  <md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links" layout="row" layout-align="center">
+    <md-nav-item name="home" md-nav-sref="main.home">Home</md-nav-item>
+    <md-nav-item name="interests" md-nav-sref="main.interests({ user: ''})">My Interests</md-nav-item>
+    <md-nav-item name="account" md-nav-sref="main.account">Account</md-nav-item>
+   </md-nav-bar>
+</md-content>
+    <hr />
+    <div class="container custom-container" max-width="100%">
+      <ui-view class="custom-container"></ui-view>
+  </div>

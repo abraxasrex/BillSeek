@@ -65,15 +65,15 @@ namespace ngpoli.Services {
         this.labelResource = $resource(labelApi + '/:pw', {name:'@pw'});
       }
       public getLabels(){
-        let pw = this.$state.get('account').data.password;
+        let pw = this.$state.get('main.account').data.password;
         return this.labelResource.query({pw:pw}).$promise;
       }
       public postLabel (label){
-       let pw = this.$state.get('account').data.password;
+       let pw = this.$state.get('main.account').data.password;
        return this.labelResource.save({pw:pw}, label).$promise;
       }
       public removeLabel(label){
-        let pw = this.$state.get('account').data.password;
+        let pw = this.$state.get('main.account').data.password;
         return this.labelResource.remove({pw:pw}, label).$promise;
       }
     }
@@ -91,7 +91,7 @@ namespace ngpoli.Services {
       public loadUser(_this){
          let loggedIn = _this.localStore.isLoggedIn();
           if(loggedIn){
-            _this.$state.get('account').data = _this.localStore.bootstrap();
+            _this.$state.get('main.account').data = _this.localStore.bootstrap();
             _this.list();
           } else {
             _this.openDialog();

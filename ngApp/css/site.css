@@ -42,8 +42,9 @@ custom-container {
   color: yellow;
 }
 html {
-  overflow-y: scroll !important;
-  overflow: scroll !important;
+  /*overflow-y: scroll !important;
+  overflow: scroll !important;*/
+  /*overflow: visible;*/
 }
 
 .bs-search {
@@ -51,8 +52,24 @@ html {
   padding-bottom: 7px;
 }
 
+.bs-search-2 {
+  /*margin-right: 10px;*/
+  padding-bottom: 7px;
+}
+
+.fix-height {
+  max-height: 115px !important;
+}
+
+.notifications-height {
+  max-height: 100px;
+}
 
 /*html, body {
   color: teal,
   background-color: grey
 }*/
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
