@@ -5,6 +5,7 @@ namespace ngpoli.dbServices{
     private RegisterResource;
     private UpdateResource;
     private NotificationResource;
+    private VisitorViewResource;
 
     public get(id){
       return this.UserResource.get({id:id}).$promise;
@@ -31,12 +32,16 @@ namespace ngpoli.dbServices{
     public loadNotifications(user){
       return this.NotificationResource.query({id: user._id}).$promise;
     }
+    public visitorView(username){
+      return this.VisitorViewResource.get({username: username}).$promise;
+    }
     constructor($resource:ng.resource.IResourceService){
       this.NotificationResource = $resource('/api/users/notifications/:id');
       this.UserResource = $resource('/api/users/:id');
       this.LoginResource = $resource('/api/users/login');
       this.RegisterResource = $resource('/api/users/register');
       this.UpdateResource = $resource('/api/users/update/:id');
+      this.VisitorViewResource = $resource('/api/users/visitorView/:username');
     }
   }
 

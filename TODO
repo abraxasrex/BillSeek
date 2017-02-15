@@ -25,17 +25,25 @@ B. what happens to create a notification:
 
 .......
 
-2/14/17
-3. get shareable screenshot served from going to another users feed
-
 2/15/17
+3. get shareable screenshot served from going to another users feed
+  a. catch user id state params in constructor and trigger visitor condition
+  b. visitor condition disallows all other behavior
+  b2. add state auth middleware to routes
+
+2/16/17
 4. refactor starring system for efficiency
 4.5 add text and date modeling to notification
+4.75 : enhance above with unit tests and explicit typing
 
-2/16/17:
+2/17/17:
 5. window sizing on interests page: don't resize based on content
 6. make sure garbage collector for govItems actually work
+7. reset nav tabs after logout  
 
+weekend:
+1. security
+2. deployment
 
 2/17/17:
 C# auction website

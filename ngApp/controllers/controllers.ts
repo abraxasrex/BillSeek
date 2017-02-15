@@ -5,11 +5,18 @@ namespace ngpoli.Controllers {
       constructor(private $scope: ng.IScope, private $mdDialog: ng.material.IDialogService,
       private UserService: ngpoli.dbServices.UserService){}
     }
-    
+
     export class MainController {
       public currentNavItem;
-      constructor(){
+      public username;
+      constructor(
+        private localStore: ngpoli.Services.localStore,
+      private $state: ng.ui.IStateService){
            this.currentNavItem = 'home';
+           if(this.localStore.isLoggedIn()){
+             this.localStore.loadUserForMain(this);
+             this.username = this.$state.get('main.account')["data"]["username"] || 'no username';
+           }
       }
     }
 

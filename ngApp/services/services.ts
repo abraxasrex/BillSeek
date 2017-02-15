@@ -97,6 +97,13 @@ namespace ngpoli.Services {
             _this.openDialog();
           }
       }
+      public loadUserForMain(_this){
+         let loggedIn = _this.localStore.isLoggedIn();
+          if(loggedIn){
+            _this.$state.get('main.account').data = _this.localStore.bootstrap();
+          //  _this.list();
+          } 
+      }
       public bootstrap(){
         return JSON.parse(localStorage.getItem('bs_user'));
       }

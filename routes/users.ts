@@ -122,7 +122,6 @@ router.post('/update/:id', (req, res) => {
 router.get('/notifications/:id', (req, res)=>{
   let id = req.params.id;
   User.findOne({ _id:  id}).then((_user) => {
-    console.log('found');
     if(_user["notifications"].length){
       res.json(_user["notifications"]);
     } else {
@@ -132,4 +131,15 @@ router.get('/notifications/:id', (req, res)=>{
     res.sendStatus(404).json('no user');
   });
 });
+
+router.get('/visitorView/:username', (req, res)=>{
+  let username = req.params.username;
+  User.findOne({username:  username}).then((_user) => {
+    console.log('found username');
+    res.json(_user);
+  }).catch((err) => {
+    res.sendStatus(404).json('no user');
+  });
+});
+
 export default router;
