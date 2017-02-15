@@ -14,9 +14,14 @@ export class InterestsController {
     private $state: ng.ui.IStateService) {
 
       if(this.localStore.isLoggedIn()){
-      //  this.currentUserName = this.$state.get("account").data["username"]
       //  this.$state.go('interests', {user: this.currentUserName}, {notify: false});
         localStore.loadUser(this);
+        let data = this.$state.get("main.account").data;
+        UserService.loadNotifications(data).then((notifications)=>{
+          this.notifications = notifications;
+          console.log(this.notifications);
+        }).catch((e) => {throw new Error(e);});
+
       } else {
         //TODO
       //  this.currentUserName = $stateParams["username"];
@@ -34,6 +39,7 @@ export class InterestsController {
               });
          });
         this.notifications = this.$state.get('main.account').data["notifications"];
+        console.log(this.$state.get('main.account').data["notifications"]);
   }
   deNotify(notification){
     let user = this.$state.get('main.account').data;

@@ -4,6 +4,7 @@ namespace ngpoli.dbServices{
     private LoginResource;
     private RegisterResource;
     private UpdateResource;
+    private NotificationResource;
 
     public get(id){
       return this.UserResource.get({id:id}).$promise;
@@ -27,7 +28,11 @@ namespace ngpoli.dbServices{
       //TODO change to 'PUT'
       return this.UpdateResource.save({id: user._id}, user).$promise;
     }
+    public loadNotifications(user){
+      return this.NotificationResource.query({id: user._id}).$promise;
+    }
     constructor($resource:ng.resource.IResourceService){
+      this.NotificationResource = $resource('/api/users/notifications/:id');
       this.UserResource = $resource('/api/users/:id');
       this.LoginResource = $resource('/api/users/login');
       this.RegisterResource = $resource('/api/users/register');

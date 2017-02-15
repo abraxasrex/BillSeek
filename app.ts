@@ -7,7 +7,12 @@ import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
 import * as mongoose from 'mongoose';
 import User from './models/Users';
-const MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
+let MONGO_URI = 'mongodb://jbr:jbr@ds157487.mlab.com:57487/billseek';
+let TEST_URI = 'mongodb://jbr:jbr@ds013966.mlab.com:13966/billseek-test';
+
+
+//uncomment to test
+MONGO_URI = TEST_URI;
 
 //fix mongoose promise depredation
 //mongoose["Promise"]  = global.Promise;

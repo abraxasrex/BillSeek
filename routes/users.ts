@@ -2,27 +2,26 @@ import * as express from 'express';
 import User from '../models/Users';
 import GovItem from '../models/GovItems';
 let router = express.Router();
-function createNotification(oldGovItem: Object, newGovItem){
+function createNotification(oldGovItem, newGovItem){
   // console.log(oldGovItem["data"].current_status_description);
   // console.log(newGovItem["data"].current_status_description);
   let msg = null;
-  if(oldGovItem["type"] == 'bill'){
+  if(oldGovItem["type"] === 'bill'){
         if(oldGovItem["data"].current_status_date !== newGovItem["data"].current_status_date){
           msg = newGovItem["data"].current_status_description;
         }
     }
-    //TODO some form of update when congress members change
  return msg;
 }
 
-function updateUser(user, res){
+function updateUser(user, _res){
   console.log('updating user...');
   //console.log(user);
 //  console.log(res);
   User.update({_id:user._id}, user).then(() => {
-    res.json(user);
+    _res.json(user);
   }).catch((err) => {
-    res.status(400).json(err);
+    _res.status(400).json(err);
   });
 }
 
@@ -101,14 +100,17 @@ function checkforNotification (newItem, user, res){
 }
 
 router.post('/update/:id', (req, res) => {
-   User.findOne({_id:req.params.id}).then((_user) => {
+  let id = req.params.id;
+  let govItem = req.body["govItem"];
+
+   User.findOne({ _id: id }).then((_user) => {
      let user = _user;
      user.username = req.body.username;
      user.password = req.body.password;
      user.starredItems = req.body.starredItems;
      user.notifications = req.body.notifications || [];
-     if(req.body["govItem"]){
-       checkforNotification(req.body["govItem"], user, res);
+     if(govItem){
+       checkforNotification(govItem, user, res);
      } else {
         updateUser(user, res);
      }
@@ -117,4 +119,17 @@ router.post('/update/:id', (req, res) => {
    });
 });
 
+router.get('/notifications/:id', (req, res)=>{
+  let id = req.params.id;
+  User.findOne({ _id:  id}).then((_user) => {
+    console.log('found');
+    if(_user["notifications"].length){
+      res.json(_user["notifications"]);
+    } else {
+      res.json([]);
+    }
+  }).catch((err) => {
+    res.sendStatus(404).json('no user');
+  });
+});
 export default router;
