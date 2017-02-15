@@ -8,16 +8,16 @@ namespace ngpoli.Controllers {
 
     export class MainController {
       public currentNavItem;
-      public username;
+      public isLoggedIn = false;
       constructor(
         private localStore: ngpoli.Services.localStore,
-      private $state: ng.ui.IStateService){
-           this.currentNavItem = 'home';
-           if(this.localStore.isLoggedIn()){
-             this.localStore.loadUserForMain(this);
-             this.username = this.$state.get('main.account')["data"]["username"] || 'no username';
-           }
-      }
+        private $state: ng.ui.IStateService){
+             this.currentNavItem = 'home';
+             if(this.localStore.isLoggedIn()){
+               this.localStore.loadUserForMain(this);
+               this.isLoggedIn = true;
+             }
+        }
     }
 
     export class AccountController {
@@ -25,7 +25,7 @@ namespace ngpoli.Controllers {
       public logOut(){
           localStorage.setItem('bs_user', JSON.stringify({}));
           this.$state.get('main.account').data = {};
-          this.$state.go('main.home');
+          this.$state.go('main.home', null, { reload: true });
       }
       constructor(private $state: ng.ui.IStateService){
       //  this.currentUser = 'default';

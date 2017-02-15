@@ -42,7 +42,10 @@ namespace ngpoli.Controllers{
             controller: HomeDialog,
             templateUrl: 'dialog2.tmpl.html',
             clickOutsideToClose:false
-        }).then(()=> { this.list(); }, ()=> { /*cancel modal */ });
+        }).then(()=> {
+          //this.list();
+          this.$state.go('main.home', null, { reload: true });
+        }, ()=> { /*cancel modal */ });
       }
 
       public trySubmit(isNew, user){
@@ -50,11 +53,14 @@ namespace ngpoli.Controllers{
         isNew? authType = 'register' : authType = 'login';
         this.tryAuth(user, authType);
       }
+
       public setUser(user){
         this.localStore.cache(user);
         this.$state.get('main.account').data = user;
+      //  $state.go('myProfile', null, { reload: true });
         this.$mdDialog.hide();
       }
+
       public tryAuth(user, type){
         this.UserService[type](user).then((result)=>{
           this.setUser(result);
