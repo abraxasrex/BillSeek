@@ -1,17 +1,18 @@
 namespace ngpoli.Services {
-    const govTrackApi = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&:q&:options';
-    const findOneApi = 'https://www.govtrack.us/api/v2/:type/:id';
-    const labelApi = '/api/labels';
-    const billFilter = '-current_status_date';
-    const peopleFilter = 'sortname';
-    const roleFilter = 'senator_class';
-    const dateQ = '&current_status_date__gt=';
+
+    const govTrackApi: string = 'https://www.govtrack.us/api/v2/:type/?order_by=:filter&:q&:options';
+    const findOneApi: string = 'https://www.govtrack.us/api/v2/:type/:id';
+    const labelApi: string = '/api/labels';
+    const billFilter: string = '-current_status_date';
+    const peopleFilter: string = 'sortname';
+    const roleFilter: string = 'senator_class';
+    const dateQ: string = '&current_status_date__gt=';
+
     export class govTrackService {
       public govTrackResource;
       public findOneResource;
       constructor($resource: ng.resource.IResourceService){
         this.govTrackResource = $resource(govTrackApi, {q: 'q', type:'@type', filter: '@filter', options:'options'});
-        //this.findOneResource = $resource(findOneApi, {id: '@id', type:'@type'});
         this.findOneResource = $resource('/api/govItems/:id/:type', {id: 'id', type: 'type'});
       }
       // clean up GET search
@@ -21,9 +22,6 @@ namespace ngpoli.Services {
         _search['type'] = search.type;
         _search['options'] = null;
         search["query"] ? _search['q'] = "q=" + search["query"] : _search['q'] = null;
-        // if(search.query && (search.query.length && search.query.length < 1)){
-        //   _search['q'] = 'q=' + search.query;
-        // }
         if(search.options && search.options.length){
           _search['options'] = search.options;
         }
@@ -35,7 +33,6 @@ namespace ngpoli.Services {
         }
         if(search.type == 'bill'){
           _search['filter'] = billFilter;
-        //  _search['q'] = 'q=all';
           _search['options'] = dateQ + search["date"].toISOString();
         }
         if(_search['type'] == 'person'){
@@ -53,7 +50,6 @@ namespace ngpoli.Services {
       }
       public getOne(search){
         let _search = {id: search.id, type:search.type};
-      //  return this.findOneResource.get(search).$promise;
       return this.findOneResource.get(_search).$promise;
       }
     }
@@ -101,8 +97,7 @@ namespace ngpoli.Services {
          let loggedIn = _this.localStore.isLoggedIn();
           if(loggedIn){
             _this.$state.get('main.account').data = _this.localStore.bootstrap();
-          //  _this.list();
-          } 
+          }
       }
       public bootstrap(){
         return JSON.parse(localStorage.getItem('bs_user'));

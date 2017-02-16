@@ -1,12 +1,13 @@
 namespace ngpoli.Controllers{
   export class HomeController {
-      public isNewUser;
-      public search = {};
-      public billOptions;
-      public personOptions;
-      public feedItems;
-      public billDate;
-      public billTypes = [
+
+      public isNewUser: boolean;
+      public search: Object = {};
+      public billOptions: string;
+      public personOptions: string;
+      public feedItems: Array<any>;
+      public billDate: Date;
+      public billTypes: Array<string> = [
         'all',
         'house_resolution',
         'senate_bill',
@@ -17,7 +18,8 @@ namespace ngpoli.Controllers{
         'house_joint_resolution',
         'senate_resolution'
       ];
-      constructor(private UserService: ngpoli.dbServices.UserService,
+      constructor(
+        private UserService: ngpoli.dbServices.UserService,
         private govTrackService: ngpoli.Services.govTrackService,
         private $mdDialog: ng.material.IDialogService,
         private $state: ng.ui.IStateService,
@@ -31,9 +33,9 @@ namespace ngpoli.Controllers{
           this.search = {type: 'bill', query: '', options: '', filter: '', date: billDate};
           this.billOptions = 'current_status=prov_kill_veto';
           this.personOptions = 'all_people';
-           //init service for all controllers
           localStore.loadUser(this);
       }
+
       public openDialog(){
         let vm = this.$scope;
           this.$mdDialog.show({
@@ -57,7 +59,6 @@ namespace ngpoli.Controllers{
       public setUser(user){
         this.localStore.cache(user);
         this.$state.get('main.account').data = user;
-      //  $state.go('myProfile', null, { reload: true });
         this.$mdDialog.hide();
       }
 
@@ -69,6 +70,7 @@ namespace ngpoli.Controllers{
           if(err.data == 'Not Found'){ alert('user not found! make sure your username and password is correct.') }
         });
       }
+
       public list(){
         let _search = this.search;
         if(_search["type"] == 'person'){
@@ -88,6 +90,7 @@ namespace ngpoli.Controllers{
           console.log(err);
         });
       }
+
       public cleanPeopleFilter(people){
         let names = [];
         let copy = people;
@@ -102,6 +105,7 @@ namespace ngpoli.Controllers{
             this.$scope.$apply();
           }, 1200);
       }
+
       public setStars(){
         let vm = this;
         let user = this.$state.get('main.account').data;
@@ -117,6 +121,7 @@ namespace ngpoli.Controllers{
          this.$state.get('main.account').data.starredItems = [];
        }
      }
+
      public rateItem(item){
        item.checked = !item.checked;
        let user = this.$state.get('main.account').data;
@@ -133,7 +138,6 @@ namespace ngpoli.Controllers{
          let starIds = stars.map((star)=>{
            return star.id;
          });
-         //remove star
          let _match = starIds.indexOf(item.id);
          if(_match > -1){
            stars.splice(_match, 1)
@@ -144,17 +148,14 @@ namespace ngpoli.Controllers{
           stars.push({id: item.id, type: type});
        }
        user.starredItems = stars;
-       console.log("user to save: ", user);
        this.$state.get('main.account').data = user;
        this.localStore.cache(user);
-      //govItems
       let _item = {
         type: type,
         apiLocation: item["link"],
         data: item,
         govId: item["id"]
       };
-
       if (_item.type != 'bill' ){
          _item.type = 'role';
          _item.apiLocation = _item.data["person"]["link"];
@@ -166,9 +167,8 @@ namespace ngpoli.Controllers{
         this.localStore.cache(_user);
          this.$state.get('main.account').data = _user;
          this.setStars();
-       }).catch((err)=>{
-          console.log(err);
-       });
+       }).catch((e)=>{ throw new Error(e); });
      }
+     
   }
 }

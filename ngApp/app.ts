@@ -27,12 +27,6 @@ namespace ngpoli {
               controller: ngpoli.Controllers.InterestsController,
               controllerAs: 'vm'
             })
-            // .state('tags',{
-            //   url:'/tags',
-            //   templateUrl:'/ngApp/views/tags.html',
-            //   controller: ngpoli.Controllers.TagsController,
-            //   controllerAs: 'controller'
-            // })
             .state('main.account',{
               url:'/account',
               templateUrl:'/ngApp/views/account.html',
@@ -62,6 +56,5 @@ namespace ngpoli {
           //danger
           .backgroundPalette('blue-grey');
           //md content backgrounds
-
     });
 }

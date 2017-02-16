@@ -8,16 +8,11 @@ router.get('/:id/:type', (req, res, next) =>{
   GovItem.findOne({govId: req.params.id, type: req.params.type}).then((govItem)=>{
    console.log(req.params);
     res.send(govItem);
-    //TODO error handling
-  }).catch((err)=>{
-    console.log(err);
-    res.send(err);
-  });
+  }).catch((e) => { throw new Error; });
 });
 
 router.post('/:id', (req, res, next) =>{
   GovItem.findOne({govId: req.params.id, type: req.body.type}).then((govItem)=>{
-    //check for dupes
     if(govItem == null){
       GovItem.create(req.body).then((item)=>{
         res.json(item); //ok!
@@ -29,11 +24,6 @@ router.post('/:id', (req, res, next) =>{
     res.sendStatus(504);
   });
 });
-// router.get('/:id', (req, res, next)=>{
-//   if(req.params.id){
-//
-//   }
-// });
 
 // trash collector for govItems
 
@@ -46,7 +36,7 @@ function cleanGovItems(){
         }
       });
     });
-    setTimeout(cleanGovItems, 50000);
+    setTimeout(cleanGovItems, 100000);
     console.log('cleaned.');
   });
 }

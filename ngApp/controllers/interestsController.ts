@@ -3,9 +3,9 @@ namespace ngpoli.Controllers{
 
 
 export class InterestsController {
-  public starredItems = [];
-  public notifications = [];
-  public currentUserName;
+  public starredItems: Array<any> = [];
+  public notifications: Array<any> = [];
+  public currentUserName: string;
   constructor(
     private UserService: ngpoli.dbServices.UserService,
     private govTrackService: ngpoli.Services.govTrackService,
@@ -30,7 +30,6 @@ export class InterestsController {
 
     public visitorView(){
       let currentUserName = this.$stateParams["username"];
-      console.log('i am not on my page: ', currentUserName);
       this.UserService.visitorView(this.$stateParams["username"]).then((results)=>{
         this.visitorPopulate(results);
       }).catch((e)=>{ throw new Error(e); });
@@ -56,7 +55,6 @@ export class InterestsController {
                 });
            });
           this.notifications = this.$state.get('main.account').data["notifications"];
-          console.log(this.$state.get('main.account').data["notifications"]);
     }
 
     public deNotify(notification){
@@ -64,10 +62,7 @@ export class InterestsController {
       user.notifications.splice(user.notifications.indexOf(notification), 1);
       this.$state.get('main.account').data = user;
       this.notifications = user.notifications;
-      this.UserService.update(user).then((_user)=>{
-      }).catch((err)=>{
-        console.log(err);
-      });
+      this.UserService.update(user);
     }
 
   public removeItem (item){

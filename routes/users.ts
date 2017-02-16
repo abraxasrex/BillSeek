@@ -2,9 +2,8 @@ import * as express from 'express';
 import User from '../models/Users';
 import GovItem from '../models/GovItems';
 let router = express.Router();
+
 function createNotification(oldGovItem, newGovItem){
-  // console.log(oldGovItem["data"].current_status_description);
-  // console.log(newGovItem["data"].current_status_description);
   let msg = null;
   if(oldGovItem["type"] === 'bill'){
         if(oldGovItem["data"].current_status_date !== newGovItem["data"].current_status_date){
@@ -15,11 +14,8 @@ function createNotification(oldGovItem, newGovItem){
 }
 
 function updateUser(user, _res){
-  console.log('updating user...');
-  //console.log(user);
-//  console.log(res);
-  User.update({_id:user._id}, user).then(() => {
-    _res.json(user);
+  User.update({_id:user._id}, user).then((_user) => {
+    _res.json(_user);
   }).catch((err) => {
     _res.status(400).json(err);
   });
@@ -30,10 +26,7 @@ function updateGovItems(govItem, user){
       if(item == null){
         GovItem.create(govItem);
       }
-    }).catch((err)=>{
-      console.log('update error');
-      console.log(err);
-    });
+    }).catch((e)=>{ throw new Error(e); });
 }
 
 router.post('/register', (req, res) => {
@@ -46,11 +39,7 @@ router.post('/register', (req, res) => {
       user.notifications = req.body.notifications;
       User.create(user).then((newUser) => {
         res.json(newUser);
-      }).catch((err) => {
-        console.log("creation error");
-        console.log(err);
-        res.status(500).json(err);
-      });
+      }).catch((e) => { res.status(500).json(e); });
     } else {
       res.status(400).send('dupe');
     }
@@ -73,30 +62,20 @@ router.post('/login', (req, res) => {
 
 function checkforNotification (newItem, user, res){
    GovItem.findOne({govId: newItem.govId}).then((item)=>{
-     //if theres a match, check for notifications
      if(item != null){
        let notification = createNotification(item, newItem);
        if(notification){
          user.notifications.push(notification);
          User.update({_id: user._id}, user).then(()=>{
            updateUser(user, res);
-           console.log("notification!: notification added");
          });
        }
      } else{
         GovItem.create(newItem).then(()=>{
           updateUser(user, res);
-        }).catch((err)=>{
-          //wrong
-        //  updateUser(user, res);
-        console.log('could not create gov item');
-          console.log(err);
-        });
+        }).catch((e)=>{ throw new Error(e); });
       }
-      // updateUser(user, res);
-   }).catch((err)=>{
-     console.log(err);
-   });
+   }).catch((e)=>{ throw new Error(e); });
 }
 
 router.post('/update/:id', (req, res) => {
@@ -135,7 +114,6 @@ router.get('/notifications/:id', (req, res)=>{
 router.get('/visitorView/:username', (req, res)=>{
   let username = req.params.username;
   User.findOne({username:  username}).then((_user) => {
-    console.log('found username');
     res.json(_user);
   }).catch((err) => {
     res.sendStatus(404).json('no user');
