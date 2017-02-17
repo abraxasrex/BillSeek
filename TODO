@@ -19,27 +19,30 @@ B. what happens to create a notification:
 .......
 
 
-
 2/16/17
 3.5 mobile design
-4. refactor starring system for efficiency
-4.5 add text and date modeling to notification
-4.75 : enhance above with unit tests
-4.8 denotify (interests controller) test
-
-2/17/17:
+4.9 dropdown info for govitem (or, more info link leading to govtrack)
 5. window sizing on interests page: don't resize based on content
-6. make sure garbage collector for govItems actually work
 7. reset nav tabs after logout
+6. make sure garbage collector for govItems actually work
+
 
 weekend:
-1. security
+
+1 denotify (interests controller) test
 2. deployment
 
+
+stretch:
+4. refactor starring system for efficiency
 3. front end model for: govTrackServiceSearch, starredItems, notifications , user model layers
 3.5. navigation to interests and home: reload: true
 4. change userservice update save method to put
 5. send all status codes
+4.5 add text and date modeling to notification
+4.75 : enhance above with unit tests
+1. security
+add mailing
 
 2/17/17:
 C# auction website

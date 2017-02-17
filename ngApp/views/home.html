@@ -1,22 +1,22 @@
 <div class="custom-container" ng-cloak>
   <md-card class="custom-container" ng-cloak>
-    <md-card-header  class="fix-height" layout="row" layout-align="space-around center">
-      <md-card-title-text  flex="50" class="md-headline" layout="row" layout-align="start center">
-          <div flex="30"></div>
-          <div flex="20" class="bs-search-2"> Search for </div>
-          <md-select flex="30" ng-cloak aria-label = "type" name="type" ng-model="controller.search.type" ng-model-options="{debounce:1000}"
+    <md-card-header  class="fix-height" layout="row" layout-sm="column" layout-xs="column" layout-align="space-around center">
+      <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="column" layout-xs="column" layout-align="start center">
+          <div flex="30" flex-sm="0" flex-xs="0"></div>
+          <div flex="20" flex-sm="100" flex-xs="100" class="bs-search-2"> Search for </div>
+          <md-select flex="30" flex-sm="100" flex-xs="100" ng-cloak aria-label = "type" name="type" ng-model="controller.search.type" ng-model-options="{debounce:1000}"
           ng-change="controller.list()">
             <md-option value="bill">Bills</md-option>
             <md-option value="person">People</md-option>
           </md-select>
-          <div flex="20"></div>
+          <div flex="20" flex-sm="0" flex-xs="0"></div>
       </md-card-title-text>
       <!-- bill filters  -->
 
-      <md-card-title-text  flex="50" class="md-headline" layout="row" layout-align="start center"
+      <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="column" layout-xs="column" layout-align="start center"
       ng-show="controller.search.type == 'bill'" ng-cloak>
           <div flex="20"></div>
-          <div flex="20">
+          <div flex="20" flex-sm="50" flex-xs="50">
           <span ng-cloak class=" bs-search" ng-show="controller.search.type == 'person'"> Filter by </span>
           <span ng-cloak class=" bs-search" ng-show="controller.search.type == 'bill'"> Dated after </span>
          </div>
@@ -26,7 +26,7 @@
             <md-option value="current_status=passed_bill">Passed</md-option>
           </md-select> -->
           <!-- date view -->
-            <md-input-container  class="no-pad" flex="30">
+            <md-input-container  class="no-pad" flex="30" flex-sm="50" flex-xs="50">
               <!-- <label for="date" >last active</label> -->
             <!-- <input aria-label = "date" name="date" type="date" ng-model="controller.billDate" /> -->
           <md-datepicker ng-model="controller.search.date" md-placeholder="Active after..."
@@ -37,7 +37,7 @@
           <!-- -->
       </md-card-title-text>
       <!-- people filters  -->
-      <md-card-title-text  flex="50" class="md-headline" layout="row" layout-align="start center"
+      <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="row" layout-xs="row" layout-align="start center"
       ng-show="controller.search.type == 'person'">
       <div flex="20"></div>
       <div flex="20">
@@ -54,8 +54,8 @@
 
     </md-card-header>
     <md-card-content>
-      <form  layout="row" layout-align="center center">
-        <md-input-container flex="50">
+      <form  layout="row" layout-sm="row" layout-xs="row" layout-align="center center">
+        <md-input-container flex="50" flex-sm="100" flex-xs="100">
           <label>search</label>
           <input type="text" ng-model="controller.search.query" ng-model-options="{debounce:1000}"
           ng-change="controller.list()" />
