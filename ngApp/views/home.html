@@ -28,9 +28,11 @@
           <!-- date view -->
             <md-input-container  class="no-pad" flex="30" flex-sm="50" flex-xs="50">
               <!-- <label for="date" >last active</label> -->
-            <!-- <input aria-label = "date" name="date" type="date" ng-model="controller.billDate" /> -->
+            <!-- <input aria-label = "date" name="date" type="date" ng-model="controller.billDate"
+               ng-change="controller.list()" ng-model-options="{debounce:1000}" /> -->
+
           <md-datepicker ng-model="controller.search.date" md-placeholder="Active after..."
-             ng-change="controller.list()" ng-model-options="{debounce:1000}">
+             ng-change="controller.list()" ng-model-options="{debounce:1000}" >
           </md-datepicker>
          </md-input-container>
          <div flex="30"></div>

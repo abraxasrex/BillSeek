@@ -2,7 +2,7 @@ namespace ngpoli.Controllers{
   export class HomeController {
 
       public isNewUser: boolean;
-      public search: Object = {};
+      public search: Object = {date: new Date()};
       public billOptions: string;
       public personOptions: string;
       public feedItems: Array<any>;

@@ -4,7 +4,8 @@ namespace ngpoli {
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,
-        $mdThemingProvider: ng.material.IThemingProvider
+        $mdThemingProvider: ng.material.IThemingProvider,
+        $compileProvider
     ) => {
         $stateProvider
             .state('main', {
@@ -56,5 +57,8 @@ namespace ngpoli {
           //danger
           .backgroundPalette('blue-grey');
           //md content backgrounds
+
+             //precompile to fix datepicker
+            $compileProvider.preAssignBindingsEnabled(true);
     });
 }
