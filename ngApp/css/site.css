@@ -73,3 +73,32 @@ html {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+/*catch-all mobile width media query*/
+@media only screen and (max-device-width: 540px){
+  .md-nav-bar {
+    width: 100% !important;
+    justify-content: space-around !important;
+  }
+  md-nav-bar {
+    width: 100% !important;
+    justify-content: space-around !important;
+  }
+  .md-nav-item {
+    width: 30% !important;
+  }
+  .md-nav-item > * {
+    width: 100% !important;
+  }
+  .card-media *, .md-nav-item .md-button, input, input * {
+    font-size: 1.6em !important;
+  }
+  .star-cards * {
+    font-size: 1.1em !important;
+  }
+}
+
+
+    /*.md-nav-item {
+      width: 33% !important;
+    }*/

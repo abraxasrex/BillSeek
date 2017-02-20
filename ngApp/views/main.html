@@ -10,11 +10,21 @@
   </div>
 </div>
 <hr ng-show="vm.isLoggedIn" />
-<md-content class="md-padding" ng-show="vm.isLoggedIn" flex-sm="100" flex-xs="100"  layout-xs="row" layout-sm="row">
-  <md-nav-bar flex-sm="100" flex-xs="100" md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links" layout-align="space-around center">
-    <md-nav-item flex-sm="30" name="home" md-nav-sref="main.home">Home</md-nav-item>
-    <md-nav-item flex-sm="30" name="interests" md-nav-sref="main.interests({ username: vm.username})">My Interests</md-nav-item>
-    <md-nav-item flex-sm="30" name="account" md-nav-sref="main.account">Account</md-nav-item>
+<md-content class="md-padding" ng-show="vm.isLoggedIn" layout="row" layout-sm="row" layout-xs="row" layout-align="space-around center"
+>
+  <!-- flex-sm="100" flex-xs="100"  layout-xs="row" layout-sm="row" -->
+  <!-- layout-align-sm="center stretch" -->
+  <md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links" flex-sm="100" flex-xs="100" layout-align="space-around center"
+>
+<!-- layout="row" layout-sm="row" layout-xs="row" flex-sm="100" flex-xs="100"
+layout-align-gt-sm="space-around center"
+layout-align-sm="start center"
+layout-align-xs="start center" -->
+     <!-- flex-sm="100" flex-xs="100"  -->
+    <md-nav-item name="home" md-nav-sref="main.home">Home</md-nav-item>
+    <!-- flex-sm="30" flex-xs="30" -->
+    <md-nav-item name="interests" md-nav-sref="main.interests({ username: vm.username})">My Interests</md-nav-item>
+    <md-nav-item name="account" md-nav-sref="main.account">Account</md-nav-item>
    </md-nav-bar>
 </md-content>
     <hr ng-show="vm.isLoggedIn" />

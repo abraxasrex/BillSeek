@@ -71,7 +71,7 @@
     {title_without_number: controller.search }"> -->
     <md-card ng-repeat="item in controller.feedItems">
       <md-card-content>
-        <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
+        <div class="md-media-md card-media home-cards" ng-show="controller.search.type == 'bill'">
           <p> {{ item.display_number }} </p>
           <hr />
            <strong> {{ item.title_without_number}} </strong>

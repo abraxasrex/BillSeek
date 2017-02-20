@@ -7,6 +7,7 @@ namespace ngpoli.Controllers{
       public personOptions: string;
       public feedItems: Array<any>;
       public billDate: Date;
+      public date: Date = new Date();
       public billTypes: Array<string> = [
         'all',
         'house_resolution',
@@ -169,6 +170,6 @@ namespace ngpoli.Controllers{
          this.setStars();
        }).catch((e)=>{ throw new Error(e); });
      }
-     
+
   }
 }
