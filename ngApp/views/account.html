@@ -1,7 +1,30 @@
-<div>
+<!-- <div>
   <h1> Account page </h1>
   <h1>
     name: {{controller.$state.current.data.username }}
   </h1>
   <md-button ng-click="controller.logOut()"> logout </md-button>
-</div>
+</div> -->
+
+<md-card class="custom-container" flex = "100" flex-sm = "100" flex-xs = "100">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline"> My Info: </span>
+      </md-card-title-text>
+    </md-card-title>
+  <md-card-content>
+    <h3>
+      name: {{controller.$state.current.data.username }}
+    </h3>
+    <hr />
+    <h3>
+      share your interests page:
+    </h3>
+    <input id="foo" value="{{controller.location.host()}}:{{controller.location.port()}}/interests/{{controller.$state.current.data.username }} ">
+      <button class="btn" ngclipboard data-clipboard-target="#foo">
+          copy
+      </button>
+    <hr />
+    <md-button ng-click="controller.logOut()"> logout </md-button>
+  </md-card-content>
+</md-card>

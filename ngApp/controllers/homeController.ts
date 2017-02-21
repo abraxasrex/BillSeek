@@ -58,6 +58,7 @@ namespace ngpoli.Controllers{
       }
 
       public setUser(user){
+        console.log("user: ", user);
         this.localStore.cache(user);
         this.$state.get('main.account').data = user;
         this.$mdDialog.hide();
@@ -110,6 +111,7 @@ namespace ngpoli.Controllers{
       public setStars(){
         let vm = this;
         let user = this.$state.get('main.account').data;
+        console.log("user: ", user);
         if(user["starredItems"] && user["starredItems"].length){
           let stars = user.starredItems.map((star)=>{
             return star["id"];
@@ -126,6 +128,7 @@ namespace ngpoli.Controllers{
      public rateItem(item){
        item.checked = !item.checked;
        let user = this.$state.get('main.account').data;
+            console.log("user: ", user);
        let stars = [];
        let type;
        if(item["person"]){
@@ -150,7 +153,9 @@ namespace ngpoli.Controllers{
        }
        user.starredItems = stars;
        this.$state.get('main.account').data = user;
+         console.log("user: ", user);
        this.localStore.cache(user);
+         console.log("user: ", user);
       let _item = {
         type: type,
         apiLocation: item["link"],
@@ -164,7 +169,9 @@ namespace ngpoli.Controllers{
         _item.type = 'bill';
       }
        user["govItem"] = _item;
+      console.log("user: ", user);
        this.UserService.update(user).then((_user)=>{
+         console.log("response user:", _user);
         this.localStore.cache(_user);
          this.$state.get('main.account').data = _user;
          this.setStars();

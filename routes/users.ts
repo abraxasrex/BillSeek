@@ -14,8 +14,9 @@ function createNotification(oldGovItem, newGovItem){
 }
 
 function updateUser(user, _res){
+  console.log("updating user");
   User.update({_id:user._id}, user).then((_user) => {
-    _res.json(_user);
+    _res.json(user);
   }).catch((err) => {
     _res.status(400).json(err);
   });
@@ -61,14 +62,22 @@ router.post('/login', (req, res) => {
 });
 
 function checkforNotification (newItem, user, res){
+  console.log("checking notis");
    GovItem.findOne({govId: newItem.govId}).then((item)=>{
+     console.log("found some existing govitem, item is null? ", item == null);
      if(item != null){
        let notification = createNotification(item, newItem);
+       console.log(notification);
        if(notification){
          user.notifications.push(notification);
+         console.log("about to update: ", user._id);
          User.update({_id: user._id}, user).then(()=>{
+           console.log("some update");
            updateUser(user, res);
-         });
+         }).catch((e)=>{ throw new Error (e); });
+       } else {
+         console.log("no notifications");
+         updateUser(user, res);
        }
      } else{
         GovItem.create(newItem).then(()=>{
@@ -79,6 +88,7 @@ function checkforNotification (newItem, user, res){
 }
 
 router.post('/update/:id', (req, res) => {
+//  console.log(req["body"]);
   let id = req.params.id;
   let govItem = req.body["govItem"];
 

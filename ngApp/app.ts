@@ -1,6 +1,6 @@
 namespace ngpoli {
     ///hii
-    angular.module('ngpoli', ['ui.router', 'ngMaterial', 'ngMessages', 'ngResource']).config((
+    angular.module('ngpoli', ['ui.router', 'ngMaterial', 'ngMessages', 'ngResource', 'ngclipboard']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,

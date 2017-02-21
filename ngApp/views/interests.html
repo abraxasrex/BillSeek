@@ -1,8 +1,8 @@
 
 
-  <div class="container custom-container" layout = "row" ng-cloak>
+  <div class="container custom-container" layout = "row" layout-sm = "column" layout-xs = "column" ng-cloak>
 
-    <md-card class="custom-container" flex = "50">
+    <md-card class="custom-container" flex = "25" flex-sm = "100" flex-xs = "100">
         <md-card-title class="notifications-height">
           <md-card-title-text>
             <span class="md-headline"> Notifications: </span>
@@ -32,7 +32,7 @@
           </div>
       </md-card>
 
-        <md-card class="custom-container" flex ="50">
+        <md-card class="custom-container" flex ="75" flex-sm ="25" flex-xs ="25">
             <md-card-title>
               <md-card-title-text>
                 <span class="md-headline"> My Starred Items: </span>
@@ -58,6 +58,9 @@
                       <div class="md-media-md card-media" ng-show="!!item.data.person && !!item.data.person['name']">
                         <strong> {{ item.data.person.name }} </strong>
                          <p> {{ item.data.person.party }} </p>
+                      </div>
+                      <div class="md-media-md card-media">
+                        <a href="{{item.apiLocation}}" target="_blank"> see details </a>
                       </div>
                       <div ng-show="vm.localStore.isLoggedIn()" class="star-holder" ng-click="vm.removeItem(item.data)" >
                           <md-icon class="bs-icon gold-star" >star_rate</md-icon>

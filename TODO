@@ -19,65 +19,8 @@ B. what happens to create a notification:
 .......
 
 
-2/16/17
-3.5 mobile design
-4.9 dropdown info for govitem (or, more info link leading to govtrack)
-5. window sizing on interests page: don't resize based on content
-7. reset nav tabs after logout
-6. make sure garbage collector for govItems actually work
-
-
-weekend:
-
-1 denotify (interests controller) test
-2. deployment
-
-
-stretch:
-4. refactor starring system for efficiency
-3. front end model for: govTrackServiceSearch, starredItems, notifications , user model layers
-3.5. navigation to interests and home: reload: true
-4. change userservice update save method to put
-5. send all status codes
-4.5 add text and date modeling to notification
-4.75 : enhance above with unit tests
-1. security
-add mailing
-
-2/17/17:
-C# auction website
-
-
-
-1/27/16 stretch:
-
-3. html5 form validation and other error handling
-
-
-1/11/16 - infinity stretch :
-
-4. non auth portal entry
-
-5. Accounts UI
- - advanced options: delete + edit account / email password(?)
-
-6. json web token auth
-
-7. email notification of change
-
-8. server side refactor
-
-Stretch 1:
-
-6. passport integration
-
-7. 3rd party auth
-
-
-Stretch 2:
-0.  Notifications: compare user's starred GovItem (limit: 25 or so) to govtrack db
- and see if a field has changed.
-1. GovItem Connection field:
-  any GovItem which has a field match elsewhere in the API to another bill or person creates a
-  relationship information.
-2. Interest Profile Data Visualization
+2/21/17:
+1. style ng-clipboard links
+2. reset nav tabs after logout
+3. why 'no notifications warning'
+4. deploy

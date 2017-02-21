@@ -27,6 +27,7 @@ namespace ngpoli.dbServices{
     }
     public update(user){
       //TODO change to 'PUT'
+      console.log('user: ', user);
       return this.UpdateResource.save({id: user._id}, user).$promise;
     }
     public loadNotifications(user){

@@ -89,6 +89,12 @@
           <strong> {{ item.person.name }} </strong>
            <p> {{ item.person.party }} </p>
         </div>
+        <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
+           <a href="{{item.link}}" target="_blank"> see details </a>
+        </div>
+        <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
+           <a href="{{item.person.link}}" target="_blank"> see details </a>
+        </div>
         <div class="star-holder" ng-click="controller.rateItem(item)" >
             <md-icon ng-class="{'gold-star': item.checked}" class="bs-icon" >star_rate</md-icon>
         </div >
