@@ -45,8 +45,8 @@
         <form>
         <input type="text" ng-model="controller.editTag.name" />
         <div>
-          <md-button ng-click="controller.cancelEdit()">Cancel</md-button>
-          <md-button ng-click="controller.submitEdit()">Save</md-button>
+          <md-button class="md-raised md-warn" ng-click="controller.cancelEdit()">Cancel</md-button>
+          <md-button class="md-raised md-primary" ng-click="controller.submitEdit()">Save</md-button>
         </div>
       </form>
      </md-dialog-content>
@@ -88,7 +88,7 @@
                </md-input-container>
               <!-- <md-button ng-click="controller.cancel()">Cancel</md-button> -->
               <md-input-container>
-                <md-button type="submit">Go</md-button>
+                <md-button class="md-raised md-primary" type="submit">Go</md-button>
             </md-input-container>
 
           </form>
