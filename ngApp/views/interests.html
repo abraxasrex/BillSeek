@@ -8,13 +8,13 @@
             <span class="md-headline"> Notifications: </span>
           </md-card-title-text>
         </md-card-title>
-          <div class="md-media-lg card-media">
+          <div class="md-media-lg card-media" >
             <!-- notification cards-->
-            <!-- <md-card ng-show="!vm.notifications.length">
+            <md-card ng-show="!vm.notifications.length">
               <md-card-content>
                 <p>No notifications.</p>
               </md-card-content>
-            </md-card> -->
+            </md-card>
 
             <md-card ng-repeat="notification in vm.notifications">
               <md-card-content>
@@ -26,7 +26,7 @@
                 </div>
               </md-card-content>
               <md-card-content>
-                <md-button ng-click="vm.deNotify(notification)"> delete X  </md-button>
+                <md-button class="md-warn md-raised" ng-click="vm.deNotify(notification)"> delete X  </md-button>
               </md-card-content>
             </md-card>
           </div>

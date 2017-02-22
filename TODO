@@ -19,8 +19,11 @@ B. what happens to create a notification:
 .......
 
 
-2/21/17:
-1. style ng-clipboard links
-2. reset nav tabs after logout
-3. why 'no notifications warning'
-4. deploy
+2/22/17:
+1. design fixes
+2. change colors
+2.5. get working visitor view link
+3. deploy
+
+2/23/17:
+1. test notifications  

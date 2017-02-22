@@ -21,10 +21,10 @@
       share your interests page:
     </h3>
     <input id="foo" value="{{controller.location.host()}}:{{controller.location.port()}}/interests/{{controller.$state.current.data.username }} ">
-      <button class="btn" ngclipboard data-clipboard-target="#foo">
+      <md-button class="md-primary md-raised" ngclipboard data-clipboard-target="#foo">
           copy
-      </button>
+      </md-button>
     <hr />
-    <md-button ng-click="controller.logOut()"> logout </md-button>
+    <md-button class="md-warn md-raised" ng-click="controller.logOut()"> logout </md-button>
   </md-card-content>
 </md-card>
