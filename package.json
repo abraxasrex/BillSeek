@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "preinstall": "npm i bower typescript -g",
-    "postinstall": "bower i & tsc --listFiles",
+  
     "test": "mocha ./test/billseek.js --timeout 10000"
   },
   "dependencies": {

@@ -22,6 +22,10 @@ B. what happens to create a notification:
 2/22/17:
 3. deploy
 3.5. get working visitor view link
+3.7: do i need these ? not if i'm not compiling, right?
+"preinstall": "npm i bower typescript -g",
+"postinstall": "bower i & tsc --listFiles",
+
 
 2/24/17:
 1. test notifications
