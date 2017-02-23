@@ -70,6 +70,10 @@ html {
   background-color: grey
 }*/
 
+hr {
+  /*border-color: dark-grey;*/
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -90,12 +94,25 @@ html {
   .md-nav-item > * {
     width: 100% !important;
   }
-  .card-media *, .md-nav-item .md-button, input, input * {
+  .card-media *, .md-nav-item .md-button, input, input *, .oneSix{
     font-size: 1.6em !important;
   }
   .star-cards * {
     font-size: 1.1em !important;
   }
+
+  .mobile-md-text, .mobile-md-text * {
+    font-size: 1.2em !important;
+  }
+
+  .mobile-small-text, .mobile-small-text * {
+    font-size: 0.8em !important;
+  }
+
+  .mobile-smaller-text, .mobile-smaller-text * {
+    font-size: 1.0em !important;
+  }
+
 }
 
 

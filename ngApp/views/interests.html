@@ -4,7 +4,7 @@
 
     <md-card class="custom-container" flex = "25" flex-sm = "100" flex-xs = "100">
         <md-card-title class="notifications-height">
-          <md-card-title-text>
+          <md-card-title-text class="">
             <span class="md-headline"> Notifications: </span>
           </md-card-title-text>
         </md-card-title>
@@ -12,13 +12,13 @@
             <!-- notification cards-->
             <md-card ng-show="!vm.notifications.length">
               <md-card-content>
-                <p>No notifications.</p>
+                <p class="mobile-small-text">No notifications.</p>
               </md-card-content>
             </md-card>
 
             <md-card ng-repeat="notification in vm.notifications">
               <md-card-content>
-                <div class="md-media-md card-media star-cards">
+                <div class="md-media-md card-media">
                   <!-- <strong> {{notification.date}} </strong> -->
                     <strong> {{notification}} </strong>
                   <!-- <hr />
@@ -39,10 +39,10 @@
               </md-card-title-text>
             </md-card-title>
               <md-card-title-media>
-                <div class="md-media-lg card-media star-cards">
+                <div class="md-media-lg card-media">
 
                   <md-card ng-repeat="item in vm.starredItems">
-                    <md-card-content>
+                    <md-card-content class="mobile-smaller-text">
                       <div class="md-media-md card-media" ng-show="!!item.data.current_status_date">
                         <p> {{ item.data.display_number }} </p>
                         <hr />

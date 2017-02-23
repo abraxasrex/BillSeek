@@ -2,7 +2,7 @@
   <md-card class="custom-container" ng-cloak>
     <md-card-header  class="fix-height" layout="row" layout-sm="column" layout-xs="column" layout-align="space-around center">
       <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="column" layout-xs="column" layout-align="start center">
-          <div flex="30" flex-sm="0" flex-xs="0"></div>
+          <div flex="10" flex-sm="0" flex-xs="0"></div>
           <div flex="20" flex-sm="100" flex-xs="100" class="bs-search-2"> Search for </div>
           <md-select flex="30" flex-sm="100" flex-xs="100" ng-cloak aria-label = "type" name="type" ng-model="controller.search.type" ng-model-options="{debounce:1000}"
           ng-change="controller.list()">
@@ -73,28 +73,47 @@
     {title_without_number: controller.search }"> -->
     <md-card ng-repeat="item in controller.feedItems">
       <md-card-content>
-        <div class="md-media-md card-media home-cards" ng-show="controller.search.type == 'bill'">
+        <div class="md-media-md card-media home-cards  mobile-md-text " ng-show="controller.search.type == 'bill'">
           <p> {{ item.display_number }} </p>
-          <hr />
-           <strong> {{ item.title_without_number}} </strong>
-           <hr />
-           <p> {{item.current_status_description}} </p>
-              <p> last activity: {{ item.current_status_date }} </p>
+          <!-- <hr /> -->
+           <p><strong> {{ item.title_without_number}} </strong></p>
+           <!-- <hr /> -->
+           <md-card>
+             <md-card-content>
+             <p> {{item.current_status_description}} </p>
+                <p> last activity: {{ item.current_status_date }} </p>
+
+                <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
+                   <a href="{{item.link}}" target="_blank"> see details </a>
+                </div>
+
+              </md-card-content>
+            </md-card>
         </div>
-        <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
+
+        <!-- <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">
           <strong> {{ item.firstname }} </strong>
            <p> {{ item.lastname}} </p>
+           <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
+              <a href="{{item.person.link}}" target="_blank"> see details </a>
+           </div>
+        </div> -->
+
+        <div class="md-media-md card-media mobile-md-text " ng-show="!!item.person && controller.search.type != 'bill'">
+
+            <p>               <strong> {{ item.person.name }} </strong> </p>
+                      <md-card>
+            <md-card-content>
+               <p> {{ item.party }} </p>
+               <p> {{ item.phone }} </p>
+               <p> {{ item.website }} </p>
+               <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
+                  <a href="{{item.person.link}}" target="_blank"> see details </a>
+               </div>
+             </md-card-content>
+           </md-card>
         </div>
-        <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
-          <strong> {{ item.person.name }} </strong>
-           <p> {{ item.person.party }} </p>
-        </div>
-        <div class="md-media-md card-media" ng-show="controller.search.type == 'bill'">
-           <a href="{{item.link}}" target="_blank"> see details </a>
-        </div>
-        <div class="md-media-md card-media" ng-show="!!item.person && controller.search.type != 'bill'">
-           <a href="{{item.person.link}}" target="_blank"> see details </a>
-        </div>
+
         <div class="star-holder" ng-click="controller.rateItem(item)" >
             <md-icon ng-class="{'gold-star': item.checked}" class="bs-icon" >star_rate</md-icon>
         </div >

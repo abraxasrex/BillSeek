@@ -49,14 +49,17 @@ namespace ngpoli {
          //lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey
         $mdThemingProvider
           .theme('default')
-          .primaryPalette('indigo')
-          //form focus
-          .accentPalette('indigo')
+          .primaryPalette('blue')
+          //form focus / tabs
+          .accentPalette('blue')
                     // navbar highlighting (focus?)
           .warnPalette('red')
           //danger
-          .backgroundPalette('blue-grey');
+          .backgroundPalette('blue');
           //md content backgrounds
+
+
+
 
              //precompile to fix datepicker
             $compileProvider.preAssignBindingsEnabled(true);
