@@ -12,7 +12,7 @@ let TEST_URI = 'mongodb://jbr:jbr@ds013966.mlab.com:13966/billseek-test';
 
 
 //uncomment to test
-MONGO_URI = TEST_URI;
+//MONGO_URI = TEST_URI;
 
 //fix mongoose promise depredation
 //mongoose["Promise"]  = global.Promise;

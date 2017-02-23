@@ -1,6 +1,6 @@
 /bower_components
 /typings
 /node_modules
-*.js
+*.ts
 .env
 npm-debug.log
