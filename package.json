@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "preinstall": "npm i",
-    "postinstall": "bower i",
+    "postinstall": "bower install",
     "test": "mocha ./test/billseek.js --timeout 10000"
   },
   "dependencies": {
