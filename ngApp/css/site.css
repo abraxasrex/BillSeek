@@ -65,13 +65,8 @@ html {
   max-height: 100px;
 }
 
-/*html, body {
-  color: teal,
-  background-color: grey
-}*/
-
-hr {
-  /*border-color: dark-grey;*/
+.md-calendar-date-selection-indicator, .md-datepicker-calendar-panel, .md-calendar-month-label, .md-calendar-day-header {
+  color: black !important;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
