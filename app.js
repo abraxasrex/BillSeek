@@ -25,18 +25,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
+app.use('/vrApp', express.static(path.join(__dirname, 'vrApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/api/govItems', govItems_1.default);
 app.use('/api/users', users_1.default);
 app.get('/*', function (req, res, next) {
+    console.log('request path. ', req.path);
+    if (/.ico/.test(req.path)) {
+        return next({ status: 204 });
+    }
     if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
         return next({ status: 404, message: 'Not Found' });
     }
     else {
-        return res.render('index');
+        if (/VirtualBreakfast/.test(req.path)) {
+            return res.render('vrIndex');
+        }
+        else if (/BillSeek/.test(req.path)) {
+            return res.render('index');
+        }
+        else {
+            console.log('mmm wat? ');
+        }
     }
 });
 app.use(function (req, res, next) {

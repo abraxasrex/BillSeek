@@ -42,8 +42,9 @@ import govItems from './routes/govItems';
 
 let app = express();
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// VIEWS:
+  app.set('views', path.join(__dirname, 'views'));
+  app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -51,22 +52,40 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
-app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
-app.use('/api', express.static(path.join(__dirname, 'api')));
 
+app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
+app.use('/vrApp', express.static(path.join(__dirname, 'vrApp')));
+
+app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/api/govItems', govItems);
 app.use('/api/users', users);
 
 // redirect 404 to home for the sake of AngularJS client-side routes
+
+// app.get('/favicon.ico', function(req, res) {
+//     res.send(204);
+// });
+
 app.get('/*', function(req, res, next) {
-  if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
-    return next({ status: 404, message: 'Not Found' });
-  } else {
-    return res.render('index');
+  console.log('request path. ', req.path);
+  if(/.ico/.test(req.path)){
+    return next({status: 204});
   }
+   if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
+      return next({ status: 404, message: 'Not Found' });
+   } else {
+      if(/VirtualBreakfast/.test(req.path)){
+        return res.render('vrIndex');
+      } else if(/BillSeek/.test(req.path)){
+        return res.render('index');
+      } else {
+        console.log('mmm wat? ');
+      }
+    }
 });
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -8,25 +8,25 @@ var ngpoli;
             controllerAs: 'vm'
         })
             .state('main.home', {
-            url: '/',
+            url: '/BillSeek',
             templateUrl: '/ngApp/views/home.html',
             controller: ngpoli.Controllers.HomeController,
             controllerAs: 'controller'
         })
             .state('main.interests', {
-            url: '/interests/:username',
+            url: '/BillSeek/interests/:username',
             templateUrl: '/ngApp/views/interests.html',
             controller: ngpoli.Controllers.InterestsController,
             controllerAs: 'vm'
         })
             .state('main.account', {
-            url: '/account',
+            url: '/BillSeek/account',
             templateUrl: '/ngApp/views/account.html',
             controller: ngpoli.Controllers.AccountController,
             controllerAs: 'controller'
         })
             .state('notFound', {
-            url: '/notFound',
+            url: '/BillSeek/notFound',
             templateUrl: '/ngApp/views/notFound.html'
         });
         $urlRouterProvider.otherwise('/notFound');
