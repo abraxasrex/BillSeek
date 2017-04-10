@@ -71,14 +71,15 @@
   <div>
     <!-- <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }"> -->
-    <md-card ng-repeat="item in controller.feedItems">
+    <md-content >
+    <md-card ng-repeat="item in controller.feedItems" >
       <md-card-content>
         <div class="md-media-md card-media home-cards  mobile-md-text " ng-show="controller.search.type == 'bill'">
           <p> {{ item.display_number }} </p>
           <!-- <hr /> -->
            <p><strong> {{ item.title_without_number}} </strong></p>
            <!-- <hr /> -->
-           <md-card>
+           <md-card class="md-hue-1">
              <md-card-content>
              <p> {{item.current_status_description}} </p>
                 <p> last activity: {{ item.current_status_date }} </p>
@@ -89,6 +90,7 @@
 
               </md-card-content>
             </md-card>
+          </md-content>
         </div>
 
         <!-- <div class="md-media-md card-media" ng-show="controller.search.type == 'person' && !item.person">

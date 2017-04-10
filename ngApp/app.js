@@ -33,7 +33,7 @@ var ngpoli;
         $locationProvider.html5Mode(true);
         $mdThemingProvider
             .theme('default')
-            .primaryPalette('blue')
+            .primaryPalette('blue', 'default', '400', 'hue-1', '100')
             .accentPalette('blue')
             .warnPalette('red')
             .backgroundPalette('blue');

@@ -16,7 +16,7 @@
   <div>
     <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }">
-    <div class="md-media-md card-media">
+    <div class="md-media-md card-media md-primary md-hue-1">
       <strong> {{ bill.display_number }} </strong>
        <p> {{ bill.title_without_number}} </p>
     </div>
