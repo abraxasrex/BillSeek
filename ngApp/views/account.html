@@ -20,6 +20,7 @@
     <h3>
       share your interests page:
     </h3>
+    <!-- fetch path info for copy/share link -->
     <input id="foo" value="{{controller.location.protocol()}}://{{controller.location.host()}}/BillSeek/interests/{{controller.$state.current.data.username }} ">
       <md-button class="md-primary md-raised" ngclipboard data-clipboard-target="#foo">
           copy
