@@ -62,12 +62,16 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/api/govItems', govItems);
 app.use('/api/users', users);
 
+app.use('/static_assets', express.static(path.join(__dirname, './static_assets')));
+app.use('/build', express.static(path.join(__dirname, 'vr/build')));
 // redirect 404 to home for the sake of AngularJS client-side routes
 
 // app.get('/favicon.ico', function(req, res) {
 //     res.send(204);
 // });
 
+
+//conditional routing for both hosted apps.
 app.get('/*', function(req, res, next) {
   console.log('request path. ', req.path);
   if(/.ico/.test(req.path)){
@@ -80,6 +84,8 @@ app.get('/*', function(req, res, next) {
         return res.render('vrIndex');
       } else if(/BillSeek/.test(req.path)){
         return res.render('index');
+      } else if(/VirtualReaction/.test(req.path)){
+        res.sendFile(path.join(__dirname, './vr', 'index.html'));
       } else {
         console.log('mmm wat? ');
       }
