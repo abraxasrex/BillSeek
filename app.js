@@ -31,6 +31,8 @@ app.use('/vrApp', express.static(path.join(__dirname, 'vrApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/api/govItems', govItems_1.default);
 app.use('/api/users', users_1.default);
+app.use('/static_assets', express.static(path.join(__dirname, './static_assets')));
+app.use('/build', express.static(path.join(__dirname, 'vr/build')));
 app.get('/*', function (req, res, next) {
     console.log('request path. ', req.path);
     if (/.ico/.test(req.path)) {
@@ -45,6 +47,9 @@ app.get('/*', function (req, res, next) {
         }
         else if (/BillSeek/.test(req.path)) {
             return res.render('index');
+        }
+        else if (/VirtualReaction/.test(req.path)) {
+            return res.sendFile(path.join(__dirname, './vr', 'index.html'));
         }
         else {
             console.log('mmm wat? ');

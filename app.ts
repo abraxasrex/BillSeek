@@ -85,7 +85,7 @@ app.get('/*', function(req, res, next) {
       } else if(/BillSeek/.test(req.path)){
         return res.render('index');
       } else if(/VirtualReaction/.test(req.path)){
-        res.sendFile(path.join(__dirname, './vr', 'index.html'));
+        return res.sendFile(path.join(__dirname, './vr', 'index.html'));
       } else {
         console.log('mmm wat? ');
       }
