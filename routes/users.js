@@ -79,6 +79,9 @@ function checkforNotification(newItem, user, res) {
             }
         }
         else {
+            if (!newItem.govId) {
+                newItem.govId = Math.round(Math.random() * 2000).toString();
+            }
             GovItems_1.default.create(newItem).then(function () {
                 updateUser(user, res);
             }).catch(function (e) { throw new Error(e); });

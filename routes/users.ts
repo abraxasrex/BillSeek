@@ -80,6 +80,10 @@ function checkforNotification (newItem, user, res){
          updateUser(user, res);
        }
      } else{
+       // heroku error patch
+       if(!newItem.govId){
+         newItem.govId = Math.round(Math.random() * 2000).toString();
+       }
         GovItem.create(newItem).then(()=>{
           updateUser(user, res);
         }).catch((e)=>{ throw new Error(e); });
