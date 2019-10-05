@@ -13,8 +13,13 @@
       </md-card-title-text>
       <!-- bill filters  -->
 
+          <!-- spinner -->
+      <!-- <div layout="row" layout-sm="column" layout-align="space-around" ng-show="controller.loadingChange || true">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div> -->
+
       <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="column" layout-xs="column" layout-align="start center"
-      ng-show="controller.search.type == 'bill'" ng-cloak>
+      ng-show="(controller.search.type == 'bill' && !controller.loadingChange)" ng-cloak>
           <div flex="20"></div>
           <div flex="20" flex-sm="50" flex-xs="50">
           <span ng-cloak class=" bs-search" ng-show="controller.search.type == 'person'"> Filter by </span>
@@ -38,9 +43,15 @@
          <div flex="30"></div>
           <!-- -->
       </md-card-title-text>
+
+          <!-- spinner -->
+    <div flex="50" flex-sm="100" flex-xs="100" class="md-headline spin-container" layout="row" layout-sm="row" layout-xs="row" layout-align="start center" ng-show="controller.loadingChange">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+
       <!-- people filters  -->
       <md-card-title-text  flex="50" flex-sm="100" flex-xs="100" class="md-headline" layout="row" layout-sm="row" layout-xs="row" layout-align="start center"
-      ng-show="controller.search.type == 'person'">
+      ng-show="controller.search.type == 'person' && !controller.loadingChange">
       <div flex="20"></div>
       <div flex="20">
           <span class=" bs-search"> Filter by </span>
@@ -71,7 +82,14 @@
   <div>
     <!-- <md-card ng-repeat="bill in controller.bills | filter:
     {title_without_number: controller.search }"> -->
-    <md-content >
+
+    <!-- spinner -->
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="controller.loadingChange">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+
+    <md-content ng-show="!controller.loadingChange">
+
     <md-card ng-repeat="item in controller.feedItems" >
       <md-card-content>
         <div class="md-media-md card-media home-cards  mobile-md-text " ng-show="controller.search.type == 'bill'">
@@ -104,7 +122,7 @@
         <div class="md-media-md card-media mobile-md-text " ng-show="!!item.person && controller.search.type != 'bill'">
 
             <p>               <strong> {{ item.person.name }} </strong> </p>
-                      <md-card>
+                      <md-card class="md-hue-1">
             <md-card-content>
                <p> {{ item.party }} </p>
                <p> {{ item.phone }} </p>
@@ -116,8 +134,8 @@
            </md-card>
         </div>
 
-        <div class="star-holder" ng-click="controller.rateItem(item)" >
-            <md-icon ng-class="{'gold-star': item.checked}" class="bs-icon" >star_rate</md-icon>
+        <div class="star-holder" ng-click="controller.rateItem(item)" ng-show="item.person || item.display_number">
+            <md-icon ng-class="{'gold-star': !!item.starred}" class="bs-icon" >star_rate</md-icon>
         </div >
      </md-card-content>
    </md-card>

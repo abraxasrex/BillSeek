@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var GovItems_1 = require("../models/GovItems");
 var Users_1 = require("../models/Users");
@@ -37,5 +38,4 @@ function cleanGovItems() {
     });
 }
 cleanGovItems();
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = router;

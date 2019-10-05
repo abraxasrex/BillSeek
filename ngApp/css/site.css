@@ -73,6 +73,15 @@ html {
   color: black !important;
 }
 
+md-option {
+  color: black !important;
+}
+
+.spin-container {
+  display:flex !important;
+  justify-content: center !important;
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }

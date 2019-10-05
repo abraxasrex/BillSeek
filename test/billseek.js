@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var debug = require('debug')('myapp:server');
 var http = require('http');
 var express = require("express");

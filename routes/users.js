@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var Users_1 = require("../models/Users");
 var GovItems_1 = require("../models/GovItems");
@@ -128,5 +129,4 @@ router.get('/visitorView/:username', function (req, res) {
         res.sendStatus(404).json('no user');
     });
 });
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = router;

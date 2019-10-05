@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 function arrayLimit(val) {
     return val.length <= 15;
@@ -23,5 +24,4 @@ var userSchema = new mongoose.Schema({
         type: Array
     }
 });
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = mongoose.model('User', userSchema);

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var DialogController = (function () {
     function DialogController($scope, $mdDialog) {
         this.$scope = $scope;

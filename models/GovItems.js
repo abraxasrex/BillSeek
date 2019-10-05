@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var govItemSchema = new mongoose.Schema({
     type: {
@@ -19,5 +20,4 @@ var govItemSchema = new mongoose.Schema({
         type: String
     }
 });
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = mongoose.model('GovItem', govItemSchema);

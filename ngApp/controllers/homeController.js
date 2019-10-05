@@ -31,6 +31,7 @@ var ngpoli;
                 this.billOptions = 'current_status=prov_kill_veto';
                 this.personOptions = 'all_people';
                 localStore.loadUser(this);
+                this.loadingChange = false;
             }
             HomeController.prototype.openDialog = function () {
                 var _this = this;
@@ -51,7 +52,7 @@ var ngpoli;
                 this.tryAuth(user, authType);
             };
             HomeController.prototype.setUser = function (user) {
-                console.log("user: ", user);
+                console.log("user setuser: ", user);
                 this.localStore.cache(user);
                 this.$state.get('main.account').data = user;
                 this.$mdDialog.hide();
@@ -71,6 +72,8 @@ var ngpoli;
             };
             HomeController.prototype.list = function () {
                 var _this = this;
+                this.feedItems = [];
+                this.loadingChange = true;
                 var _search = this.search;
                 if (_search["type"] == 'person') {
                     _search["options"] = this.personOptions;
@@ -80,6 +83,7 @@ var ngpoli;
                     _search["options"] = this.billOptions;
                 }
                 this.govTrackService.get(_search).then(function (results) {
+                    console.log('RESULTTTTTS: ', results);
                     if (_search["type"] !== 'bill') {
                         _this.cleanPeopleFilter(results.objects);
                     }
@@ -87,7 +91,9 @@ var ngpoli;
                         _this.feedItems = results.objects;
                     }
                     _this.setStars();
+                    _this.loadingChange = false;
                 }).catch(function (err) {
+                    _this.loadingChange = false;
                     console.log(err);
                 });
             };
@@ -107,16 +113,16 @@ var ngpoli;
                 }, 1200);
             };
             HomeController.prototype.setStars = function () {
-                var vm = this;
+                this.$state.get('main.account').data.starredItems = [];
                 var user = this.$state.get('main.account').data;
-                console.log("user: ", user);
+                console.log("setstars user: ", user);
                 if (user["starredItems"] && user["starredItems"].length) {
                     var stars_1 = user.starredItems.map(function (star) {
                         return star["id"];
                     });
                     this.feedItems.forEach(function (item) {
                         var match = stars_1.indexOf(item.id);
-                        match > -1 ? item.checked = true : item.checked = false;
+                        match > -1 ? item.starred = true : item.starred = false;
                     });
                 }
                 else {
@@ -125,9 +131,9 @@ var ngpoli;
             };
             HomeController.prototype.rateItem = function (item) {
                 var _this = this;
-                item.checked = !item.checked;
+                item.starred = !item.starred;
                 var user = this.$state.get('main.account').data;
-                console.log("user: ", user);
+                console.log("rateitem user: ", user);
                 var stars = [];
                 var type;
                 if (item["person"]) {
@@ -154,9 +160,9 @@ var ngpoli;
                 }
                 user.starredItems = stars;
                 this.$state.get('main.account').data = user;
-                console.log("user: ", user);
+                console.log("rateitem user: ", user);
                 this.localStore.cache(user);
-                console.log("user: ", user);
+                console.log("rateitem user: ", user);
                 var _item = {
                     type: type,
                     apiLocation: item["link"],
@@ -171,7 +177,7 @@ var ngpoli;
                     _item.type = 'bill';
                 }
                 user["govItem"] = _item;
-                console.log("user: ", user);
+                console.log("rateitem user: ", user);
                 this.UserService.update(user).then(function (_user) {
                     console.log("response user:", _user);
                     _this.localStore.cache(_user);

@@ -51,7 +51,7 @@ namespace ngpoli {
           .theme('default')
           .primaryPalette('blue',
           'default': '400', // by default use shade 400 from the pink palette for primary intentions
-           'hue-1': '100',)
+           'hue-1': '100')
           //form focus / tabs
           .accentPalette('blue')
                     // navbar highlighting (focus?)
