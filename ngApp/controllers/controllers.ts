@@ -12,7 +12,15 @@ namespace ngpoli.Controllers {
       constructor(
         private localStore: ngpoli.Services.localStore,
         private $state: ng.ui.IStateService){
-             this.currentNavItem = 'home';
+
+            if($state.current.name === 'main.interests') {
+              this.currentNavItem = 'interests';
+            }
+            else if($state.current.name === 'main.account') {
+              this.currentNavItem = 'account';
+            } else {
+              this.currentNavItem = 'home';
+            }
              if(this.localStore.isLoggedIn()){
                this.localStore.loadUserForMain(this);
                this.isLoggedIn = true;

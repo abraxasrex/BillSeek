@@ -52,7 +52,6 @@ var ngpoli;
                 this.tryAuth(user, authType);
             };
             HomeController.prototype.setUser = function (user) {
-                console.log("user setuser: ", user);
                 this.localStore.cache(user);
                 this.$state.get('main.account').data = user;
                 this.$mdDialog.hide();
@@ -83,7 +82,6 @@ var ngpoli;
                     _search["options"] = this.billOptions;
                 }
                 this.govTrackService.get(_search).then(function (results) {
-                    console.log('RESULTTTTTS: ', results);
                     if (_search["type"] !== 'bill') {
                         _this.cleanPeopleFilter(results.objects);
                     }
@@ -113,14 +111,18 @@ var ngpoli;
                 }, 1200);
             };
             HomeController.prototype.setStars = function () {
-                this.$state.get('main.account').data.starredItems = [];
+                var _this = this;
+                var starreds = this.$state.get('main.account').data.starredItems;
+                if (!starreds || !starreds.length) {
+                    starreds = [];
+                }
                 var user = this.$state.get('main.account').data;
-                console.log("setstars user: ", user);
                 if (user["starredItems"] && user["starredItems"].length) {
                     var stars_1 = user.starredItems.map(function (star) {
                         return star["id"];
                     });
                     this.feedItems.forEach(function (item) {
+                        _this.makeItemId(item);
                         var match = stars_1.indexOf(item.id);
                         match > -1 ? item.starred = true : item.starred = false;
                     });
@@ -129,11 +131,19 @@ var ngpoli;
                     this.$state.get('main.account').data.starredItems = [];
                 }
             };
+            HomeController.prototype.makeItemId = function (item) {
+                if (!item.id) {
+                    item.id = item['person'] ? 'p' + item['person']['bioguideid'].toString() : item.number.toString();
+                }
+                else {
+                    item.id = item.id.toString();
+                }
+            };
             HomeController.prototype.rateItem = function (item) {
                 var _this = this;
+                this.makeItemId(item);
                 item.starred = !item.starred;
                 var user = this.$state.get('main.account').data;
-                console.log("rateitem user: ", user);
                 var stars = [];
                 var type;
                 if (item["person"]) {
@@ -160,9 +170,7 @@ var ngpoli;
                 }
                 user.starredItems = stars;
                 this.$state.get('main.account').data = user;
-                console.log("rateitem user: ", user);
                 this.localStore.cache(user);
-                console.log("rateitem user: ", user);
                 var _item = {
                     type: type,
                     apiLocation: item["link"],
@@ -177,9 +185,7 @@ var ngpoli;
                     _item.type = 'bill';
                 }
                 user["govItem"] = _item;
-                console.log("rateitem user: ", user);
                 this.UserService.update(user).then(function (_user) {
-                    console.log("response user:", _user);
                     _this.localStore.cache(_user);
                     _this.$state.get('main.account').data = _user;
                     _this.setStars();

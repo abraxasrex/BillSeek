@@ -68,8 +68,8 @@ export class InterestsController {
   public removeItem (item){
      let user = this.$state.get('main.account').data;
      let stars = user["starredItems"];
-     let starIds = stars.map((star) => star.id);
-     let idx = starIds.indexOf(item["id"]);
+     let starIds = stars.map((star) => star.id.toString());
+     let idx = starIds.indexOf(item["id"].toString());
      user["starredItems"].splice(idx, 1);
      this.UserService.update(user).then((_user)=>{
        this.localStore.cache(_user);

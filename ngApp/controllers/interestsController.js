@@ -68,8 +68,8 @@ var ngpoli;
                 var _this = this;
                 var user = this.$state.get('main.account').data;
                 var stars = user["starredItems"];
-                var starIds = stars.map(function (star) { return star.id; });
-                var idx = starIds.indexOf(item["id"]);
+                var starIds = stars.map(function (star) { return star.id.toString(); });
+                var idx = starIds.indexOf(item["id"].toString());
                 user["starredItems"].splice(idx, 1);
                 this.UserService.update(user).then(function (_user) {
                     _this.localStore.cache(_user);

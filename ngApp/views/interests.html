@@ -11,13 +11,13 @@
           <div class="md-media-lg card-media" >
             <!-- notification cards-->
             <md-card ng-show="!vm.notifications.length">
-              <md-card-content>
+              <md-card-content class="md-hue-1">
                 <p class="mobile-small-text">No notifications.</p>
               </md-card-content>
             </md-card>
 
             <md-card ng-repeat="notification in vm.notifications">
-              <md-card-content>
+              <md-card-content class="md-hue-1">
                 <div class="md-media-md card-media">
                   <!-- <strong> {{notification.date}} </strong> -->
                     <strong> {{notification}} </strong>

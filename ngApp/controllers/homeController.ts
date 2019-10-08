@@ -60,7 +60,6 @@ namespace ngpoli.Controllers{
       }
 
       public setUser(user){
-        console.log("user setuser: ", user);
         this.localStore.cache(user);
         this.$state.get('main.account').data = user;
         this.$mdDialog.hide();
@@ -86,7 +85,7 @@ namespace ngpoli.Controllers{
           _search["options"] = this.billOptions;
         }
         this.govTrackService.get(_search).then((results)=>{
-          console.log('RESULTTTTTS: ', results);
+          // this.govTrackService.assignIds
           if(_search["type"] !== 'bill'){
             this.cleanPeopleFilter(results.objects);
           } else {
@@ -118,15 +117,19 @@ namespace ngpoli.Controllers{
       public setStars(){
         // debugger;
         // resetter: ------------
-        this.$state.get('main.account').data.starredItems = [];
+        var starreds = this.$state.get('main.account').data.starredItems;
+
+        if (!starreds || !starreds.length) {
+          starreds = [];
+        }
 
         let user = this.$state.get('main.account').data;
-        console.log("setstars user: ", user);
         if(user["starredItems"] && user["starredItems"].length){
           let stars = user.starredItems.map((star)=>{
             return star["id"];
           });
           this.feedItems.forEach((item)=>{
+            this.makeItemId(item);
             let match = stars.indexOf(item.id);
             match > -1 ? item.starred = true : item.starred = false;
           });
@@ -135,12 +138,22 @@ namespace ngpoli.Controllers{
        }
      }
 
+     public makeItemId(item) {
+      if(!item.id) {
+        item.id = item['person'] ? 'p' + item['person']['bioguideid'].toString() : item.number.toString();
+      } else {
+        item.id = item.id.toString();
+      }
+     }
+
      public rateItem(item){
       //  let vm = this;
       // debugger;
+      // hopefully this will help
+      // debugger;
+       this.makeItemId(item);
        item.starred = !item.starred;
        let user = this.$state.get('main.account').data;
-            console.log("rateitem user: ", user);
        let stars = [];
        let type;
        if(item["person"]){
@@ -165,9 +178,7 @@ namespace ngpoli.Controllers{
        }
        user.starredItems = stars;
        this.$state.get('main.account').data = user;
-         console.log("rateitem user: ", user);
        this.localStore.cache(user);
-         console.log("rateitem user: ", user);
       let _item = {
         type: type,
         apiLocation: item["link"],
@@ -181,9 +192,7 @@ namespace ngpoli.Controllers{
         _item.type = 'bill';
       }
        user["govItem"] = _item;
-      console.log("rateitem user: ", user);
        this.UserService.update(user).then((_user)=>{
-         console.log("response user:", _user);
         this.localStore.cache(_user);
          this.$state.get('main.account').data = _user;
          this.setStars();
